@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#if !defined(LIBIMREAD_EXT_FILESYSTEM_RESOLVER_H_)
-#define LIBIMREAD_EXT_FILESYSTEM_RESOLVER_H_
+#if !defined(SUBJECTIVE_C_EXT_FILESYSTEM_RESOLVER_H_)
+#define SUBJECTIVE_C_EXT_FILESYSTEM_RESOLVER_H_
 
-#include <libimread/ext/filesystem/path.h>
+#include <subjective-c/ext/filesystem/path.h>
 
 namespace filesystem {
     
@@ -118,4 +118,4 @@ namespace filesystem {
     
 }; /* namespace filesystem */
 
-#endif /// LIBIMREAD_EXT_FILESYSTEM_RESOLVER_H_
+#endif /// SUBJECTIVE_C_EXT_FILESYSTEM_RESOLVER_H_

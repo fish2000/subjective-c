@@ -1,15 +1,15 @@
 /// Copyright 2014 Alexander Böhn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_EXT_FILESYSTEM_DIRECTORY_H_
-#define LIBIMREAD_EXT_FILESYSTEM_DIRECTORY_H_
+#ifndef SUBJECTIVE_C_EXT_FILESYSTEM_DIRECTORY_H_
+#define SUBJECTIVE_C_EXT_FILESYSTEM_DIRECTORY_H_
 
 #include <string>
 #include <mutex>
 #include <stack>
 #include <unistd.h>
 
-#include <libimread/libimread.hpp>
+#include <subjective-c/yo-dogg.hpp>
 
 namespace filesystem {
     
@@ -122,4 +122,4 @@ namespace filesystem {
     
 }
 
-#endif /// LIBIMREAD_EXT_FILESYSTEM_DIRECTORY_H_
+#endif /// SUBJECTIVE_C_EXT_FILESYSTEM_DIRECTORY_H_

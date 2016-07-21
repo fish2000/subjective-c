@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef LIBIMREAD_EXT_FILESYSTEM_PATH_H_
-#define LIBIMREAD_EXT_FILESYSTEM_PATH_H_
+#ifndef SUBJECTIVE_C_EXT_FILESYSTEM_PATH_H_
+#define SUBJECTIVE_C_EXT_FILESYSTEM_PATH_H_
 
 #include <string>
 #include <vector>
@@ -13,8 +13,7 @@
 #include <functional>
 #include <initializer_list>
 
-#include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
+#include <subjective-c/yo-dogg.hpp>
 
 namespace filesystem {
     
@@ -463,4 +462,4 @@ namespace std {
     
 }; /* namespace std */
 
-#endif /// LIBIMREAD_EXT_FILESYSTEM_PATH_H_
+#endif /// SUBJECTIVE_C_EXT_FILESYSTEM_PATH_H_

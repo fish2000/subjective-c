@@ -1,8 +1,8 @@
 /// Copyright 2012-2015 Alexander Bohn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_EXT_FILESYSTEM_OPAQUES_H_
-#define LIBIMREAD_EXT_FILESYSTEM_OPAQUES_H_
+#ifndef SUBJECTIVE_C_EXT_FILESYSTEM_OPAQUES_H_
+#define SUBJECTIVE_C_EXT_FILESYSTEM_OPAQUES_H_
 
 #include <cctype>
 #include <cstdio>
@@ -13,8 +13,8 @@
 #include <memory>
 #include <type_traits>
 
-#include <libimread/libimread.hpp>
-#include <libimread/ext/filesystem/mode.h>
+#include <subjective-c/yo-dogg.hpp>
+#include <subjective-c/ext/filesystem/mode.h>
 
 namespace filesystem {
     
@@ -91,4 +91,4 @@ namespace filesystem {
 
 } /* namespace filesystem */
 
-#endif /// LIBIMREAD_EXT_FILESYSTEM_OPAQUES_H_
+#endif /// SUBJECTIVE_C_EXT_FILESYSTEM_OPAQUES_H_

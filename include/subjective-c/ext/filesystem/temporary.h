@@ -1,18 +1,17 @@
 /// Copyright 2014 Alexander Böhn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_EXT_FILESYSTEM_TEMPORARY_H_
-#define LIBIMREAD_EXT_FILESYSTEM_TEMPORARY_H_
+#ifndef SUBJECTIVE_C_EXT_FILESYSTEM_TEMPORARY_H_
+#define SUBJECTIVE_C_EXT_FILESYSTEM_TEMPORARY_H_
 
 #include <string>
 #include <fstream>
 #include <cstring>
 #include <cstdlib>
 
-#include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
-#include <libimread/ext/filesystem/mode.h>
-#include <libimread/ext/filesystem/path.h>
+#include <subjective-c/yo-dogg.hpp>
+#include <subjective-c/ext/filesystem/mode.h>
+#include <subjective-c/ext/filesystem/path.h>
 
 namespace filesystem {
     
@@ -171,4 +170,4 @@ namespace filesystem {
 } /* namespace filesystem */
 
 
-#endif /// LIBIMREAD_EXT_FILESYSTEM_TEMPORARY_H_
+#endif /// SUBJECTIVE_C_EXT_FILESYSTEM_TEMPORARY_H_
