@@ -1,8 +1,8 @@
 
 #include <fcntl.h>
 #include <unistd.h>
-#include <libimread/ext/filesystem/opaques.h>
-#include <libimread/ext/filesystem/path.h>
+#include <subjective-c/ext/filesystem/opaques.h>
+#include <subjective-c/ext/filesystem/path.h>
 
 namespace filesystem {
     

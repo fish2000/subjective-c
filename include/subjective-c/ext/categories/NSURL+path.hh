@@ -1,8 +1,8 @@
 /// Copyright 2012-2015 Alexander Bohn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_EXT_CATEGORIES_NSURL_PLUS_IM_HH_
-#define LIBIMREAD_EXT_CATEGORIES_NSURL_PLUS_IM_HH_
+#ifndef SUBJECTIVE_C_EXT_CATEGORIES_NSURL_PLUS_PATH_HH_
+#define SUBJECTIVE_C_EXT_CATEGORIES_NSURL_PLUS_PATH_HH_
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
@@ -11,9 +11,7 @@
 #endif /// __OBJC__
 
 #include <string>
-#include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
-#include <libimread/ext/filesystem/path.h>
+#include <subjective-c/ext/filesystem/path.h>
 
 static constexpr NSBitmapImageFileType AXPVRFileType = static_cast<NSBitmapImageFileType>(444);
 
@@ -67,4 +65,4 @@ namespace objc {
 @end
 
 #endif /// __OBJC__
-#endif /// LIBIMREAD_EXT_CATEGORIES_NSURL_PLUS_IM_HH_
+#endif /// SUBJECTIVE_C_EXT_CATEGORIES_NSURL_PLUS_PATH_HH_

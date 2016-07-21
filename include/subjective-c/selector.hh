@@ -1,8 +1,8 @@
 /// Copyright 2012-2015 Alexander Bohn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_OBJC_RT_SELECTOR_HH
-#define LIBIMREAD_OBJC_RT_SELECTOR_HH
+#ifndef SUBJECTIVE_C_SELECTOR_HH
+#define SUBJECTIVE_C_SELECTOR_HH
 
 #include <sstream>
 #include <string>
@@ -77,4 +77,4 @@ namespace objc {
 
 objc::selector operator"" _SEL(const char* name);
 
-#endif /// LIBIMREAD_OBJC_RT_SELECTOR_HH
+#endif /// SUBJECTIVE_C_SELECTOR_HH

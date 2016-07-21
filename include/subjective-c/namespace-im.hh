@@ -1,8 +1,8 @@
 /// Copyright 2012-2015 Alexander Bohn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_OBJC_RT_NAMESPACE_IM_HH
-#define LIBIMREAD_OBJC_RT_NAMESPACE_IM_HH
+#ifndef SUBJECTIVE_C_NAMESPACE_IM_HH
+#define SUBJECTIVE_C_NAMESPACE_IM_HH
 
 #include "types.hh"
 #include "selector.hh"
@@ -46,4 +46,4 @@ namespace im {
     
 } /* namespace im */
 
-#endif /// LIBIMREAD_OBJC_RT_NAMESPACE_IM_HH
+#endif /// SUBJECTIVE_C_NAMESPACE_IM_HH

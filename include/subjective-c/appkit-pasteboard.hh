@@ -1,17 +1,17 @@
 /// Copyright 2012-2015 Alexander Bohn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_OBJC_RT_APPKIT_PASTEBOARD_HH
-#define LIBIMREAD_OBJC_RT_APPKIT_PASTEBOARD_HH
+#ifndef SUBJECTIVE_C_APPKIT_PASTEBOARD_HH
+#define SUBJECTIVE_C_APPKIT_PASTEBOARD_HH
 
 #include <unordered_map>
 #include <unordered_set>
 
-#include <libimread/ext/pystring.hh>
-#include <libimread/ext/filesystem/path.h>
-#import  <libimread/ext/categories/NSString+STL.hh>
-#import  <libimread/ext/categories/NSURL+IM.hh>
-#include "objc-rt.hh"
+#include <subjective-c/ext/pystring.hh>
+#include <subjective-c/ext/filesystem/path.h>
+#import  <subjective-c/ext/categories/NSString+STL.hh>
+#import  <subjective-c/ext/categories/NSURL+path.hh>
+#include "subjective-c.hh"
 #include "appkit.hh"
 
 namespace objc {
@@ -226,4 +226,4 @@ namespace objc {
     
 }
 
-#endif /// LIBIMREAD_OBJC_RT_APPKIT_PASTEBOARD_HH
+#endif /// SUBJECTIVE_C_APPKIT_PASTEBOARD_HH

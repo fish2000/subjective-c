@@ -25,11 +25,11 @@
 #include <algorithm>
 #include <type_traits>
 
-#include <libimread/ext/filesystem/path.h>
-#include <libimread/ext/filesystem/directory.h>
-#include <libimread/ext/filesystem/opaques.h>
-#include <libimread/ext/pystring.hh>
-#include <libimread/rehash.hh>
+#include <subjective-c/ext/filesystem/path.h>
+#include <subjective-c/ext/filesystem/directory.h>
+#include <subjective-c/ext/filesystem/opaques.h>
+#include <subjective-c/ext/pystring.hh>
+#include <subjective-c/rehash.hh>
 
 using im::byte;
 

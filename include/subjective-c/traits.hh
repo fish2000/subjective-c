@@ -1,8 +1,8 @@
 /// Copyright 2012-2015 Alexander Bohn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_OBJC_RT_TRAITS_HH
-#define LIBIMREAD_OBJC_RT_TRAITS_HH
+#ifndef SUBJECTIVE_C_TRAITS_HH
+#define SUBJECTIVE_C_TRAITS_HH
 
 #ifdef __APPLE__
 #import  <CoreFoundation/CoreFoundation.h>
@@ -234,4 +234,4 @@ namespace objc {
 } /* namespace objc */
 
 
-#endif /// LIBIMREAD_OBJC_RT_TRAITS_HH
+#endif /// SUBJECTIVE_C_TRAITS_HH

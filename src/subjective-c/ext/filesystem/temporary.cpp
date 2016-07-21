@@ -11,11 +11,9 @@
 #include <vector>
 #include <algorithm>
 
-#include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
-#include <libimread/ext/pystring.hh>
-#include <libimread/ext/filesystem/temporary.h>
-#include <libimread/ext/filesystem/opaques.h>
+#include <subjective-c/ext/pystring.hh>
+#include <subjective-c/ext/filesystem/temporary.h>
+#include <subjective-c/ext/filesystem/opaques.h>
 
 namespace filesystem {
     

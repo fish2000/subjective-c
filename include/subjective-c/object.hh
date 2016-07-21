@@ -1,8 +1,8 @@
 /// Copyright 2012-2015 Alexander Bohn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_OBJC_RT_OBJECT_HH
-#define LIBIMREAD_OBJC_RT_OBJECT_HH
+#ifndef SUBJECTIVE_C_OBJECT_HH
+#define SUBJECTIVE_C_OBJECT_HH
 
 #include <sstream>
 #include <string>
@@ -178,5 +178,4 @@ namespace objc {
     
 } /* namespace objc */
 
-
-#endif /// LIBIMREAD_OBJC_RT_OBJECT_HH
+#endif /// SUBJECTIVE_C_OBJECT_HH

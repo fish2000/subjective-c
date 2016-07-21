@@ -1,10 +1,9 @@
 /// Copyright 2014 Alexander Böhn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#include <libimread/libimread.hpp>
-#include <libimread/ext/categories/NSURL+IM.hh>
-#include <libimread/ext/categories/NSString+STL.hh>
-#include <libimread/objc-rt/types.hh>
+#include <subjective-c/ext/categories/NSURL+path.hh>
+#include <subjective-c/ext/categories/NSString+STL.hh>
+#include <subjective-c/types.hh>
 
 namespace objc {
     

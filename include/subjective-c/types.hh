@@ -1,8 +1,8 @@
 /// Copyright 2012-2015 Alexander Bohn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#ifndef LIBIMREAD_OBJC_RT_TYPES_HH
-#define LIBIMREAD_OBJC_RT_TYPES_HH
+#ifndef SUBJECTIVE_C_TYPES_HH
+#define SUBJECTIVE_C_TYPES_HH
 
 #include <cstdlib>
 #include <utility>
@@ -98,4 +98,4 @@ namespace objc {
 } /* namespace objc */
 
 
-#endif /// LIBIMREAD_OBJC_RT_TYPES_HH
+#endif /// SUBJECTIVE_C_TYPES_HH
