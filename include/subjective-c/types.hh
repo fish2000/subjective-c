@@ -60,6 +60,7 @@ namespace objc {
         using ID = ::id __attribute__((NSObject));
         using NS = NSObject __attribute__((NSObject));
         using object_t = struct ::objc_object;
+        using super_t = struct ::objc_super;
         using selector = ::SEL;
         using cls = ::Class;
         using method = ::Method;
