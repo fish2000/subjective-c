@@ -23,45 +23,48 @@ to result from their combination. Most people prefer their respective strong fla
 * SFINAE-test for NSObject and friends with `objc::traits::is_object<T>`
 
 * Easy type-safe `NSPasteboard` access:
+
+````objective-c++
+
+ @autoreleasepool {
     
-        @autoreleasepool {
-            
-            std::vector<NSPasteboard*> boards;
-            std::unordered_map<path, objc::object<NSImage>> images;
-                
-            std::for_each(pngs.begin(), pngs.end(), [&](path const& p) {
-                path imagepath = basedir/p;
-                NSPasteboard* board = [NSPasteboard pasteboardWithUniqueName];
-                boards.push_back(board);
-            
-                NSURL* url = [[NSURL alloc] initFileURLWithFilesystemPath:imagepath];
-                NSImage* image = [[NSImage alloc] initWithContentsOfURL:url];
-                images.insert({ imagepath, objc::object<NSImage>(image) });
-            
-                BOOL copied = objc::appkit::copy_to(board, image, url);
-                CHECK(objc::to_bool(copied));
-            });
+    std::vector<NSPasteboard*> boards;
+    std::unordered_map<filesystem::path, objc::object<NSImage>> images;
         
-            std::for_each(boards.begin(), boards.end(), [&](NSPasteboard* board) {
-                BOOL can_paste_url = objc::appkit::can_paste<NSURL>(board);
-                BOOL can_paste_image = objc::appkit::can_paste<NSImage>(board);
-                CHECK(objc::to_bool(can_paste_url));
-                CHECK(objc::to_bool(can_paste_image));
-            
-                NSURL* url = objc::appkit::paste<NSURL>(board);
-                NSImage* boardimage = objc::appkit::paste<NSImage>(board);
-                NSImage* mapimage = images.at([url filesystemPath]);
-                NSData* boarddata = [boardimage TIFFRepresentation];
-                NSData* mapdata = [mapimage TIFFRepresentation];
-            
-                CHECK(objc::to_bool([boarddata isEqualToData:mapdata]));
-            });
-        
-            std::for_each(boards.begin(), boards.end(), [&](NSPasteboard* board) {
-                [board releaseGlobally];
-            });
-        }
+    std::for_each(pngs.begin(), pngs.end(), [&](filesystem::path const& p) {
+        filesystem::path imagepath = basedir/p;
+        NSPasteboard* board = [NSPasteboard pasteboardWithUniqueName];
+        boards.push_back(board);
     
+        NSURL* url = [[NSURL alloc] initFileURLWithFilesystemPath:imagepath];
+        NSImage* image = [[NSImage alloc] initWithContentsOfURL:url];
+        images.insert({ imagepath, objc::object<NSImage>(image) });
+    
+        BOOL copied = objc::appkit::copy_to(board, image, url);
+        CHECK(objc::to_bool(copied));
+    });
+
+    std::for_each(boards.begin(), boards.end(), [&](NSPasteboard* board) {
+        BOOL can_paste_url = objc::appkit::can_paste<NSURL>(board);
+        BOOL can_paste_image = objc::appkit::can_paste<NSImage>(board);
+        CHECK(objc::to_bool(can_paste_url));
+        CHECK(objc::to_bool(can_paste_image));
+    
+        NSURL* url = objc::appkit::paste<NSURL>(board);
+        NSImage* boardimage = objc::appkit::paste<NSImage>(board);
+        NSImage* mapimage = images.at([url filesystemPath]);
+        NSData* boarddata = [boardimage TIFFRepresentation];
+        NSData* mapdata = [mapimage TIFFRepresentation];
+    
+        CHECK(objc::to_bool([boarddata isEqualToData:mapdata]));
+    });
+
+    std::for_each(boards.begin(), boards.end(), [&](NSPasteboard* board) {
+        [board releaseGlobally];
+    });
+}
+
+````
 * AND MORE!!!!
 
 … I am going to document the shit out of all of it, I swear. Right now it doesn't even all compile – I just split it all off from [libimread](http://github.com/fish2000/libimread) but whatevs, you see where I am going with all of this. Yes!
