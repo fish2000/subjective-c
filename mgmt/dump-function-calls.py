@@ -14,9 +14,8 @@ import re
 import sys
 import subprocess
 
-def get_function_calls (objdump_output, regex):
+def get_function_calls(objdump_output, regex):
     function_calls = []
-
     for line in objdump_output.split ("\n"):
         if "callq" in line and "<" in line and ">" in line:
             if regex is None or (regex is not None and regex.match (line) != None):

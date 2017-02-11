@@ -5,7 +5,7 @@
 
 #include <libimread/libimread.hpp>
 #include <libimread/errors.hh>
-#include <libimread/objc-rt/objc-rt.hh>
+#include <subjective-c/subjective-c.hh>
 #include <libimread/ext/filesystem/temporary.h>
 
 #include "include/catch.hpp"
@@ -24,7 +24,7 @@ namespace {
               "[objc-rt-call-instance-method]")
     {
         @autoreleasepool {
-            IMTestReceiver *imts = [[IMTestReceiver alloc] init];
+            IMTestReceiver* imts = [[IMTestReceiver alloc] init];
             objc::msg::send(imts,
                 objc::selector("callMethod"));
         }
@@ -34,7 +34,7 @@ namespace {
               "[objc-rt-call-instance-method-one-arg-integer-value]")
     {
         @autoreleasepool {
-            IMTestReceiver *imts = [[IMTestReceiver alloc] init];
+            IMTestReceiver* imts = [[IMTestReceiver alloc] init];
             objc::msg::send(imts,
                 objc::selector("callMethodWithInt:"), 42);
         }
@@ -43,8 +43,8 @@ namespace {
     TEST_CASE("[objc-rt] Call an instance method with int and NSString arguments via objc::msg::send()",
               "[objc-rt-call-instance-method-multiple-args-int-and-pointer-to-nsstring]")
     {
-        IMTestReceiver *imts = [[IMTestReceiver alloc] init];
-        NSString *stringArg = @"OH SHIT DOGG PARDON MY STRING PASSING";
+        IMTestReceiver* imts = [[IMTestReceiver alloc] init];
+        NSString* stringArg = @"OH SHIT DOGG PARDON MY STRING PASSING";
         [stringArg retain];
         objc::msg::send(imts,
             objc::selector("callMethodWithInt:andObjCString:"),
@@ -56,8 +56,8 @@ namespace {
     TEST_CASE("[objc-rt] Call an instance method with int and (__bridge void*)NSString arguments via objc::msg::send()",
               "[objc-rt-call-instance-method-multiple-args-int-and-pointer-to-nsstring]")
     {
-        IMTestReceiver *imts = [[IMTestReceiver alloc] init];
-        NSString *stringArg = @"OH SHIT DOGG PARDON MY STRING PASSING";
+        IMTestReceiver* imts = [[IMTestReceiver alloc] init];
+        NSString* stringArg = @"OH SHIT DOGG PARDON MY STRING PASSING";
         [stringArg retain];
         objc::msg::send(imts,
             objc::selector("callMethodWithInt:andVoidPointer:"),
@@ -70,7 +70,7 @@ namespace {
               "[objc-rt-call-instance-method-return-float]")
     {
         @autoreleasepool {
-            IMTestReceiver *imts = [[IMTestReceiver alloc] init];
+            IMTestReceiver* imts = [[IMTestReceiver alloc] init];
             float out = objc::msg::get<float>(imts,
                 objc::selector("returnFloat"));
             CHECK(out == 3.14159f);
@@ -81,7 +81,7 @@ namespace {
               "[objc-rt-call-instance-method-return-struct]")
     {
         @autoreleasepool {
-            IMTestReceiver *imts = [[IMTestReceiver alloc] init];
+            IMTestReceiver* imts = [[IMTestReceiver alloc] init];
             StructReturn out = objc::msg::get<StructReturn>(imts,
                 objc::selector("returnStruct"));
             CHECK(out.value == 666);
@@ -159,9 +159,9 @@ namespace {
     
     TEST_CASE("[objc-rt] Send a message via objc::msg::send()", "[objc-rt-msg-send]") {
         filesystem::NamedTemporaryFile temporary;
-        NSData *datum;
-        NSString *filepath;
-        NSURL *url;
+        NSData* datum;
+        NSString* filepath;
+        NSURL* url;
         
         std::string prefix = "file://";
         std::size_t nbytes = 20 * 1024; /// 20480

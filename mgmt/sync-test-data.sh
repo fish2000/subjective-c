@@ -6,7 +6,7 @@ echo "*** SYNCING TEST PICTURE DATA TO ~/Pictures/libimread-test-data"
 : ${PRAXONS:="${THISDIR}/praxons"}
 source "${PRAXONS}/anybar.sh"
 
-PROJECT_PATH="/Users/fish/Dropbox/libimread"
+PROJECT_PATH="/Users/fish/Dropbox/subjective-c"
 EXTERNAL_PATH="/Users/fish/Pictures/libimread-test-data"
 
 : ${COLOR_TRACE:="ON"}

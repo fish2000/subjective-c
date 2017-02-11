@@ -3,10 +3,11 @@
 #include <memory>
 #include <unordered_map>
 
+#include <subjective-c/subjective-c.hh>
+#include <subjective-c/appkit.hh>
+
 #include <libimread/libimread.hpp>
 #include <libimread/errors.hh>
-#include <libimread/objc-rt/objc-rt.hh>
-#include <libimread/objc-rt/appkit.hh>
 #include <libimread/ext/filesystem/path.h>
 #import  <libimread/ext/categories/NSURL+IM.hh>
 #include <libimread/image.hh>

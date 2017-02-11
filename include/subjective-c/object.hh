@@ -53,7 +53,7 @@ namespace objc {
                 retain();
             }
         
-        object(const object& other)
+        object(object const& other)
             :self(other.self)
             {
                 retain();
@@ -74,7 +74,7 @@ namespace objc {
             return *this;
         }
         
-        object& operator=(const object& other) {
+        object& operator=(object const& other) {
             if ([self isEqual:other.self] == NO) {
                 object(other).swap(*this);
             }
@@ -92,16 +92,16 @@ namespace objc {
         pointer_t operator*()  const { return self; }
         pointer_t operator->() const { return self; }
         
-        bool operator==(const object& other) const {
+        bool operator==(object const& other) const {
             return objc::to_bool([self isEqual:other.self]);
         }
-        bool operator!=(const object& other) const {
+        bool operator!=(object const& other) const {
             return !objc::to_bool([self isEqual:other.self]);
         }
-        bool operator==(const pointer_t& other) const {
+        bool operator==(pointer_t const& other) const {
             return objc::to_bool([self isEqual:other]);
         }
-        bool operator!=(const pointer_t& other) const {
+        bool operator!=(pointer_t const& other) const {
             return !objc::to_bool([self isEqual:other]);
         }
         
@@ -123,9 +123,9 @@ namespace objc {
         #endif
         
         bool operator[](types::selector s) const       { return responds_to(s); }
-        bool operator[](const objc::selector& s) const { return responds_to(s.sel); }
-        bool operator[](const char* s) const           { return responds_to(::sel_registerName(s)); }
-        bool operator[](const std::string& s) const    { return responds_to(::sel_registerName(s.c_str())); }
+        bool operator[](objc::selector const& s) const { return responds_to(s.sel); }
+        bool operator[](char const* s) const           { return responds_to(::sel_registerName(s)); }
+        bool operator[](std::string const& s) const    { return responds_to(::sel_registerName(s.c_str())); }
         bool operator[](NSString* s) const             { return responds_to(::NSSelectorFromString(s)); }
         bool operator[](CFStringRef s) const           { return responds_to(::NSSelectorFromString(
                                                                         objc::bridge<NSString*>(s))); }
@@ -150,7 +150,7 @@ namespace objc {
             return ::objc_lookUpClass(::object_getClassName(self));
         }
         
-        friend std::ostream& operator<<(std::ostream& os, const object& friendly) {
+        friend std::ostream& operator<<(std::ostream& os, object const& friendly) {
             return os << "<" << friendly.classname()   << "> "
                       << "(" << friendly.description() << ") "
                       << "[" << std::hex << "0x"

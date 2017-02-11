@@ -5,7 +5,7 @@
 #include <libimread/image.hh>
 #include <libimread/interleaved.hh>
 #include <libimread/base.hh>
-#include <libimread/objc-rt/objc-rt.hh>
+#include <subjective-c/subjective-c.hh>
 
 #include <libimread/IO/png.hh>
 #include <libimread/IO/jpeg.hh>

@@ -58,11 +58,11 @@ namespace objc {
             class has_isa {
                 struct detect { int isa; };
                 struct composite : T, detect {};
-                template <typename U> static detail::one &test(
+                template <typename U> static detail::one& test(
                                       detail::check<
                                           int detect::*,
                                           &U::isa>*);
-                template <typename U> static detail::two &test(...);
+                template <typename U> static detail::two& test(...);
                 public:
                     typedef T type;
                     typedef Target pointer_type;
@@ -79,15 +79,15 @@ namespace objc {
                 struct detect { int superclass; };
                 struct detect_ { int super_class; };
                 struct composite : T, detect, detect_ {};
-                template <typename U> static detail::one &test(
+                template <typename U> static detail::one& test(
                                       detail::check<
                                           int detect::*,
                                           &U::superclass>*);
-                template <typename U> static detail::one &test(
+                template <typename U> static detail::one& test(
                                       detail::check<
                                           int detect_::*,
                                           &U::super_class>*);
-                template <typename U> static detail::two &test(...);
+                template <typename U> static detail::two& test(...);
                 public:
                     typedef T type;
                     typedef Target pointer_type;

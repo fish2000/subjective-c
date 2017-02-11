@@ -6,7 +6,7 @@ echo "*** CLEANUP IS NIGH"
 : ${PRAXONS:="${THISDIR}/praxons"}
 source "${PRAXONS}/anybar.sh"
 
-PROJECT_PATH="/Users/fish/Dropbox/libimread"
+PROJECT_PATH="/Users/fish/Dropbox/subjective-c"
 
 pushd $PROJECT_PATH &> /dev/null
     #rm -f ./tests/data/include/test_data.hpp

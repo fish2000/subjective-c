@@ -73,9 +73,9 @@ namespace objc {
             }
         
         private:
-            arguments(const arguments&);
+            arguments(arguments const&);
             arguments(arguments&&);
-            arguments &operator=(const arguments&);
+            arguments &operator=(arguments const&);
             arguments &operator=(arguments&&);
     };
     
@@ -108,9 +108,9 @@ namespace objc {
         }
         
         private:
-            message(const message&);
+            message(message const&);
             message(message&&);
-            message &operator=(const message&);
+            message &operator=(message const&);
             message &operator=(message&&);
             
     };

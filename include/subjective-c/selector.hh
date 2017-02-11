@@ -18,28 +18,28 @@ namespace objc {
         
         types::selector sel;
         
-        explicit selector(const std::string& name);
-        explicit selector(const char* name);
+        explicit selector(std::string const& name);
+        explicit selector(char const* name);
         explicit selector(NSString* name);
         
         selector(types::selector s);
-        selector(const objc::selector& other);
+        selector(objc::selector const& other);
         selector(objc::selector&& other) noexcept;
         
         objc::selector& operator=(const objc::selector& other);
         objc::selector& operator=(types::selector other);
         
-        bool operator==(const objc::selector& s) const;
-        bool operator!=(const objc::selector& s) const;
-        bool operator==(const types::selector& s) const;
-        bool operator!=(const types::selector& s) const;
+        bool operator==(objc::selector const& s) const;
+        bool operator!=(objc::selector const& s) const;
+        bool operator==(types::selector const& s) const;
+        bool operator!=(types::selector const& s) const;
         
-        const char* c_str() const;
+        char const* c_str() const;
         std::string str() const;
         NSString* ns_str() const;
         CFStringRef cf_str() const;
         
-        friend std::ostream& operator<<(std::ostream& os, const objc::selector& s) {
+        friend std::ostream& operator<<(std::ostream& os, objc::selector const& s) {
             return os << "@selector( " << s.str() << " )";
         }
         
@@ -49,15 +49,15 @@ namespace objc {
         
         operator types::selector() const;
         operator std::string() const;
-        operator const char*() const;
+        operator char const*() const;
         operator char*() const;
         operator NSString*() const;
         operator CFStringRef() const;
         
-        static objc::selector register_name(const std::string& name) {
+        static objc::selector register_name(std::string const& name) {
             return objc::selector(name);
         }
-        static objc::selector register_name(const char* name) {
+        static objc::selector register_name(char const* name) {
             return objc::selector(name);
         }
         static objc::selector register_name(NSString* name) {
@@ -75,6 +75,6 @@ namespace objc {
 /// ... e.g. create an inline wrapper for a `yoDogg:` selector like so:
 ///     objc::selector yodogg = "yoDogg:"_SEL;
 
-objc::selector operator"" _SEL(const char* name);
+objc::selector operator"" _SEL(char const* name);
 
 #endif /// SUBJECTIVE_C_SELECTOR_HH

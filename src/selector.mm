@@ -1,15 +1,14 @@
 /// Copyright 2014 Alexander Böhn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#include <subjective-c/yo-dogg.hpp>
 #include <subjective-c/selector.hh>
 
 namespace objc {
     
-    selector::selector(const std::string& name)
+    selector::selector(std::string const& name)
         :sel(::sel_registerName(name.c_str()))
         {}
-    selector::selector(const char* name)
+    selector::selector(char const* name)
         :sel(::sel_registerName(name))
         {}
     selector::selector(NSString* name)
@@ -19,14 +18,14 @@ namespace objc {
     selector::selector(types::selector s)
         :sel(s)
         {}
-    selector::selector(const objc::selector& other)
+    selector::selector(objc::selector const& other)
         :sel(other.sel)
         {}
     selector::selector(objc::selector&& other) noexcept
         :sel(other.sel)
         {}
     
-    objc::selector& selector::operator=(const objc::selector& other) {
+    objc::selector& selector::operator=(objc::selector const& other) {
         objc::selector(other).swap(*this);
         return *this;
     }
@@ -35,20 +34,20 @@ namespace objc {
         return *this;
     }
     
-    bool selector::operator==(const objc::selector& s) const {
+    bool selector::operator==(objc::selector const& s) const {
         return objc::to_bool(::sel_isEqual(sel, s.sel));
     }
-    bool selector::operator!=(const objc::selector& s) const {
+    bool selector::operator!=(objc::selector const& s) const {
         return !objc::to_bool(::sel_isEqual(sel, s.sel));
     }
-    bool selector::operator==(const types::selector& s) const {
+    bool selector::operator==(types::selector const& s) const {
         return objc::to_bool(::sel_isEqual(sel, s));
     }
-    bool selector::operator!=(const types::selector& s) const {
+    bool selector::operator!=(types::selector const& s) const {
         return !objc::to_bool(::sel_isEqual(sel, s));
     }
     
-    const char* selector::c_str() const {
+    char const* selector::c_str() const {
         return ::sel_getName(sel);
     }
     std::string selector::str() const {
@@ -80,14 +79,13 @@ namespace objc {
     
     selector::operator types::selector() const { return sel; }
     selector::operator std::string() const { return str(); }
-    selector::operator const char*() const { return c_str(); }
+    selector::operator char const*() const { return c_str(); }
     selector::operator char*() const { return const_cast<char*>(c_str()); }
     selector::operator NSString*() const { return ::NSStringFromSelector(sel); }
     selector::operator CFStringRef() const { return objc::bridge<CFStringRef>(ns_str()); }
 
 }
 
-objc::selector operator"" _SEL(const char* name) {
+objc::selector operator"" _SEL(char const* name) {
     return objc::selector(name);
 }
-

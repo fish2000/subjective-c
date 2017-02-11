@@ -7,7 +7,7 @@ echo "*** TEST RUN COMMENCING"
 source "${PRAXONS}/anybar.sh"
 source "${PRAXONS}/gmalloc.sh"
 
-PROJECT_PATH="/Users/fish/Dropbox/libimread"
+PROJECT_PATH="/Users/fish/Dropbox/subjective-c"
 
 anybar yellow
 pushd $PROJECT_PATH && \

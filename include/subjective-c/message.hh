@@ -55,9 +55,9 @@ namespace objc {
         }
         
         private:
-            msg(const msg&);
+            msg(msg const&);
             msg(msg&&);
-            msg &operator=(const msg&);
+            msg &operator=(msg const&);
             msg &operator=(msg&&);
         
     };

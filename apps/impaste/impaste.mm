@@ -1,5 +1,6 @@
 
 #include "impaste.hh"
+#include <subjective-c/appkit.hh>
 #include <cstdlib>
 #include <map>
 #include <atomic>
@@ -9,7 +10,7 @@
 #include "docopt.h"
 
 /// return value as static global (ugh I know I know)
-static std::atomic<int> return_value(EXIT_SUCCESS);
+std::atomic<int> return_value{ EXIT_SUCCESS };
 
 /// App delegate
 @implementation AXAppDelegate
@@ -59,23 +60,19 @@ static std::atomic<int> return_value(EXIT_SUCCESS);
     }
     
     /// exit from thread
-    [NSApp terminate:self];
-    return;
-    
+    AXTHREADEXIT();
 }
 @end
 
 @implementation AXDryRunThread : AXThread
 - (void) main {
     
-    std::cout << "Dry run not implemented yet, exiting"
+    std::cerr << "Dry run not implemented yet, exiting"
               << std::endl;
     return_value.store(EXIT_FAILURE);
 
     /// exit from thread
-    [NSApp terminate:self];
-    return;
-    
+    AXTHREADEXIT();
 }
 @end
 
@@ -85,11 +82,10 @@ static std::atomic<int> return_value(EXIT_SUCCESS);
     BOOL ok = objc::appkit::can_paste<NSImage>();
     
     if (!ok) {
-        std::cout << "[error] No image data was found on the pasteboard"
+        std::cerr << "[error] No image data was found on the pasteboard"
                   << std::endl;
         return_value.store(EXIT_FAILURE);
-        [NSApp terminate:self];
-        return;
+        AXTHREADEXIT();
     }
     
     NSString* pathstring = self.options[@"path"];
@@ -97,21 +93,20 @@ static std::atomic<int> return_value(EXIT_SUCCESS);
     filesystem::path abspath = [pathurl filesystemPath].make_absolute();
     
     if (abspath.exists()) {
-        std::cout << "[error] File already exists at path: "
+        std::cerr << "[error] File already exists at path: "
                   << [pathstring STLString]
                   << " (" << abspath << ")"
                   << std::endl;
         return_value.store(EXIT_FAILURE);
-        [NSApp terminate:self];
-        return;
+        AXTHREADEXIT();
     }
     
     if (![pathurl isImage]) {
-        std::cout << "[error] Can't determine output format from filename"
+        std::cerr << "[error] Can't determine output format from filename: "
+                  << abspath.basename()
                   << std::endl;
         return_value.store(EXIT_FAILURE);
-        [NSApp terminate:self];
-        return;
+        AXTHREADEXIT();
     }
     
     NSImage* pasted = objc::appkit::paste<NSImage>();
@@ -123,7 +118,7 @@ static std::atomic<int> return_value(EXIT_SUCCESS);
               << [[pathurl.pathExtension uppercaseString] STLString]
               << " image to path: "
               << [pathstring STLString]
-              << " (" << abspath << ")"
+              << " (" << abspath << ") ..."
               << std::endl;
     
     BOOL saved = [data writeToURL:pathurl atomically:YES];
@@ -133,20 +128,18 @@ static std::atomic<int> return_value(EXIT_SUCCESS);
                   << std::endl;
         return_value.store(EXIT_SUCCESS);
     } else {
-        std::cout << "[error] Failure when writing image data"
+        std::cerr << "[error] Failure when writing image data"
                   << std::endl;
         return_value.store(EXIT_FAILURE);
     }
     
-    [NSApp terminate:self];
-    return;
-    
+    AXTHREADEXIT();
 }
 @end
 
 
 /// The docopt help string defines the options available:
-static const char USAGE[] = R"(Paste image data to imgur.com or to a file
+const char USAGE[] = R"(Paste image data to imgur.com or to a file
 
     Usage:
         impaste       (-c      | --check)           [options]
@@ -166,8 +159,7 @@ static const char USAGE[] = R"(Paste image data to imgur.com or to a file
 
 )";
 
-const std::string VERSION = "impaste ";
-
+const std::string VERSION = "impaste " + im::config::version;
 
 int main(int argc, const char** argv) {
     using value_t = docopt::value;
@@ -178,14 +170,14 @@ int main(int argc, const char** argv) {
     optmap_t args;
     optmap_t raw_args = docopt::docopt(USAGE, { argv + 1, argv + argc },
                                        true, /// show help
-                                       VERSION + im::config::version);
+                                       VERSION);
     
     #if IMPASTE_DEBUG
-        std::cout << "RAW ARGS:" << std::endl;
+        std::cerr << "RAW ARGS:" << std::endl;
         for (optpair_t const& arg : raw_args) {
-            std::cout << arg.first << " --> " << arg.second << std::endl;
+            std::cerr << arg.first << " --> " << arg.second << std::endl;
         }
-        std::cout << std::endl;
+        std::cerr << std::endl;
     #endif
     
     /// filter out all docopt parse artifacts,
@@ -195,11 +187,11 @@ int main(int argc, const char** argv) {
                  [](optpair_t const& p) { return p.first.substr(0, 2) == "--"; });
     
     #if IMPASTE_DEBUG
-        std::cout << "FILTERED ARGS:" << std::endl;
+        std::cerr << "FILTERED ARGS:" << std::endl;
         for (optpair_t const& arg : args) {
-            std::cout << arg.first << " --> " << arg.second << std::endl;
+            std::cerr << arg.first << " --> " << arg.second << std::endl;
         }
-        std::cout << std::endl;
+        std::cerr << std::endl;
     #endif
     
     /// print the value for the truthy option flag
@@ -225,7 +217,6 @@ int main(int argc, const char** argv) {
             }
         }
     }
-    
     /// doesn't get called from threads
     std::exit(return_value.load());
 

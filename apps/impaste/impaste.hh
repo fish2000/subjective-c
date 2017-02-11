@@ -9,7 +9,7 @@
 #include <libimread/libimread.hpp>
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
-#include <libimread/objc-rt/appkit.hh>
+#include <subjective-c/subjective-c.hh>
 #import <libimread/ext/categories/NSString+STL.hh>
 #import <libimread/ext/categories/NSURL+IM.hh>
 #import <libimread/ext/categories/NSBitmapImageRep+IM.hh>
@@ -30,6 +30,10 @@
 - (instancetype) initWithOptions:(NSDictionary*)optionsDict;
 @end
 
+#define AXTHREADEXIT()                                              \
+    [NSApp terminate:self];                                         \
+    return;
+    
 
 /// NSThread declarations and definitions,
 /// one(ish) for each CLI option

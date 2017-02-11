@@ -7,12 +7,13 @@ echo "*** TEST RUN COMMENCING"
 source "${PRAXONS}/anybar.sh"
 source "${PRAXONS}/gmalloc.sh"
 
-PROJECT_PATH="/Users/fish/Dropbox/libimread"
+PROJECT_PATH="/Users/fish/Dropbox/subjective-c"
 
 : ${APPS:="OFF"}
 : ${COLOR_TRACE:="ON"}
 : ${VERBOSE:="ON"}
 : ${TERMINATOR:="ON"}
+: ${PROCESSORS:=$(py 'multiprocessing.cpu_count()')}
 
 pushd $PROJECT_PATH
     rm -rf ./build ./dist
@@ -25,8 +26,8 @@ pushd $PROJECT_PATH
             -DIM_VERBOSE=$VERBOSE \
             -DIM_TERMINATOR=$TERMINATOR \
             -Wno-dev && \
-        make -j4 install && \
-        ctest -j4 -D Experimental --output-on-failure
+        make -j$PROCESSORS install && \
+        ctest -j$PROCESSORS -D Experimental --output-on-failure
 
 popd
 rm -rf ./Testing

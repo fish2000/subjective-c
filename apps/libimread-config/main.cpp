@@ -47,7 +47,7 @@ int main(int argc, const char** argv) {
     /// leaving only things beginning with "--"
     std::copy_if(raw_args.begin(), raw_args.end(),
                  std::inserter(args, args.begin()),
-                 [](const optpair_t& p) { return p.first.substr(0, 2) == "--"; });
+                 [](optpair_t const& p) { return p.first.substr(0, 2) == "--"; });
     
     // for (auto const& arg : args) {
     //     std::cout << arg.first << " --> " << arg.second << std::endl;

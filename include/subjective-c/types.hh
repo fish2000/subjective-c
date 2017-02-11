@@ -25,7 +25,13 @@ namespace objc {
     /// bridge cast
     template <typename T, typename U>
     __attribute__((__always_inline__))
-    T bridge(U castee) { return (__bridge T)castee; }
+    T bridge(U castee) {
+        #if __has_feature(objc_arc)
+            return (__bridge T)castee;
+        #else
+            return (T)castee;
+        #endif
+    }
     
     /// bridge-retain cast --
     /// kind of a NOOp in MRC-mode
@@ -36,7 +42,7 @@ namespace objc {
         #if __has_feature(objc_arc)
             return (__bridge_retained T)castee;
         #else
-            return (__bridge T)castee;
+            return (T)castee;
         #endif
     }
     
