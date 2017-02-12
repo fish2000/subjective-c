@@ -4,17 +4,12 @@
 #ifndef LIBIMREAD_EXT_CATEGORIES_NSDICTIONARY_PLUS_IM_HH_
 #define LIBIMREAD_EXT_CATEGORIES_NSDICTIONARY_PLUS_IM_HH_
 
-#ifdef __OBJC__
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
-#endif /// __OBJC__
-
+#import  <Foundation/Foundation.h>
+#import  <Cocoa/Cocoa.h>
 #include <libimread/libimread.hpp>
 #include <libimread/options.hh>
 
 using im::options_map;
-
-#ifdef __OBJC__
 
 @interface NSDictionary (AXDictionaryAdditions)
 + (instancetype) dictionaryWithOptionsMap:(options_map const&)optionsMap;
@@ -22,5 +17,4 @@ using im::options_map;
 - (options_map)  asOptionsMap;
 @end
 
-#endif /// __OBJC__
 #endif /// LIBIMREAD_EXT_CATEGORIES_NSDICTIONARY_PLUS_IM_HH_

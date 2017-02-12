@@ -13,7 +13,6 @@
 #include <string>
 #include <subjective-c/subjective-c.hpp>
 #include <libimread/libimread.hpp>
-// #include <libimread/errors.hh>
 #include <libimread/ext/filesystem/path.h>
 
 static constexpr NSBitmapImageFileType AXPVRFileType = static_cast<NSBitmapImageFileType>(444);
@@ -59,7 +58,7 @@ namespace objc {
 -                           initFileURLWithFilesystemPath:(filesystem::path const&)path;
 - (instancetype)            URLByAppendingSTLPathComponent:(std::string const&)component;
 - (instancetype)            URLByAppendingFilesystemPath:(filesystem::path const&)path;
-- (BOOL)                    openWithApplication:(NSString *)application;
+- (BOOL)                    openWithApplication:(NSString*)applicationName;
 - (BOOL)                    preview;
 - (BOOL)                    isImage;
 - (NSBitmapImageFileType)   imageFileType;

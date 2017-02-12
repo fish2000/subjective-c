@@ -8,9 +8,8 @@
 #include <subjective-c/categories/NSString+STL.hh>
 #include <subjective-c/categories/NSDictionary+IM.hh>
 
-#ifdef __OBJC__
-
 using im::options_map;
+
 static const NSJSONReadingOptions readingOptions = static_cast<NSJSONReadingOptions>(0);
 static const NSJSONWritingOptions writingOptions = static_cast<NSJSONWritingOptions>(0);
 
@@ -54,5 +53,3 @@ static const NSJSONWritingOptions writingOptions = static_cast<NSJSONWritingOpti
 }
 
 @end
-
-#endif /// __OBJC__

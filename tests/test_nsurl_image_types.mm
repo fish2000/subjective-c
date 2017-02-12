@@ -7,9 +7,10 @@
 #include <libimread/libimread.hpp>
 #include <subjective-c/categories/NSURL+IM.hh>
 #include <libimread/ext/filesystem/path.h>
-#include <libimread/ext/filesystem/directory.h>
-#include <libimread/ext/filesystem/resolver.h>
-#include <libimread/ext/filesystem/temporary.h>
+
+// #include <libimread/ext/filesystem/directory.h>
+// #include <libimread/ext/filesystem/resolver.h>
+// #include <libimread/ext/filesystem/temporary.h>
 
 #include "include/test_data.hpp"
 #include "include/catch.hpp"
@@ -17,10 +18,10 @@
 namespace {
     
     using filesystem::path;
-    using filesystem::switchdir;
-    using filesystem::resolver;
-    using filesystem::NamedTemporaryFile;
-    using filesystem::TemporaryDirectory;
+    // using filesystem::switchdir;
+    // using filesystem::resolver;
+    // using filesystem::NamedTemporaryFile;
+    // using filesystem::TemporaryDirectory;
     using NSTYPE = NSBitmapImageFileType;
     
     std::array<NSTYPE, 7> types = {
@@ -49,12 +50,14 @@ namespace {
             CHECK(sufx == objc::image::suffix(type));
             return std::make_pair(type, sufx);
         });
+        
     }
     
     
     TEST_CASE("[nsurl-image-types] Check `isImage` and `imageFileType` NSURL category methods",
               "[nsurl-check-isimage-imagefiletype-category-methods]")
     {
+        
         path basedir(im::test::basedir);
         std::vector<path> files = basedir.list("*.*", true); /// full_paths=true
         
@@ -70,6 +73,7 @@ namespace {
             });
             
         };
+        
     }
     
 }

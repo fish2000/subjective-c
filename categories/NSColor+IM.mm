@@ -6,8 +6,6 @@
 #include <libimread/libimread.hpp>
 #include <subjective-c/categories/NSColor+IM.hh>
 
-#ifdef __OBJC__
-
 using namespace im;
 
 @implementation NSColor (AXColorAdditions)
@@ -48,6 +46,7 @@ using namespace im;
     return [NSColor colorWithWhite:white
                              alpha:(CGFloat)0.0f];
 }
+
 - (color::RGBA) uniformRGBA {
     using Color = color::RGBA;
     using Channel = Color::channel_t;
@@ -78,4 +77,3 @@ using namespace im;
 }
 
 @end
-#endif /// __OBJC__

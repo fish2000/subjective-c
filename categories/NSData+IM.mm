@@ -4,13 +4,12 @@
 #include <unistd.h>
 #include <cstring>
 #include <algorithm>
-#include <libimread/libimread.hpp>
 #include <subjective-c/categories/NSData+IM.hh>
 #include <subjective-c/categories/NSString+STL.hh>
 
-namespace im {
+namespace objc {
     
-    NSDataSource::NSDataSource(NSData* d)
+    datasource::datasource(NSData* d)
         :data(d), pos(0)
         {
             #if !__has_feature(objc_arc)
@@ -18,7 +17,7 @@ namespace im {
             #endif
         }
     
-    NSDataSource::NSDataSource(NSMutableData* d)
+    datasource::datasource(NSMutableData* d)
         :data([NSData dataWithData:d]), pos(0)
         {
             #if !__has_feature(objc_arc)
@@ -26,42 +25,42 @@ namespace im {
             #endif
         }
     
-    NSDataSource::~NSDataSource() {
+    datasource::~datasource() {
         #if !__has_feature(objc_arc)
             [data release];
         #endif
     }
     
-    std::size_t NSDataSource::read(byte* buffer, std::size_t n) {
+    std::size_t datasource::read(byte* buffer, std::size_t n) {
         if (pos + n > data.length) { n = data.length-pos; }
         std::memmove(buffer, (byte*)data.bytes + pos, n);
         pos += n;
         return n;
     }
     
-    bool NSDataSource::can_seek() const noexcept { return true; }
+    bool datasource::can_seek() const noexcept { return true; }
     
-    std::size_t NSDataSource::seek_absolute(std::size_t p) {
+    std::size_t datasource::seek_absolute(std::size_t p) {
         return pos = p;
     }
     
-    std::size_t NSDataSource::seek_relative(int delta) {
+    std::size_t datasource::seek_relative(int delta) {
         return pos += delta;
     }
     
-    std::size_t NSDataSource::seek_end(int delta) {
+    std::size_t datasource::seek_end(int delta) {
         return pos = (data.length-delta-1);
     }
     
-    std::vector<byte> NSDataSource::full_data() {
+    std::vector<byte> datasource::full_data() {
         std::vector<byte> out(data.length);
         std::memcpy(&out[0], (byte*)data.bytes, out.size());
         return out;
     }
     
-    std::size_t NSDataSource::size() const { return data.length; }
+    std::size_t datasource::size() const { return data.length; }
     
-    void* NSDataSource::readmap(std::size_t pageoffset) const {
+    void* datasource::readmap(std::size_t pageoffset) const {
         byte* out = (byte*)data.bytes;
         if (pageoffset) {
             out += pageoffset * ::getpagesize();
@@ -69,7 +68,7 @@ namespace im {
         return static_cast<void*>(out);
     }
     
-    NSDataSink::NSDataSink(NSData* d)
+    datasink::datasink(NSData* d)
         :data([NSMutableData dataWithData:d]), pos(0)
         {
             #if !__has_feature(objc_arc)
@@ -77,7 +76,7 @@ namespace im {
             #endif
         }
     
-    NSDataSink::NSDataSink(NSMutableData* d)
+    datasink::datasink(NSMutableData* d)
         :data(d), pos(0)
         {
             #if !__has_feature(objc_arc)
@@ -85,34 +84,34 @@ namespace im {
             #endif
         }
     
-    NSDataSink::~NSDataSink() {
+    datasink::~datasink() {
         #if !__has_feature(objc_arc)
             [data release];
         #endif
     }
     
-    bool NSDataSink::can_seek() const noexcept { return true; }
+    bool datasink::can_seek() const noexcept { return true; }
     
-    std::size_t NSDataSink::seek_absolute(std::size_t p) {
+    std::size_t datasink::seek_absolute(std::size_t p) {
         return pos = p;
     }
     
-    std::size_t NSDataSink::seek_relative(int delta) {
+    std::size_t datasink::seek_relative(int delta) {
         return pos += delta;
     }
     
-    std::size_t NSDataSink::seek_end(int delta) {
+    std::size_t datasink::seek_end(int delta) {
         return pos = (data.length-delta-1);
     }
     
-    std::size_t NSDataSink::write(const void* buffer, std::size_t n) {
+    std::size_t datasink::write(const void* buffer, std::size_t n) {
         if (pos + n > data.length) { n = data.length-pos; }
         std::memmove((byte*)data.mutableBytes + pos, (byte*)buffer, n);
         pos += n;
         return n;
     }
     
-    std::vector<byte> NSDataSink::contents() {
+    std::vector<byte> datasink::contents() {
         std::vector<byte> out(data.length);
         std::memcpy(&out[0], (byte*)data.bytes, out.size());
         return out;
@@ -123,8 +122,8 @@ namespace im {
 using im::byte;
 using im::byte_source;
 using im::byte_sink;
-using im::NSDataSource;
-using im::NSDataSink;
+using objc::datasource;
+using objc::datasink;
 
 @implementation NSData (AXDataAdditions)
 
@@ -191,8 +190,8 @@ using im::NSDataSink;
     return static_cast<NSUInteger>(out);
 }
 
-- (std::unique_ptr<NSDataSource>) dataSource {
-    return std::make_unique<NSDataSource>(self);
+- (std::unique_ptr<objc::datasource>) dataSource {
+    return std::make_unique<objc::datasource>(self);
 }
 
 - (std::string) STLString {
@@ -204,8 +203,8 @@ using im::NSDataSink;
 
 @implementation NSMutableData (AXMutableDataAdditions)
 
-- (std::unique_ptr<NSDataSink>) dataSink {
-    return std::make_unique<NSDataSink>(self);
+- (std::unique_ptr<objc::datasink>) dataSink {
+    return std::make_unique<objc::datasink>(self);
 }
 
 @end

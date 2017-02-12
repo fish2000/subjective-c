@@ -6,20 +6,14 @@
 
 #include <vector>
 #include <memory>
-
-#ifdef __OBJC__
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
-#endif /// __OBJC__
-
+#import  <Foundation/Foundation.h>
+#import  <Cocoa/Cocoa.h>
 #include <libimread/libimread.hpp>
 #include <libimread/image.hh>
 
 using im::byte;
 using im::Image;
 using im::ImageFactory;
-
-#ifdef __OBJC__
 
 @interface NSBitmapImageRep (AXBitmapImageRepAdditions)
 + (instancetype)           imageRepWithByteVector:(std::vector<byte> const&)byteVector;
@@ -29,5 +23,4 @@ using im::ImageFactory;
 - (std::unique_ptr<Image>) imageUsingImageFactory:(ImageFactory*)factory;
 @end
 
-#endif /// __OBJC__
 #endif /// LIBIMREAD_EXT_CATEGORIES_NSBITMAPIMAGEREP_PLUS_IM_HH_

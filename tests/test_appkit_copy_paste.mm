@@ -1,16 +1,15 @@
 
 #include <vector>
-#include <memory>
+#include <algorithm>
 #include <unordered_map>
+#import  <Foundation/Foundation.h>
 
 #include <subjective-c/subjective-c.hpp>
 #include <subjective-c/appkit.hh>
+#import  <subjective-c/categories/NSURL+IM.hh>
 
 #include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
 #include <libimread/ext/filesystem/path.h>
-#import  <subjective-c/categories/NSURL+IM.hh>
-#include <libimread/image.hh>
 
 #include "include/test_data.hpp"
 #include "include/catch.hpp"

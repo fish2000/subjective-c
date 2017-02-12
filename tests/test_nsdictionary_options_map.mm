@@ -3,7 +3,6 @@
 #import  <Foundation/Foundation.h>
 
 #include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
 #include <libimread/options.hh>
 
 #import  <subjective-c/categories/NSString+STL.hh>

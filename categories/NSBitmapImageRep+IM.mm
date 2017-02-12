@@ -10,8 +10,6 @@ using im::byte;
 using im::Image;
 using im::ImageFactory;
 
-#ifdef __OBJC__
-
 @implementation NSBitmapImageRep (AXBitmapImageRepAdditions)
 
 + (instancetype) imageRepWithByteVector:(std::vector<byte> const&)byteVector {
@@ -54,8 +52,8 @@ using im::ImageFactory;
                       bitsPerPixel:(NSInteger)(image.planes() * 8)];
     
     /// Manually copy the image buffer to [self bitmapData] --
-    std::memcpy([self bitmapData], image.rowp_as<byte * _Nullable>(0),
-                                   siz*height*width*channels);
+    std::memcpy([self bitmapData], image.rowp_as<byte* _Nullable>(0),
+                                   siz * height * width * channels);
     return self;
 }
 
@@ -66,22 +64,20 @@ using im::ImageFactory;
     int bps = (int)[self bitsPerSample];
     int siz = (bps / 8) + bool(bps % 8);
     
-    std::unique_ptr<Image> output(factory->create(
-        bps, height, width, channels));
+    std::unique_ptr<Image> output(
+                  factory->create(bps, height, width, channels));
     
     if ([self bitmapFormat] & NSFloatingPointSamplesBitmapFormat) {
         float* frowp = output->rowp_as<float>(0);
         std::memcpy(frowp, reinterpret_cast<float*>([self bitmapData]),
-                           siz*height*width*channels);
+                           siz * height * width * channels);
     } else {
         byte* irowp = output->rowp_as<byte>(0);
         std::memcpy(irowp, static_cast<byte*>([self bitmapData]),
-                           siz*height*width*channels);
+                           siz * height * width * channels);
     }
     
     return output;
 }
 
 @end
-
-#endif /// __OBJC__

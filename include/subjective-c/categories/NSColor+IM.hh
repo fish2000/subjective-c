@@ -4,11 +4,8 @@
 #ifndef LIBIMREAD_EXT_CATEGORIES_NSCOLOR_PLUS_IM_HH_
 #define LIBIMREAD_EXT_CATEGORIES_NSCOLOR_PLUS_IM_HH_
 
-#ifdef __OBJC__
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-#endif /// __OBJC__
-
 #include <libimread/libimread.hpp>
 #include <libimread/color.hh>
 
@@ -22,6 +19,5 @@ using namespace im;
 - (color::RGB)          uniformRGB;
 - (color::Monochrome)   uniformMonochrome;
 @end
-
 
 #endif /// LIBIMREAD_EXT_CATEGORIES_NSCOLOR_PLUS_IM_HH_

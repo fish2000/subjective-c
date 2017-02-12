@@ -23,7 +23,7 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${CMAKE_CURRENT_LIST_DIR}/test_nsurl_image_types.mm
     ${CMAKE_CURRENT_LIST_DIR}/test_objc_rt.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_refcount.mm
-    # ${CMAKE_CURRENT_LIST_DIR}/test_sfinae.mm
+    ${CMAKE_CURRENT_LIST_DIR}/test_sfinae.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_sszip.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_terminator.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_Zinterleaved_io.cpp
