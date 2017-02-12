@@ -15,7 +15,7 @@
 //  limitations under the License.
 //
 
-#import <libimread/ext/categories/NSImage+CGImage.h>
+#import <subjective-c/categories/NSImage+CGImage.h>
 
 #if !TARGET_OS_IPHONE
 @implementation NSImage (CGImage)

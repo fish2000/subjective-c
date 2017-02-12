@@ -4,7 +4,7 @@
 #include <array>
 #include <algorithm>
 #include <libimread/libimread.hpp>
-#include <libimread/ext/categories/NSColor+IM.hh>
+#include <subjective-c/categories/NSColor+IM.hh>
 
 #ifdef __OBJC__
 

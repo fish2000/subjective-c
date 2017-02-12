@@ -5,7 +5,7 @@
 //  Created by Matt Gemmell on 29/10/2007.
 //
 
-#import <libimread/ext/categories/NSImage+QuickLook.h>
+#import <subjective-c/categories/NSImage+QuickLook.h>
 #import <QuickLook/QuickLook.h> // Remember to import the QuickLook framework into your project!
 
 @implementation NSImage (QuickLook)

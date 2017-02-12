@@ -9,7 +9,7 @@
 #include <libimread/libimread.hpp>
 #include <libimread/errors.hh>
 #include <libimread/ext/filesystem/path.h>
-#import  <libimread/ext/categories/NSURL+IM.hh>
+#import  <subjective-c/categories/NSURL+IM.hh>
 #include <libimread/image.hh>
 
 #include "include/test_data.hpp"

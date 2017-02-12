@@ -3,8 +3,8 @@
 
 #include <cstring>
 #include <libimread/libimread.hpp>
-#include <libimread/ext/categories/NSBitmapImageRep+IM.hh>
-#include <libimread/objc-rt/types.hh>
+#include <subjective-c/categories/NSBitmapImageRep+IM.hh>
+#include <subjective-c/types.hh>
 
 using im::byte;
 using im::Image;

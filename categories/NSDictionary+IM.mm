@@ -4,9 +4,9 @@
 #include <string>
 #include <libimread/libimread.hpp>
 #include <libimread/errors.hh>
-#include <libimread/ext/categories/NSData+IM.hh>
-#include <libimread/ext/categories/NSString+STL.hh>
-#include <libimread/ext/categories/NSDictionary+IM.hh>
+#include <subjective-c/categories/NSData+IM.hh>
+#include <subjective-c/categories/NSString+STL.hh>
+#include <subjective-c/categories/NSDictionary+IM.hh>
 
 #ifdef __OBJC__
 

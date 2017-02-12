@@ -2,7 +2,7 @@
 #import <SSZipArchive.h>
 
 #include <libimread/libimread.hpp>
-#include <libimread/ext/categories/NSString+STL.hh>
+#include <subjective-c/categories/NSString+STL.hh>
 #include <libimread/ext/filesystem/path.h>
 #include <libimread/ext/filesystem/temporary.h>
 

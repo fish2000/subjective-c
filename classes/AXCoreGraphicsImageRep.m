@@ -8,7 +8,7 @@
 // distributed with this project and can also be found at
 // <http://www.omnigroup.com/developer/sourcecode/sourcelicense/>.
 
-#import <libimread/ext/classes/AXCoreGraphicsImageRep.h>
+#import <subjective-c/classes/AXCoreGraphicsImageRep.h>
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>

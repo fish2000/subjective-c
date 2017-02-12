@@ -2,8 +2,8 @@
 # © 2011.10 -- GPL, Motherfuckers
 
 # To keep the file list clean
-set(hdrs_dir ${${PROJECT_NAME}_include_dir})
-set(srcs_dir ${CMAKE_CURRENT_SOURCE_DIR}/${source_dir})
+set(hdrs_dir ${${PROJECT_NAME}_include_dir}/..)
+set(srcs_dir ${CMAKE_CURRENT_SOURCE_DIR}/)
 
 SET(COMMON_LINK_FLAGS
     -m64 -mmacosx-version-min=10.9
@@ -86,191 +86,56 @@ SEPARATE_ARGUMENTS(IO_EXTRA_OPTIONS)
 
 # Project header files
 set(hdrs
-    ${PROJECT_BINARY_DIR}/libimread/libimread.hpp
-    
-    ${hdrs_dir}/ext/categories/NSBitmapImageRep+IM.hh
-    ${hdrs_dir}/ext/categories/NSColor+IM.hh
-    ${hdrs_dir}/ext/categories/NSData+IM.hh
-    ${hdrs_dir}/ext/categories/NSDictionary+IM.hh
-    # ${hdrs_dir}/ext/categories/NSImage+CGImage.h
-    # ${hdrs_dir}/ext/categories/NSImage+QuickLook.h
-    # ${hdrs_dir}/ext/categories/NSImage+Resize.h
-    # ${hdrs_dir}/ext/categories/NSImage+ResizeBestFit.h
-    ${hdrs_dir}/ext/categories/NSString+STL.hh
-    ${hdrs_dir}/ext/categories/NSURL+IM.hh
-    # ${hdrs_dir}/ext/classes/AXCoreGraphicsImageRep.h
-    # ${hdrs_dir}/ext/classes/AXInterleavedImageRep.hh
-    ${hdrs_dir}/ext/errors/backtrace.hh
-    ${hdrs_dir}/ext/errors/demangle.hh
-    ${hdrs_dir}/ext/errors/terminator.hh
-    ${hdrs_dir}/ext/filesystem/directory.h
-    ${hdrs_dir}/ext/filesystem/mode.h
-    ${hdrs_dir}/ext/filesystem/opaques.h
-    ${hdrs_dir}/ext/filesystem/path.h
-    ${hdrs_dir}/ext/filesystem/resolver.h
-    ${hdrs_dir}/ext/filesystem/temporary.h
-    ${hdrs_dir}/ext/memory/fmemopen.hh
-    # ${hdrs_dir}/ext/memory/open_memstream.hh
-    # ${hdrs_dir}/ext/memory/refcount.hh
-    ${hdrs_dir}/ext/JSON/json11.h
-    ${hdrs_dir}/ext/base64.hh
-    ${hdrs_dir}/ext/butteraugli.hh
-    ${hdrs_dir}/ext/exif.hh
-    ${hdrs_dir}/ext/lzw.hh
-    ${hdrs_dir}/ext/MurmurHash2.hh
-    ${hdrs_dir}/ext/iod.hh
-    ${hdrs_dir}/ext/pvr.hh
-    ${hdrs_dir}/ext/pystring.hh
-    ${hdrs_dir}/ext/valarray.hh
-    ${hdrs_dir}/ext/WriteGIF.hh
-    
-    ${hdrs_dir}/IO/ansi.hh
-    ${hdrs_dir}/IO/apple.hh
-    ${hdrs_dir}/IO/bmp.hh
-    ${hdrs_dir}/IO/gif.hh
-    ${hdrs_dir}/IO/hdf5.hh
-    ${hdrs_dir}/IO/jpeg.hh
-    ${hdrs_dir}/IO/lsm.hh
-    ${hdrs_dir}/IO/png.hh
-    ${hdrs_dir}/IO/ppm.hh
-    ${hdrs_dir}/IO/pvrtc.hh
-    ${hdrs_dir}/IO/tiff.hh
-    ${hdrs_dir}/IO/webp.hh
-    # ${hdrs_dir}/IO/xcassets.hh
-    
-    ${hdrs_dir}/private/buffer_t.h
-    ${hdrs_dir}/private/image_io.h
-    # ${hdrs_dir}/private/singleton.hh
-    ${hdrs_dir}/private/static_image.h
-    # ${hdrs_dir}/private/vpp_symbols.hh
-    
-    # ${hdrs_dir}/process/jitresize.hh
-    ${hdrs_dir}/process/neuquant.hh
-    ${hdrs_dir}/process/neuquant.inl
-    
-    ${hdrs_dir}/objc-rt/objc-rt.hh
-    ${hdrs_dir}/objc-rt/types.hh
-    ${hdrs_dir}/objc-rt/selector.hh
-    ${hdrs_dir}/objc-rt/message-args.hh
-    ${hdrs_dir}/objc-rt/traits.hh
-    ${hdrs_dir}/objc-rt/object.hh
-    ${hdrs_dir}/objc-rt/message.hh
-    ${hdrs_dir}/objc-rt/namespace-std.hh
-    ${hdrs_dir}/objc-rt/namespace-im.hh
-    ${hdrs_dir}/objc-rt/appkit.hh
-    ${hdrs_dir}/objc-rt/appkit-pasteboard.hh
-    
-    ${hdrs_dir}/ansicolor.hh
-    ${hdrs_dir}/base.hh
-    ${hdrs_dir}/color.hh
-    ${hdrs_dir}/coregraphics.hh
-    ${hdrs_dir}/errors.hh
-    ${hdrs_dir}/file.hh
-    ${hdrs_dir}/filehandle.hh
-    ${hdrs_dir}/formats.hh
-    ${hdrs_dir}/gzio.hh
-    ${hdrs_dir}/halide.hh
-    ${hdrs_dir}/hashing.hh
-    ${hdrs_dir}/histogram.hh
-    ${hdrs_dir}/image.hh
-    ${hdrs_dir}/imageformat.hh
-    ${hdrs_dir}/imagelist.hh
-    ${hdrs_dir}/imageview.hh
-    ${hdrs_dir}/interleaved.hh
-    ${hdrs_dir}/iterators.hh
-    ${hdrs_dir}/memory.hh
-    ${hdrs_dir}/options.hh
-    ${hdrs_dir}/palette.hh
-    ${hdrs_dir}/pixels.hh
-    ${hdrs_dir}/rehash.hh
-    ${hdrs_dir}/seekable.hh
-    ${hdrs_dir}/symbols.hh
-    ${IOD_SYMBOLS_HEADER}
-    ${hdrs_dir}/traits.hh
-)
 
+    ${hdrs_dir}/categories/NSBitmapImageRep+IM.hh
+    ${hdrs_dir}/categories/NSColor+IM.hh
+    ${hdrs_dir}/categories/NSData+IM.hh
+    ${hdrs_dir}/categories/NSDictionary+IM.hh
+    ${hdrs_dir}/categories/NSImage+CGImage.h
+    ${hdrs_dir}/categories/NSImage+QuickLook.h
+    ${hdrs_dir}/categories/NSImage+Resize.h
+    ${hdrs_dir}/categories/NSImage+ResizeBestFit.h
+    ${hdrs_dir}/categories/NSString+STL.hh
+    ${hdrs_dir}/categories/NSURL+IM.hh
+
+    ${hdrs_dir}/classes/AXCoreGraphicsImageRep.h
+    ${hdrs_dir}/classes/AXInterleavedImageRep.hh
+
+    ${hdrs_dir}/subjective-c/types.hh
+    ${hdrs_dir}/subjective-c/selector.hh
+    ${hdrs_dir}/subjective-c/message-args.hh
+    ${hdrs_dir}/subjective-c/traits.hh
+    ${hdrs_dir}/subjective-c/object.hh
+    ${hdrs_dir}/subjective-c/message.hh
+    ${hdrs_dir}/subjective-c/namespace-std.hh
+    ${hdrs_dir}/subjective-c/namespace-im.hh
+    ${hdrs_dir}/subjective-c/appkit.hh
+    ${hdrs_dir}/subjective-c/rehash.hh
+
+)
 
 # Project source files
 set(srcs
-    ${srcs_dir}/ext/categories/NSBitmapImageRep+IM.mm
-    ${srcs_dir}/ext/categories/NSColor+IM.mm
-    ${srcs_dir}/ext/categories/NSData+IM.mm
-    ${srcs_dir}/ext/categories/NSDictionary+IM.mm
-    # ${srcs_dir}/ext/categories/NSImage+CGImage.m
-    # ${srcs_dir}/ext/categories/NSImage+QuickLook.m
-    # ${srcs_dir}/ext/categories/NSImage+Resize.m
-    # ${srcs_dir}/ext/categories/NSImage+ResizeBestFit.m
-    ${srcs_dir}/ext/categories/NSString+STL.mm
-    ${srcs_dir}/ext/categories/NSURL+IM.mm
-    # ${srcs_dir}/ext/classes/AXCoreGraphicsImageRep.m
-    # ${srcs_dir}/ext/classes/AXInterleavedImageRep.mm
-    ${srcs_dir}/ext/errors/backtrace.cpp
-    ${srcs_dir}/ext/errors/demangle.cpp
-    ${srcs_dir}/ext/filesystem/opaques.cpp
-    ${srcs_dir}/ext/filesystem/path.cpp
-    ${srcs_dir}/ext/filesystem/temporary.cpp
-    ${srcs_dir}/ext/memory/fmemopen.cpp
-    # ${srcs_dir}/ext/memory/open_memstream.cpp
-    # ${srcs_dir}/ext/memory/refcount.cpp
-    ${srcs_dir}/ext/JSON/json11.cpp
-    ${srcs_dir}/ext/JSON/schema.cpp
-    ${srcs_dir}/ext/base64.cpp
-    ${srcs_dir}/ext/butteraugli.cpp
-    ${srcs_dir}/ext/exif.cpp
-    ${srcs_dir}/ext/lzw.cpp
-    ${srcs_dir}/ext/MurmurHash2.cpp
-    ${srcs_dir}/ext/pvr.cpp
-    ${srcs_dir}/ext/pvrtc.cpp
-    ${srcs_dir}/ext/pystring.cpp
-    ${srcs_dir}/ext/WriteGIF.cpp
-    
-    # ${srcs_dir}/IO/ansi.cpp
-    ${srcs_dir}/IO/apple.mm
-    ${srcs_dir}/IO/bmp.cpp
-    ${srcs_dir}/IO/gif.cpp
-    ${srcs_dir}/IO/hdf5.cpp
-    ${srcs_dir}/IO/jpeg.cpp
-    ${srcs_dir}/IO/lsm.cpp
-    ${srcs_dir}/IO/png.cpp
-    ${srcs_dir}/IO/ppm.cpp
-    ${srcs_dir}/IO/pvrtc.cpp
-    ${srcs_dir}/IO/tiff.cpp
-    ${srcs_dir}/IO/webp.cpp
-    # ${srcs_dir}/IO/xcassets.cpp
-    
-    # ${srcs_dir}/process/jitresize.cpp
-    # ${srcs_dir}/process/neuquant.cpp
-    
-    ${srcs_dir}/objc-rt/appkit-pasteboard.mm
-    ${srcs_dir}/objc-rt/namespace-std.mm
-    ${srcs_dir}/objc-rt/selector.mm
-    ${srcs_dir}/objc-rt/types.mm
-    ${srcs_dir}/objc-rt/traits.mm
-    
-    # ${srcs_dir}/ansicolor.cpp
-    # ${srcs_dir}/base.cpp
-    # ${srcs_dir}/color.cpp
-    # ${srcs_dir}/coregraphics.mm
-    ${srcs_dir}/errors.cpp
-    ${srcs_dir}/file.cpp
-    ${srcs_dir}/filehandle.cpp
-    ${srcs_dir}/formats.cpp
-    ${srcs_dir}/gzio.cpp
-    # ${srcs_dir}/halide.cpp
-    ${srcs_dir}/hashing.cpp
-    ${srcs_dir}/histogram.cpp
-    ${srcs_dir}/image.cpp
-    ${srcs_dir}/imageformat.cpp
-    ${srcs_dir}/imagelist.cpp
-    ${srcs_dir}/imageview.cpp
-    # ${srcs_dir}/interleaved.cpp
-    ${srcs_dir}/iterators.cpp
-    ${srcs_dir}/memory.cpp
-    ${srcs_dir}/options.cpp
-    # ${srcs_dir}/palette.cpp
-    # ${srcs_dir}/pixels.cpp
-    ${srcs_dir}/seekable.cpp
-    # ${srcs_dir}/symbols.cpp
+
+    ${srcs_dir}/categories/categories/NSBitmapImageRep+IM.mm
+    ${srcs_dir}/categories/categories/NSColor+IM.mm
+    ${srcs_dir}/categories/categories/NSData+IM.mm
+    ${srcs_dir}/categories/categories/NSDictionary+IM.mm
+    ${srcs_dir}/categories/categories/NSImage+CGImage.m
+    ${srcs_dir}/categories/categories/NSImage+QuickLook.m
+    ${srcs_dir}/categories/categories/NSImage+Resize.m
+    ${srcs_dir}/categories/categories/NSImage+ResizeBestFit.m
+    ${srcs_dir}/categories/categories/NSString+STL.mm
+    ${srcs_dir}/categories/categories/NSURL+IM.mm
+
+    ${srcs_dir}/classes/classes/AXCoreGraphicsImageRep.m
+    ${srcs_dir}/classes/classes/AXInterleavedImageRep.mm
+
+    ${srcs_dir}/src/namespace-std.mm
+    ${srcs_dir}/src/selector.mm
+    ${srcs_dir}/src/types.mm
+    ${srcs_dir}/src/traits.mm
+
 )
 
 # set common link flags

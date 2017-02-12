@@ -6,7 +6,7 @@
 //
 //
 
-#import <libimread/ext/categories/NSImage+Resize.h>
+#import <subjective-c/categories/NSImage+Resize.h>
 
 @implementation NSImage (Resize)
 

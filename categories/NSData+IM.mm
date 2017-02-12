@@ -5,8 +5,8 @@
 #include <cstring>
 #include <algorithm>
 #include <libimread/libimread.hpp>
-#include <libimread/ext/categories/NSData+IM.hh>
-#include <libimread/ext/categories/NSString+STL.hh>
+#include <subjective-c/categories/NSData+IM.hh>
+#include <subjective-c/categories/NSString+STL.hh>
 
 namespace im {
     

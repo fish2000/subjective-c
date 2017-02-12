@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <libimread/ext/categories/NSImage+ResizeBestFit.h>
+#import <subjective-c/categories/NSImage+ResizeBestFit.h>
 
 @implementation NSImage (ResizeImageBestFit)
 

@@ -3,7 +3,7 @@
 
 #include <cstdlib>
 #include <libimread/libimread.hpp>
-#include <libimread/ext/categories/NSString+STL.hh>
+#include <subjective-c/categories/NSString+STL.hh>
 
 @implementation NSString (AXStringAdditions)
 

@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 #include <libimread/libimread.hpp>
-#include <libimread/ext/categories/NSURL+IM.hh>
+#include <subjective-c/categories/NSURL+IM.hh>
 #include <libimread/ext/filesystem/path.h>
 #include <libimread/ext/filesystem/directory.h>
 #include <libimread/ext/filesystem/resolver.h>

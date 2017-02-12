@@ -1,8 +1,8 @@
 /// Copyright 2012-2015 Alexander Bohn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#include <libimread/ext/classes/AXInterleavedImageRep.hh>
-#include <libimread/objc-rt/types.hh>
+#include <subjective-c/classes/AXInterleavedImageRep.hh>
+#include <subjective-c/types.hh>
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>

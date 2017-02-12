@@ -5,8 +5,8 @@
 #include <libimread/libimread.hpp>
 #include <libimread/errors.hh>
 #include <libimread/options.hh>
-#import <libimread/ext/categories/NSString+STL.hh>
-#import <libimread/ext/categories/NSDictionary+IM.hh>
+#import <subjective-c/categories/NSString+STL.hh>
+#import <subjective-c/categories/NSDictionary+IM.hh>
 
 #include "include/catch.hpp"
 
