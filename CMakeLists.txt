@@ -5,13 +5,13 @@
 cmake_minimum_required(VERSION 3.3)
 
 # Set a new CMake project
-project(libimread)
+project(subjective-c)
 
 option(IM_TESTS             "Compile and run tests"                             ON)
 option(IM_APPS              "Compile and run companion apps"                    ON)
 option(IM_USE_GCC           "Compile using GCC"                                 OFF)
-option(IM_RESYMBOLIZE       "Regenerate include/libimread/symbols.hpp"          OFF)
-option(IM_GENERATE_HEADER   "Only generate libimread.hpp (do not compile)"      OFF)
+option(IM_RESYMBOLIZE       "Regenerate include/subjective-c/symbols.hpp"       OFF)
+option(IM_GENERATE_HEADER   "Only generate subjective-c.hpp (do not compile)"   OFF)
 option(IM_COLOR_TRACE       "Use ANSI color in debug and error trace output"    ON)
 option(IM_VERBOSE           "Print (highly nerd-oriented) verbose debug output" ON)
 option(IM_TERMINATOR        "Use a libunwind-based termination handler"         ON)
@@ -31,15 +31,15 @@ endif()
 
 if(IM_RESYMBOLIZE)
     execute_process(
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/libimread/"
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/subjective-c/"
         COMMAND "rm symbols.hpp"
         COMMENT "Deleting generated IOD symbol header file")
 endif()
 
 # Go through some stuff
-set(libimread_VERSION_MAJOR "0")
-set(libimread_VERSION_MINOR "1")
-set(libimread_VERSION_PATCH "2")
+set(subjectivec_VERSION_MAJOR "0")
+set(subjectivec_VERSION_MINOR "1")
+set(subjectivec_VERSION_PATCH "2")
 
 # If the build script is called from a parent project,
 # use the configuration from there.
@@ -77,8 +77,8 @@ SET(TEST_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/include")
 
 # Set up the directories to feed to the IOD symbolizer,
 # and the target output header file to generate
-SET(IOD_SYMBOLS_HEADER  "${CMAKE_CURRENT_SOURCE_DIR}/include/libimread/symbols.hpp")
-SET(IOD_SYMBOLIZE_DIR0  "${CMAKE_CURRENT_SOURCE_DIR}/include/libimread")
+SET(IOD_SYMBOLS_HEADER  "${CMAKE_CURRENT_SOURCE_DIR}/include/subjective-c/symbols.hpp")
+SET(IOD_SYMBOLIZE_DIR0  "${CMAKE_CURRENT_SOURCE_DIR}/include/subjective-c")
 SET(IOD_SYMBOLIZE_DIR1  "${CMAKE_CURRENT_SOURCE_DIR}/python")
 SET(IOD_SYMBOLIZE_DIR2  "${CMAKE_CURRENT_SOURCE_DIR}/src")
 IOD_SYMBOLIZE(
@@ -106,7 +106,7 @@ SET(SG14_DIR "${DEPS_DIR}/SG14")
 SET(SSZIP_DIR "${DEPS_DIR}/SSZipArchive")
 
 # Set variables for directories for the individual apps:
-SET(LIBIMREAD_CONFIG_DIR "${APPS_DIR}/libimread-config")
+SET(LIBIMREAD_CONFIG_DIR "${APPS_DIR}/subjective-c-config")
 SET(IMPASTE_DIR "${APPS_DIR}/impaste")
 
 # Add DEPS_DIR as a subdirectory ...
@@ -122,7 +122,7 @@ set_property(DIRECTORY ${IOD_TEST_DIR}
 add_subdirectory(${HALOGEN_DIR})
 
 # Load the project configuration file. CMake will search in the directory setted
-# above for a module file named libimreadConfig.cmake. The configuration
+# above for a module file named subjectivecConfig.cmake. The configuration
 # file will set the different directories and libraries required by the library:
 find_package(${PROJECT_NAME} REQUIRED)
 
@@ -177,43 +177,43 @@ include_directories(
 include(CMakeProjectFiles.cmake)
 
 # Actually build the library: set up an `OBJECT` target ...
-add_library(imread OBJECT ${srcs} ${hdrs})
-set_target_properties(imread
-    PROPERTIES LIBRARY_OUTPUT_NAME "imread")
-set_target_properties(imread
+add_library(subjectivec OBJECT ${srcs} ${hdrs})
+set_target_properties(subjectivec
+    PROPERTIES LIBRARY_OUTPUT_NAME "subjective-c")
+set_target_properties(subjectivec
     PROPERTIES LINK_FLAGS ${COMMON_LINK_FLAGS})
-add_dependencies(imread "project_header")
-add_dependencies(imread "guid")
-add_dependencies(imread "imagecompression")
-add_dependencies(imread "interpol")
-add_dependencies(imread "AFNetworking")
-add_dependencies(imread "libbf")
-add_dependencies(imread "MABlockClosure")
-add_dependencies(imread "iod_symbolize")
+add_dependencies(subjectivec "project_header")
+add_dependencies(subjectivec "guid")
+add_dependencies(subjectivec "imagecompression")
+add_dependencies(subjectivec "interpol")
+add_dependencies(subjectivec "AFNetworking")
+add_dependencies(subjectivec "libbf")
+add_dependencies(subjectivec "MABlockClosure")
+add_dependencies(subjectivec "iod_symbolize")
 
 # ... and build shared and static target libraries,
 # based on the `OBJECT` target:
 set_property(
-    TARGET imread
+    TARGET subjectivec
     PROPERTY POSITION_INDEPENDENT_CODE 1)
-add_library(imread_shared SHARED $<TARGET_OBJECTS:imread>)
-add_library(imread_static STATIC $<TARGET_OBJECTS:imread>)
-set_target_properties(imread_shared
-    PROPERTIES LIBRARY_OUTPUT_NAME "imread")
-set_target_properties(imread_static
-    PROPERTIES ARCHIVE_OUTPUT_NAME "imread")
+add_library(subjectivec_shared SHARED $<TARGET_OBJECTS:subjectivec>)
+add_library(subjectivec_static STATIC $<TARGET_OBJECTS:subjectivec>)
+set_target_properties(subjectivec_shared
+    PROPERTIES LIBRARY_OUTPUT_NAME "subjective-c")
+set_target_properties(subjectivec_static
+    PROPERTIES ARCHIVE_OUTPUT_NAME "subjective-c")
 
 # Set and pass on compile-time config variable values:
 get_property(IM_COMPILE_OPTIONS GLOBAL PROPERTY COMPILE_FLAGS)
-get_target_property(IM_INCLUDE_DIRECTORIES imread INCLUDE_DIRECTORIES)
-get_target_property(IM_LINK_LIBRARIES imread LINK_LIBRARIES)
-get_target_property(IM_LINK_FLAGS imread LINK_FLAGS)
+get_target_property(IM_INCLUDE_DIRECTORIES subjectivec INCLUDE_DIRECTORIES)
+get_target_property(IM_LINK_LIBRARIES subjectivec LINK_LIBRARIES)
+get_target_property(IM_LINK_FLAGS subjectivec LINK_FLAGS)
 
-# Configure and generate the compile-time project header file:
+Configure and generate the compile-time project header file:
 set(PROJECT_HEADER
-    "${PROJECT_BINARY_DIR}/libimread/libimread.hpp")
+    "${PROJECT_BINARY_DIR}/subjective-c/subjective-c.hpp")
 configure_file(
-    "${hdrs_dir}/libimread.hpp.in"
+    "${hdrs_dir}/subjective-c.hpp.in"
     ${PROJECT_HEADER})
 add_custom_target("project_header"
     DEPENDS ${PROJECT_HEADER})
@@ -224,7 +224,7 @@ set_source_files_properties(
 # Actually build the library II: electric boogaloo
 # ... these two target_link_libraries() calls set up the actual
 # for-reals building up in all this:
-target_link_libraries(imread_shared
+target_link_libraries(subjectivec_shared
     z png guid libbf
     MABlockClosure
     imagecompression
@@ -237,7 +237,7 @@ target_link_libraries(imread_shared
     ${HDF5_LIBRARIES}
     ${HDF5_HL_LIBRARIES})
 
-target_link_libraries(imread_static
+target_link_libraries(subjectivec_static
     z png guid libbf
     MABlockClosure
     imagecompression
@@ -259,7 +259,7 @@ endif(IM_APPS)
 if(IM_TESTS)
     
     # Bring in the tests subdirectory --
-    # ... this defines add_imread_test(), see below:
+    # ... this defines add_subjectivec_test(), see below:
     add_subdirectory(${TEST_SOURCE_DIR})
     
     # add_custom_command(
@@ -271,7 +271,7 @@ if(IM_TESTS)
     #     PROPERTIES GENERATED TRUE)
     # set_target_properties("test_data_plist"
     #     PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${APPS_DIR}/TestDataViewer/TestDataViewer/TestData.plist)
-    # add_dependencies("test_data_plist" imread)
+    # add_dependencies("test_data_plist" subjectivec)
     
     # Generate the test data header, if necessary:
     add_custom_command(
@@ -283,28 +283,28 @@ if(IM_TESTS)
         ${TEST_INCLUDE_DIR}/test_data.hpp
         PROPERTIES GENERATED TRUE)
     
-    # Set up the `imread_tests` dependencies
-    set(imread_tests "test_${PROJECT_NAME}")
-    add_executable(imread_tests ${TEST_SOURCES})
-    set_target_properties(imread_tests
+    # Set up the `subjectivec_tests` dependencies
+    set(subjectivec_tests "test_${PROJECT_NAME}")
+    add_executable(subjectivec_tests ${TEST_SOURCES})
+    set_target_properties(subjectivec_tests
         PROPERTIES LINK_FLAGS ${COMMON_LINK_FLAGS})
-    add_dependencies("test_data_header" imread)
-    add_dependencies(imread_tests "project_header")
-    add_dependencies(imread_tests "test_data_header")
-    add_dependencies(imread_tests "iod_symbolize")
-    add_dependencies(imread_tests "guid")
-    add_dependencies(imread_tests "imagecompression")
-    add_dependencies(imread_tests "interpol")
-    add_dependencies(imread_tests "libbf")
-    add_dependencies(imread_tests "MABlockClosure")
-    add_dependencies(imread_tests "AFNetworking")
-    add_dependencies(imread_tests "sszip")
-    add_dependencies(imread_tests "imread")
+    add_dependencies("test_data_header" subjectivec)
+    add_dependencies(subjectivec_tests "project_header")
+    add_dependencies(subjectivec_tests "test_data_header")
+    add_dependencies(subjectivec_tests "iod_symbolize")
+    add_dependencies(subjectivec_tests "guid")
+    add_dependencies(subjectivec_tests "imagecompression")
+    add_dependencies(subjectivec_tests "interpol")
+    add_dependencies(subjectivec_tests "libbf")
+    add_dependencies(subjectivec_tests "MABlockClosure")
+    add_dependencies(subjectivec_tests "AFNetworking")
+    add_dependencies(subjectivec_tests "sszip")
+    add_dependencies(subjectivec_tests "subjectivec")
     link_directories(${CMAKE_BINARY_DIR})
     
-    # Link the `imread_tests` executable
-    target_link_libraries(imread_tests
-        imread_shared sszip
+    # Link the `subjectivec_tests` executable
+    target_link_libraries(subjectivec_tests
+        subjectivec_shared sszip
         AFNetworking
         MABlockClosure
         imagecompression
@@ -323,43 +323,43 @@ if(IM_TESTS)
     include(CTest)
     
     # Set up individual test suites --
-    # … the add_imread_test() macro is defined in tests/CMakeLists.txt:
-    add_imread_test("appkit-copy-paste")
-    add_imread_test("apple-io")
-    add_imread_test("blockhash")
-    add_imread_test("byte-source-gzio")
-    add_imread_test("byte-source-iterators")
-    add_imread_test("filesystem")
-    add_imread_test("gif-write")
-    add_imread_test("halide-io")
-    add_imread_test("hdf5-io")
-    add_imread_test("imageformat-options")
-    add_imread_test("imageview")
-    add_imread_test("json-block-traverse")
-    add_imread_test("libguid")
-    add_imread_test("nsdictionary-options-map")
-    add_imread_test("nsurl-image-types")
-    add_imread_test("objc-rt")
-    # add_imread_test("refcount")
-    add_imread_test("sfinae")
-    add_imread_test("libsszip")
-    add_imread_test("terminator")
-    add_imread_test("interleaved-io")
+    # … the add_subjectivec_test() macro is defined in tests/CMakeLists.txt:
+    add_subjectivec_test("appkit-copy-paste")
+    add_subjectivec_test("apple-io")
+    add_subjectivec_test("blockhash")
+    add_subjectivec_test("byte-source-gzio")
+    add_subjectivec_test("byte-source-iterators")
+    add_subjectivec_test("filesystem")
+    add_subjectivec_test("gif-write")
+    add_subjectivec_test("halide-io")
+    add_subjectivec_test("hdf5-io")
+    add_subjectivec_test("imageformat-options")
+    add_subjectivec_test("imageview")
+    add_subjectivec_test("json-block-traverse")
+    add_subjectivec_test("libguid")
+    add_subjectivec_test("nsdictionary-options-map")
+    add_subjectivec_test("nsurl-image-types")
+    add_subjectivec_test("objc-rt")
+    # add_subjectivec_test("refcount")
+    add_subjectivec_test("sfinae")
+    add_subjectivec_test("libsszip")
+    add_subjectivec_test("terminator")
+    add_subjectivec_test("interleaved-io")
     
 endif(IM_TESTS)
 
 # Install the built libraries and header files, as appropriate:
-install(TARGETS imread_shared DESTINATION lib)
-install(TARGETS imread_static DESTINATION lib)
-install(DIRECTORY ${PROJECT_BINARY_DIR}/libimread/ DESTINATION include/libimread
-  FILES_MATCHING PATTERN "libimread.hpp")
-install(DIRECTORY include/libimread/private/ DESTINATION include/libimread/private
+install(TARGETS subjectivec_shared DESTINATION lib)
+install(TARGETS subjectivec_static DESTINATION lib)
+# install(DIRECTORY ${PROJECT_BINARY_DIR}/subjectivec/ DESTINATION include/subjectivec
+#   FILES_MATCHING PATTERN "subjectivec.hpp")
+# install(DIRECTORY include/subjectivec/private/ DESTINATION include/subjectivec/private
+#   FILES_MATCHING PATTERN "*.h")
+install(DIRECTORY include/subjective-c/ DESTINATION include/subjective-c
   FILES_MATCHING PATTERN "*.h")
-install(DIRECTORY include/libimread/ DESTINATION include/libimread
-  FILES_MATCHING PATTERN "*.h")
-install(DIRECTORY include/libimread/ DESTINATION include/libimread
+install(DIRECTORY include/subjective-c/ DESTINATION include/subjective-c
   FILES_MATCHING PATTERN "*.hh")
-install(DIRECTORY include/libimread/ DESTINATION include/libimread
+install(DIRECTORY include/subjective-c/ DESTINATION include/subjective-c
   FILES_MATCHING PATTERN "*.hpp")
-install(DIRECTORY cmake/ DESTINATION share/libimread
-  FILES_MATCHING PATTERN "*libimreadConfig.cmake")
+install(DIRECTORY cmake/ DESTINATION share/subjective-c
+  FILES_MATCHING PATTERN "*subjectivecConfig.cmake")

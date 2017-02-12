@@ -159,7 +159,7 @@ const char USAGE[] = R"(Paste image data to imgur.com or to a file
 
 )";
 
-const std::string VERSION = "impaste " + im::config::version;
+const std::string VERSION = "subjective-c impaste " + objc::config::version;
 
 int main(int argc, const char** argv) {
     using value_t = docopt::value;

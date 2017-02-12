@@ -1,17 +1,17 @@
 # Author: Alexander Böhn (with Félix C. Morency)
 # © 2011.10 -- GPL, Motherfuckers
 cmake_minimum_required(VERSION 3.1)
-project(libimread-config)
+project(subjectivec-config)
 
-set(libimread-config_VERSION_MAJOR "0")
-set(libimread-config_VERSION_MINOR "1")
-set(libimread-config_VERSION_PATCH "0")
+set(subjectivec-config_VERSION_MAJOR "0")
+set(subjectivec-config_VERSION_MINOR "1")
+set(subjectivec-config_VERSION_PATCH "0")
 
 find_path(LIBDOCOPT_INCLUDE_DIR NAMES docopt.h
                                 PATHS ${DOCOPT_DIR})
 
 include_directories(
-    ${libimread_include_dir}
+    ${subjectivec_include_dir}
     ${LIBDOCOPT_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -24,13 +24,13 @@ add_definitions(
 
 set(EXTRA_LIBS
     ${EXTRA_LIBS}
-    imread_shared
+    subjectivec_shared
     docopt)
 
-set(hdrs "libimread-config.h")
+set(hdrs "subjectivec-config.h")
 set(srcs "main.cpp")
-add_executable("imread-config" ${srcs} ${hdrs})
-target_link_libraries("imread-config" ${EXTRA_LIBS})
-add_dependencies("imread-config" imread)
-add_dependencies("imread-config" docopt)
-install(TARGETS "imread-config" DESTINATION bin)
+add_executable("subjectivec-config" ${srcs} ${hdrs})
+target_link_libraries("subjectivec-config" ${EXTRA_LIBS})
+add_dependencies("subjectivec-config" imread)
+add_dependencies("subjectivec-config" docopt)
+install(TARGETS "subjectivec-config" DESTINATION bin)

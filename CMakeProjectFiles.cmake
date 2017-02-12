@@ -182,7 +182,6 @@ set(hdrs
     ${hdrs_dir}/options.hh
     ${hdrs_dir}/palette.hh
     ${hdrs_dir}/pixels.hh
-    ${hdrs_dir}/preview.hh
     ${hdrs_dir}/rehash.hh
     ${hdrs_dir}/seekable.hh
     ${hdrs_dir}/symbols.hh
@@ -190,16 +189,6 @@ set(hdrs
     ${hdrs_dir}/traits.hh
 )
 
-set(preview_src ${srcs_dir}/plat/preview.cpp)
-if(WINDOWS)
-    set(preview_src ${srcs_dir}/plat/preview_windows.cpp)
-endif(WINDOWS)
-if(LINUX)
-    set(preview_src ${srcs_dir}/plat/preview_linux.cpp)
-endif(LINUX)
-if(APPLE)
-    set(preview_src ${srcs_dir}/plat/preview_mac.mm)
-endif(APPLE)
 
 # Project source files
 set(srcs
@@ -282,7 +271,6 @@ set(srcs
     # ${srcs_dir}/pixels.cpp
     ${srcs_dir}/seekable.cpp
     # ${srcs_dir}/symbols.cpp
-    ${preview_src}
 )
 
 # set common link flags

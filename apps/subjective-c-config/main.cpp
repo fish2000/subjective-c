@@ -2,20 +2,20 @@
 #include <map>
 #include <string>
 #include <iostream>
-#include "libimread-config.h"
+#include "subjective-c-config.h"
 #include "docopt.h"
 
-static const char USAGE[] = R"(Configuration for libimread
+static const char USAGE[] = R"(Configuration for subjective-c
 
     Usage:
-      libimread-config (--prefix          |
-                        --exec-prefix     |
-                        --includes        |
-                        --libs            |
-                        --cflags          |
-                        --ldflags)
-      libimread-config (-h | --help)
-      libimread-config --version
+      subjective-c-config (--prefix          |
+                           --exec-prefix     |
+                           --includes        |
+                           --libs            |
+                           --cflags          |
+                           --ldflags)
+      subjective-c-config (-h | --help)
+      subjective-c-config --version
     
     Options:
       --prefix        Show install prefix e.g. /usr/local.
@@ -31,7 +31,7 @@ static const char USAGE[] = R"(Configuration for libimread
 
 )";
 
-const std::string VERSION = "libimread-config ";
+const std::string VERSION = "subjective-c-config ";
 
 int main(int argc, const char** argv) {
     using value_t = docopt::value;
@@ -41,7 +41,7 @@ int main(int argc, const char** argv) {
     optmap_t args;
     optmap_t raw_args = docopt::docopt(USAGE, { argv + 1, argv + argc },
                                        true, /// show help
-                                       VERSION + im::config::version);
+                                       VERSION + objc::config::version);
     
     /// filter out all docopt parse artifacts,
     /// leaving only things beginning with "--"
@@ -57,22 +57,22 @@ int main(int argc, const char** argv) {
     for (auto const& arg : args) {
         if (arg.second == truth) {
             if (arg.first == "--prefix") {
-                std::cout << im::config::prefix << std::endl;
+                std::cout << objc::config::prefix << std::endl;
                 break;
             } else if (arg.first == "--exec-prefix") {
-                std::cout << im::config::exec_prefix << std::endl;
+                std::cout << objc::config::exec_prefix << std::endl;
                 break;
             } else if (arg.first == "--includes") {
-                std::cout << im::config::includes << std::endl;
+                std::cout << objc::config::includes << std::endl;
                 break;
             } else if (arg.first == "--libs") {
-                std::cout << im::config::libs << std::endl;
+                std::cout << objc::config::libs << std::endl;
                 break;
             } else if (arg.first == "--cflags") {
-                std::cout << im::config::cflags << std::endl;
+                std::cout << objc::config::cflags << std::endl;
                 break;
             } else if (arg.first == "--ldflags") {
-                std::cout << im::config::ldflags << std::endl;
+                std::cout << objc:config::ldflags << std::endl;
                 break;
             }
         }

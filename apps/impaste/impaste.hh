@@ -66,11 +66,11 @@ namespace objc {
 }
 
 
-namespace im {
+namespace objc {
     
     namespace config {
         
-        const std::string version = IM_VERSION;
+        const std::string version = OBJC_VERSION;
         
     };
     

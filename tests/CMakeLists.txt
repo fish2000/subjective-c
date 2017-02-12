@@ -29,9 +29,9 @@ set(TEST_SOURCES ${TEST_SOURCES}
     # ${CMAKE_CURRENT_LIST_DIR}/test_Zinterleaved_io.cpp
     PARENT_SCOPE)
 
-macro(add_imread_test test_name)
+macro(add_subjectivec_test test_name)
     add_test(
         NAME "${test_name}"
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        COMMAND ./build/imread_tests "*${test_name}*" --durations yes --abortx 10)
+        COMMAND ./build/subjectivec_tests "*${test_name}*" --durations yes --abortx 10)
 endmacro()

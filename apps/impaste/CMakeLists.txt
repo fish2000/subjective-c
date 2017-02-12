@@ -42,12 +42,13 @@ set(EXTRA_LIBS
     ${COCOA_LIBRARY}
     ${FOUNDATION_LIBRARY}
     ${COREFOUNDATION_LIBRARY}
-    imread_shared docopt)
+    subjectivec_shared docopt)
 
 set(hdrs "impaste.hh")
 set(srcs "impaste.mm")
 add_executable("impaste" ${srcs} ${hdrs})
 target_link_libraries("impaste" ${EXTRA_LIBS})
 add_dependencies("impaste" imread)
+add_dependencies("impaste" subjectivec)
 add_dependencies("impaste" docopt)
 install(TARGETS "impaste" DESTINATION bin)
