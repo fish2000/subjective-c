@@ -46,6 +46,19 @@ namespace objc {
         #endif
     }
     
+    /// bridge-transfer cast --
+    /// kind of a NOOp in MRC-mode
+    /// (which currently we don't do ARC anyway)
+    template <typename T, typename U>
+    __attribute__((__always_inline__))
+    T bridgetransfer(U castee) {
+        #if __has_feature(objc_arc)
+            return (__bridge_transfer T)castee;
+        #else
+            return (T)castee;
+        #endif
+    }
+    
     /// block type alias --
     /// because `objc::block<T> thing`
     /// looks better than `__block T thing` IN MY HUMBLE OPINION
