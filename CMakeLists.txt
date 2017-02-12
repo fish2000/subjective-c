@@ -328,7 +328,7 @@ if(OBJC_TESTS)
     
     # Set up individual test suites --
     # … the add_subjectivec_test() macro is defined in tests/CMakeLists.txt:
-    # add_subjectivec_test("appkit-copy-paste")
+    add_subjectivec_test("appkit-copy-paste")
     # add_subjectivec_test("apple-io")
     # add_subjectivec_test("blockhash")
     # add_subjectivec_test("byte-source-gzio")
