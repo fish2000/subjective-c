@@ -3,7 +3,7 @@
 #include <memory>
 #include <unordered_map>
 
-#include <subjective-c/subjective-c.hh>
+#include <subjective-c/subjective-c.hpp>
 #include <subjective-c/appkit.hh>
 
 #include <libimread/libimread.hpp>

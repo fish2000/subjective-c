@@ -7,16 +7,16 @@ cmake_minimum_required(VERSION 3.3)
 # Set a new CMake project
 project(subjective-c)
 
-option(IM_TESTS             "Compile and run tests"                             ON)
-option(IM_APPS              "Compile and run companion apps"                    ON)
-option(IM_USE_GCC           "Compile using GCC"                                 OFF)
-option(IM_RESYMBOLIZE       "Regenerate include/subjective-c/symbols.hpp"       OFF)
-option(IM_GENERATE_HEADER   "Only generate subjective-c.hpp (do not compile)"   OFF)
-option(IM_COLOR_TRACE       "Use ANSI color in debug and error trace output"    ON)
-option(IM_VERBOSE           "Print (highly nerd-oriented) verbose debug output" ON)
-option(IM_TERMINATOR        "Use a libunwind-based termination handler"         ON)
+option(OBJC_TESTS             "Compile and run tests"                             ON)
+option(OBJC_APPS              "Compile and run companion apps"                    ON)
+option(OBJC_USE_GCC           "Compile using GCC"                                 OFF)
+option(OBJC_RESYMBOLIZE       "Regenerate include/subjective-c/symbols.hpp"       OFF)
+option(OBJC_GENERATE_HEADER   "Only generate subjective-c.hpp (do not compile)"   OFF)
+option(OBJC_COLOR_TRACE       "Use ANSI color in debug and error trace output"    ON)
+option(OBJC_VERBOSE           "Print (highly nerd-oriented) verbose debug output" ON)
+option(OBJC_TERMINATOR        "Use a libunwind-based termination handler"         ON)
 
-if(IM_USE_GCC)
+if(OBJC_USE_GCC)
     # hardcode homebrew path for now
     set(CMAKE_C_COMPILER    "/usr/local/opt/gcc/bin/gcc-5")
     set(CMAKE_CXX_COMPILER  "/usr/local/opt/gcc/bin/g++-5")
@@ -29,7 +29,7 @@ endif()
 #     set(CMAKE_CXX_STANDARD 17)
 # endif()
 
-if(IM_RESYMBOLIZE)
+if(OBJC_RESYMBOLIZE)
     execute_process(
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/subjective-c/"
         COMMAND "rm symbols.hpp"
@@ -106,20 +106,20 @@ SET(SG14_DIR "${DEPS_DIR}/SG14")
 SET(SSZIP_DIR "${DEPS_DIR}/SSZipArchive")
 
 # Set variables for directories for the individual apps:
-SET(LIBIMREAD_CONFIG_DIR "${APPS_DIR}/subjective-c-config")
+SET(SUBJECTIVE_C_CONFIG_DIR "${APPS_DIR}/subjective-c-config")
 SET(IMPASTE_DIR "${APPS_DIR}/impaste")
 
 # Add DEPS_DIR as a subdirectory ...
 add_subdirectory(${DEPS_DIR})
 
 # ... but exclude the IOD test directory from being built:
-set_property(DIRECTORY ${IOD_TEST_DIR}
-             PROPERTY EXCLUDE_FROM_ALL TRUE)
-set_property(DIRECTORY ${IOD_TEST_DIR}
-             PROPERTY TEST)
+# set_property(DIRECTORY ${IOD_TEST_DIR}
+#              PROPERTY EXCLUDE_FROM_ALL TRUE)
+# set_property(DIRECTORY ${IOD_TEST_DIR}
+#              PROPERTY TEST)
 
 # Add HALOGEN_DIR -- set up Halide generators:
-add_subdirectory(${HALOGEN_DIR})
+# add_subdirectory(${HALOGEN_DIR})
 
 # Load the project configuration file. CMake will search in the directory setted
 # above for a module file named subjectivecConfig.cmake. The configuration
@@ -146,16 +146,16 @@ include_directories("${CMAKE_BINARY_DIR}/../include")
 include_directories("${CMAKE_BINARY_DIR}")
 
 # Include the `deps` library `include` directories:
-include_directories("${CROSSGUID_DIR}")
-include_directories("${DOCOPT_DIR}")
-include_directories("${IMAGECOMPRESSION_DIR}")
-include_directories("${INTERPOL_DIR}")
-include_directories("${AFNETWORKING_DIR}")
-include_directories("${LIBBF_DIR}")
-include_directories("${MABLOCKCLOSURE_DIR}")
-include_directories("${IOD_DIR}")
-include_directories("${SG14_DIR}")
-include_directories("${SSZIP_DIR}")
+# include_directories("${CROSSGUID_DIR}")
+# include_directories("${DOCOPT_DIR}")
+# include_directories("${IMAGECOMPRESSION_DIR}")
+# include_directories("${INTERPOL_DIR}")
+# include_directories("${AFNETWORKING_DIR}")
+# include_directories("${LIBBF_DIR}")
+# include_directories("${MABLOCKCLOSURE_DIR}")
+# include_directories("${IOD_DIR}")
+# include_directories("${SG14_DIR}")
+# include_directories("${SSZIP_DIR}")
 
 # Ugh
 link_directories(/usr/lib)
@@ -177,43 +177,43 @@ include_directories(
 include(CMakeProjectFiles.cmake)
 
 # Actually build the library: set up an `OBJECT` target ...
-add_library(subjectivec OBJECT ${srcs} ${hdrs})
-set_target_properties(subjectivec
+add_library(subjective-c OBJECT ${srcs} ${hdrs})
+set_target_properties(subjective-c
     PROPERTIES LIBRARY_OUTPUT_NAME "subjective-c")
-set_target_properties(subjectivec
+set_target_properties(subjective-c
     PROPERTIES LINK_FLAGS ${COMMON_LINK_FLAGS})
-add_dependencies(subjectivec "project_header")
-add_dependencies(subjectivec "guid")
-add_dependencies(subjectivec "imagecompression")
-add_dependencies(subjectivec "interpol")
-add_dependencies(subjectivec "AFNetworking")
-add_dependencies(subjectivec "libbf")
-add_dependencies(subjectivec "MABlockClosure")
-add_dependencies(subjectivec "iod_symbolize")
+add_dependencies(subjective-c "project_header")
+# add_dependencies(subjective-c "guid")
+# add_dependencies(subjective-c "imagecompression")
+# add_dependencies(subjective-c "interpol")
+# add_dependencies(subjective-c "AFNetworking")
+# add_dependencies(subjective-c "libbf")
+# add_dependencies(subjective-c "MABlockClosure")
+# add_dependencies(subjective-c "iod_symbolize")
 
 # ... and build shared and static target libraries,
 # based on the `OBJECT` target:
 set_property(
-    TARGET subjectivec
+    TARGET subjective-c
     PROPERTY POSITION_INDEPENDENT_CODE 1)
-add_library(subjectivec_shared SHARED $<TARGET_OBJECTS:subjectivec>)
-add_library(subjectivec_static STATIC $<TARGET_OBJECTS:subjectivec>)
-set_target_properties(subjectivec_shared
+add_library(subjective-c_shared SHARED $<TARGET_OBJECTS:subjective-c>)
+add_library(subjective-c_static STATIC $<TARGET_OBJECTS:subjective-c>)
+set_target_properties(subjective-c_shared
     PROPERTIES LIBRARY_OUTPUT_NAME "subjective-c")
-set_target_properties(subjectivec_static
+set_target_properties(subjective-c_static
     PROPERTIES ARCHIVE_OUTPUT_NAME "subjective-c")
 
 # Set and pass on compile-time config variable values:
-get_property(IM_COMPILE_OPTIONS GLOBAL PROPERTY COMPILE_FLAGS)
-get_target_property(IM_INCLUDE_DIRECTORIES subjectivec INCLUDE_DIRECTORIES)
-get_target_property(IM_LINK_LIBRARIES subjectivec LINK_LIBRARIES)
-get_target_property(IM_LINK_FLAGS subjectivec LINK_FLAGS)
+get_property(OBJC_COMPILE_OPTIONS GLOBAL PROPERTY COMPILE_FLAGS)
+get_target_property(OBJC_INCLUDE_DIRECTORIES subjective-c INCLUDE_DIRECTORIES)
+get_target_property(OBJC_LINK_LIBRARIES subjective-c LINK_LIBRARIES)
+get_target_property(OBJC_LINK_FLAGS subjective-c LINK_FLAGS)
 
-Configure and generate the compile-time project header file:
+# Configure and generate the compile-time project header file:
 set(PROJECT_HEADER
     "${PROJECT_BINARY_DIR}/subjective-c/subjective-c.hpp")
 configure_file(
-    "${hdrs_dir}/subjective-c.hpp.in"
+    "${hdrs_dir}/subjective-c/subjective-c.hpp.in"
     ${PROJECT_HEADER})
 add_custom_target("project_header"
     DEPENDS ${PROJECT_HEADER})
@@ -224,11 +224,12 @@ set_source_files_properties(
 # Actually build the library II: electric boogaloo
 # ... these two target_link_libraries() calls set up the actual
 # for-reals building up in all this:
-target_link_libraries(subjectivec_shared
-    z png guid libbf
-    MABlockClosure
-    imagecompression
-    interpol
+target_link_libraries(subjective-c_shared
+    z png imread
+    # guid libbf
+    # MABlockClosure
+    # imagecompression
+    # interpol
     ${EXTRA_LIBS}
     ${TIFF_LIBRARIES}
     ${JPEG_LIBRARIES}
@@ -237,11 +238,12 @@ target_link_libraries(subjectivec_shared
     ${HDF5_LIBRARIES}
     ${HDF5_HL_LIBRARIES})
 
-target_link_libraries(subjectivec_static
-    z png guid libbf
-    MABlockClosure
-    imagecompression
-    interpol
+target_link_libraries(subjective-c_static
+    z png imread
+    # guid libbf
+    # MABlockClosure
+    # imagecompression
+    # interpol
     ${EXTRA_LIBS}
     ${TIFF_LIBRARIES}
     ${JPEG_LIBRARIES}
@@ -251,12 +253,12 @@ target_link_libraries(subjectivec_static
     ${HDF5_HL_LIBRARIES})
 
 # Add the apps subdirectory, if we're building apps:
-if(IM_APPS)
+if(OBJC_APPS)
     add_subdirectory(${APPS_DIR})
-endif(IM_APPS)
+endif(OBJC_APPS)
 
 # Build the tests, if we're building tests:
-if(IM_TESTS)
+if(OBJC_TESTS)
     
     # Bring in the tests subdirectory --
     # ... this defines add_subjectivec_test(), see below:
@@ -283,33 +285,35 @@ if(IM_TESTS)
         ${TEST_INCLUDE_DIR}/test_data.hpp
         PROPERTIES GENERATED TRUE)
     
-    # Set up the `subjectivec_tests` dependencies
-    set(subjectivec_tests "test_${PROJECT_NAME}")
-    add_executable(subjectivec_tests ${TEST_SOURCES})
-    set_target_properties(subjectivec_tests
+    # Set up the `subjective-c_tests` dependencies
+    set(subjective-c_tests "test_${PROJECT_NAME}")
+    add_executable(subjective-c_tests ${TEST_SOURCES})
+    set_target_properties(subjective-c_tests
         PROPERTIES LINK_FLAGS ${COMMON_LINK_FLAGS})
-    add_dependencies("test_data_header" subjectivec)
-    add_dependencies(subjectivec_tests "project_header")
-    add_dependencies(subjectivec_tests "test_data_header")
-    add_dependencies(subjectivec_tests "iod_symbolize")
-    add_dependencies(subjectivec_tests "guid")
-    add_dependencies(subjectivec_tests "imagecompression")
-    add_dependencies(subjectivec_tests "interpol")
-    add_dependencies(subjectivec_tests "libbf")
-    add_dependencies(subjectivec_tests "MABlockClosure")
-    add_dependencies(subjectivec_tests "AFNetworking")
-    add_dependencies(subjectivec_tests "sszip")
-    add_dependencies(subjectivec_tests "subjectivec")
+    add_dependencies("test_data_header" subjective-c)
+    add_dependencies(subjective-c_tests "project_header")
+    add_dependencies(subjective-c_tests "test_data_header")
+    # add_dependencies(subjective-c_tests "iod_symbolize")
+    # add_dependencies(subjective-c_tests "guid")
+    # add_dependencies(subjective-c_tests "imagecompression")
+    # add_dependencies(subjective-c_tests "interpol")
+    # add_dependencies(subjective-c_tests "libbf")
+    # add_dependencies(subjective-c_tests "MABlockClosure")
+    # add_dependencies(subjective-c_tests "AFNetworking")
+    # add_dependencies(subjective-c_tests "sszip")
+    # add_dependencies(subjective-c_tests "subjectivec")
     link_directories(${CMAKE_BINARY_DIR})
     
     # Link the `subjectivec_tests` executable
-    target_link_libraries(subjectivec_tests
-        subjectivec_shared sszip
-        AFNetworking
-        MABlockClosure
-        imagecompression
-        interpol
-        libbf guid png z
+    target_link_libraries(subjective-c_tests
+        subjective-c_shared
+        # sszip
+        # AFNetworking
+        # MABlockClosure
+        # imagecompression
+        # interpol
+        # libbf guid
+        png z
         ${EXTRA_LIBS}
         ${TIFF_LIBRARIES}
         ${JPEG_LIBRARIES}
@@ -346,15 +350,15 @@ if(IM_TESTS)
     add_subjectivec_test("terminator")
     add_subjectivec_test("interleaved-io")
     
-endif(IM_TESTS)
+endif(OBJC_TESTS)
 
 # Install the built libraries and header files, as appropriate:
-install(TARGETS subjectivec_shared DESTINATION lib)
-install(TARGETS subjectivec_static DESTINATION lib)
-# install(DIRECTORY ${PROJECT_BINARY_DIR}/subjectivec/ DESTINATION include/subjectivec
-#   FILES_MATCHING PATTERN "subjectivec.hpp")
-# install(DIRECTORY include/subjectivec/private/ DESTINATION include/subjectivec/private
-#   FILES_MATCHING PATTERN "*.h")
+install(TARGETS subjective-c_shared DESTINATION lib)
+install(TARGETS subjective-c_static DESTINATION lib)
+install(DIRECTORY ${PROJECT_BINARY_DIR}/subjective-c/ DESTINATION include/subjective-c
+  FILES_MATCHING PATTERN "subjective-c.hpp")
+install(DIRECTORY include/subjective-c/private/ DESTINATION include/subjective-c/private
+  FILES_MATCHING PATTERN "*.h")
 install(DIRECTORY include/subjective-c/ DESTINATION include/subjective-c
   FILES_MATCHING PATTERN "*.h")
 install(DIRECTORY include/subjective-c/ DESTINATION include/subjective-c
@@ -362,4 +366,4 @@ install(DIRECTORY include/subjective-c/ DESTINATION include/subjective-c
 install(DIRECTORY include/subjective-c/ DESTINATION include/subjective-c
   FILES_MATCHING PATTERN "*.hpp")
 install(DIRECTORY cmake/ DESTINATION share/subjective-c
-  FILES_MATCHING PATTERN "*subjectivecConfig.cmake")
+  FILES_MATCHING PATTERN "*subjective-c-config.cmake")

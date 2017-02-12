@@ -5,7 +5,7 @@
 
 #include <libimread/libimread.hpp>
 #include <libimread/errors.hh>
-#include <subjective-c/subjective-c.hh>
+#include <subjective-c/subjective-c.hpp>
 #include <libimread/ext/filesystem/temporary.h>
 
 #include "include/catch.hpp"

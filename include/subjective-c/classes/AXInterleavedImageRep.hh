@@ -7,7 +7,7 @@
 #include <libimread/color.hh>
 #include <libimread/interleaved.hh>
 
-#import <libimread/ext/classes/AXCoreGraphicsImageRep.h>
+#import <subjective-c/classes/AXCoreGraphicsImageRep.h>
 #import <Foundation/Foundation.h>
 #import <AppKit/NSGraphics.h>
 #import <AppKit/NSGraphicsContext.h>

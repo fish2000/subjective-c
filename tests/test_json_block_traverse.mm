@@ -6,7 +6,7 @@
 #include <libimread/libimread.hpp>
 #include <libimread/ext/JSON/json11.h>
 #include <libimread/errors.hh>
-#include <subjective-c/subjective-c.hh>
+#include <subjective-c/subjective-c.hpp>
 
 #include "include/catch.hpp"
 

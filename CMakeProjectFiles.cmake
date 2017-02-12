@@ -2,8 +2,8 @@
 # © 2011.10 -- GPL, Motherfuckers
 
 # To keep the file list clean
-set(hdrs_dir ${${PROJECT_NAME}_include_dir}/..)
-set(srcs_dir ${CMAKE_CURRENT_SOURCE_DIR}/)
+set(hdrs_dir ${${PROJECT_NAME}_include_dir})
+set(srcs_dir ${CMAKE_CURRENT_SOURCE_DIR})
 
 SET(COMMON_LINK_FLAGS
     -m64 -mmacosx-version-min=10.9
@@ -87,19 +87,19 @@ SEPARATE_ARGUMENTS(IO_EXTRA_OPTIONS)
 # Project header files
 set(hdrs
 
-    ${hdrs_dir}/categories/NSBitmapImageRep+IM.hh
-    ${hdrs_dir}/categories/NSColor+IM.hh
-    ${hdrs_dir}/categories/NSData+IM.hh
-    ${hdrs_dir}/categories/NSDictionary+IM.hh
-    ${hdrs_dir}/categories/NSImage+CGImage.h
-    ${hdrs_dir}/categories/NSImage+QuickLook.h
-    ${hdrs_dir}/categories/NSImage+Resize.h
-    ${hdrs_dir}/categories/NSImage+ResizeBestFit.h
-    ${hdrs_dir}/categories/NSString+STL.hh
-    ${hdrs_dir}/categories/NSURL+IM.hh
+    ${hdrs_dir}/subjective-c/categories/NSBitmapImageRep+IM.hh
+    ${hdrs_dir}/subjective-c/categories/NSColor+IM.hh
+    ${hdrs_dir}/subjective-c/categories/NSData+IM.hh
+    ${hdrs_dir}/subjective-c/categories/NSDictionary+IM.hh
+    # ${hdrs_dir}/subjective-c/categories/NSImage+CGImage.h
+    ${hdrs_dir}/subjective-c/categories/NSImage+QuickLook.h
+    # ${hdrs_dir}/subjective-c/categories/NSImage+Resize.h
+    # ${hdrs_dir}/subjective-c/categories/NSImage+ResizeBestFit.h
+    ${hdrs_dir}/subjective-c/categories/NSString+STL.hh
+    ${hdrs_dir}/subjective-c/categories/NSURL+IM.hh
 
-    ${hdrs_dir}/classes/AXCoreGraphicsImageRep.h
-    ${hdrs_dir}/classes/AXInterleavedImageRep.hh
+    ${hdrs_dir}/subjective-c/classes/AXCoreGraphicsImageRep.h
+    ${hdrs_dir}/subjective-c/classes/AXInterleavedImageRep.hh
 
     ${hdrs_dir}/subjective-c/types.hh
     ${hdrs_dir}/subjective-c/selector.hh
@@ -109,6 +109,7 @@ set(hdrs
     ${hdrs_dir}/subjective-c/message.hh
     ${hdrs_dir}/subjective-c/namespace-std.hh
     ${hdrs_dir}/subjective-c/namespace-im.hh
+    ${hdrs_dir}/subjective-c/subjective-c.hh
     ${hdrs_dir}/subjective-c/appkit.hh
     ${hdrs_dir}/subjective-c/rehash.hh
 
@@ -117,19 +118,19 @@ set(hdrs
 # Project source files
 set(srcs
 
-    ${srcs_dir}/categories/categories/NSBitmapImageRep+IM.mm
-    ${srcs_dir}/categories/categories/NSColor+IM.mm
-    ${srcs_dir}/categories/categories/NSData+IM.mm
-    ${srcs_dir}/categories/categories/NSDictionary+IM.mm
-    ${srcs_dir}/categories/categories/NSImage+CGImage.m
-    ${srcs_dir}/categories/categories/NSImage+QuickLook.m
-    ${srcs_dir}/categories/categories/NSImage+Resize.m
-    ${srcs_dir}/categories/categories/NSImage+ResizeBestFit.m
-    ${srcs_dir}/categories/categories/NSString+STL.mm
-    ${srcs_dir}/categories/categories/NSURL+IM.mm
+    ${srcs_dir}/categories/NSBitmapImageRep+IM.mm
+    ${srcs_dir}/categories/NSColor+IM.mm
+    ${srcs_dir}/categories/NSData+IM.mm
+    ${srcs_dir}/categories/NSDictionary+IM.mm
+    # ${srcs_dir}/categories/NSImage+CGImage.m
+    ${srcs_dir}/categories/NSImage+QuickLook.m
+    # ${srcs_dir}/categories/NSImage+Resize.m
+    # ${srcs_dir}/categories/NSImage+ResizeBestFit.m
+    ${srcs_dir}/categories/NSString+STL.mm
+    ${srcs_dir}/categories/NSURL+IM.mm
 
-    ${srcs_dir}/classes/classes/AXCoreGraphicsImageRep.m
-    ${srcs_dir}/classes/classes/AXInterleavedImageRep.mm
+    ${srcs_dir}/classes/AXCoreGraphicsImageRep.m
+    ${srcs_dir}/classes/AXInterleavedImageRep.mm
 
     ${srcs_dir}/src/namespace-std.mm
     ${srcs_dir}/src/selector.mm

@@ -21,10 +21,10 @@ pushd $PROJECT_PATH
     pushd ./build
         cmake .. \
             -DCMAKE_INSTALL_PREFIX="${PROJECT_PATH}/dist" \
-            -DIM_APPS=$APPS \
-            -DIM_COLOR_TRACE=$COLOR_TRACE \
-            -DIM_VERBOSE=$VERBOSE \
-            -DIM_TERMINATOR=$TERMINATOR \
+            -DOBJC_APPS=$APPS \
+            -DOBJC_COLOR_TRACE=$COLOR_TRACE \
+            -DOBJC_VERBOSE=$VERBOSE \
+            -DOBJC_TERMINATOR=$TERMINATOR \
             -Wno-dev && \
         make -j$PROCESSORS install && \
         ctest -j$PROCESSORS -D Experimental --output-on-failure

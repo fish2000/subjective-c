@@ -2,7 +2,7 @@
 #include <libimread/libimread.hpp>
 #include <libimread/errors.hh>
 
-#include <subjective-c/subjective-c.hh>
+#include <subjective-c/subjective-c.hpp>
 
 #import "IMTestReceiver.h"
 

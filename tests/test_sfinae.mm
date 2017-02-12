@@ -5,7 +5,7 @@
 #include <libimread/image.hh>
 #include <libimread/interleaved.hh>
 #include <libimread/base.hh>
-#include <subjective-c/subjective-c.hh>
+#include <subjective-c/subjective-c.hpp>
 
 #include <libimread/IO/png.hh>
 #include <libimread/IO/jpeg.hh>

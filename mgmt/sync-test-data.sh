@@ -13,12 +13,12 @@ EXTERNAL_PATH="/Users/fish/Pictures/libimread-test-data"
 : ${VERBOSE:="ON"}
 
 pushd ${EXTERNAL_PATH}/..
-    rm -rf libimread-test-data && \
-    mkdir libimread-test-data
+    rm -rf subjective-c-test-data && \
+    mkdir subjective-c-test-data
 popd
 
 pushd $PROJECT_PATH
-    mcp "tests/data/*.*" "~/Pictures/libimread-test-data/#1.#2"
+    mcp "tests/data/*.*" "~/Pictures/subjective-c-test-data/#1.#2"
 popd
 
 echo "*** EXTERNAL SYNC COMPLETE"

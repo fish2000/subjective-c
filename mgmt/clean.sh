@@ -10,7 +10,7 @@ PROJECT_PATH="/Users/fish/Dropbox/subjective-c"
 
 pushd $PROJECT_PATH &> /dev/null
     #rm -f ./tests/data/include/test_data.hpp
-    #rm -f ./include/libimread/symbols.hpp
+    #rm -f ./include/subjective-c/symbols.hpp
     rm -rf ./build ./dist
 
 popd &> /dev/null

@@ -5,9 +5,9 @@
 set(source_dir src)
 
 # Set the library name and include directory
-set(lib_name subjectivec)
+set(lib_name subjective-c)
 set(${lib_name}_FOUND TRUE)
-set(${lib_name}_include_dir ${CMAKE_SOURCE_DIR}/include/subjective-c)
+set(${lib_name}_include_dir ${CMAKE_SOURCE_DIR}/include)
 
 # Indicate that we have 'found' the library as a package
 include(FindPackageHandleStandardArgs)
