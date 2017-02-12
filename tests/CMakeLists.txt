@@ -33,5 +33,5 @@ macro(add_subjectivec_test test_name)
     add_test(
         NAME "${test_name}"
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        COMMAND ./build/subjectivec_tests "*${test_name}*" --durations yes --abortx 10)
+        COMMAND ./build/subjective-c_tests "*${test_name}*" --durations yes --abortx 10)
 endmacro()
