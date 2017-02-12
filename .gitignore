@@ -4,6 +4,8 @@
 /python/build/
 /python/imread.egg-info/
 /Testing/
+.DS_Store
+.ds_store
 *.dylib
 *.a
 *.so
