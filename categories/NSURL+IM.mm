@@ -1,7 +1,8 @@
 /// Copyright 2014 Alexander Böhn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
-#include <libimread/libimread.hpp>
+// #include <libimread/libimread.hpp>
+#include <subjective-c/subjective-c.hpp>
 #include <subjective-c/categories/NSURL+IM.hh>
 #include <subjective-c/categories/NSString+STL.hh>
 #include <subjective-c/types.hh>

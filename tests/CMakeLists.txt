@@ -19,8 +19,8 @@ set(TEST_SOURCES ${TEST_SOURCES}
     # ${CMAKE_CURRENT_LIST_DIR}/test_imageview.cpp
     # ${CMAKE_CURRENT_LIST_DIR}/test_json_block_traverse.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_libguid.mm
-    # ${CMAKE_CURRENT_LIST_DIR}/test_nsdictionary_options_map.mm
-    # ${CMAKE_CURRENT_LIST_DIR}/test_nsurl_image_types.mm
+    ${CMAKE_CURRENT_LIST_DIR}/test_nsdictionary_options_map.mm
+    ${CMAKE_CURRENT_LIST_DIR}/test_nsurl_image_types.mm
     ${CMAKE_CURRENT_LIST_DIR}/test_objc_rt.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_refcount.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_sfinae.mm

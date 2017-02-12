@@ -11,8 +11,9 @@
 #endif /// __OBJC__
 
 #include <string>
+#include <subjective-c/subjective-c.hpp>
 #include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
+// #include <libimread/errors.hh>
 #include <libimread/ext/filesystem/path.h>
 
 static constexpr NSBitmapImageFileType AXPVRFileType = static_cast<NSBitmapImageFileType>(444);
@@ -28,7 +29,7 @@ namespace objc {
         template <>                                                                     \
         struct suffix_t<nstype> {                                                       \
             using NSImageType = NSBitmapImageFileType;                                  \
-            static constexpr std::size_t N = im::static_strlen(endstring);              \
+            static constexpr std::size_t N = objc::static_strlen(endstring);            \
             static constexpr char const str[N] = endstring;                             \
             static constexpr NSImageType type = nstype;                                 \
         };
