@@ -2,11 +2,11 @@
 /// License: MIT (see COPYING.MIT file)
 
 #include <string>
-#include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
 #include <subjective-c/categories/NSData+IM.hh>
 #include <subjective-c/categories/NSString+STL.hh>
 #include <subjective-c/categories/NSDictionary+IM.hh>
+#include <libimread/errors.hh>
+#include <libimread/options.hh>
 
 using im::options_map;
 

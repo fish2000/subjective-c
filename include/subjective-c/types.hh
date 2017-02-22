@@ -7,12 +7,9 @@
 #include <cstdlib>
 #include <utility>
 #include <type_traits>
-
-#ifdef __APPLE__
-#import <Foundation/Foundation.h>
-#import <objc/message.h>
-#import <objc/runtime.h>
-#endif /// __APPLE__
+#import  <Foundation/Foundation.h>
+#import  <objc/message.h>
+#import  <objc/runtime.h>
 
 namespace objc {
     

@@ -4,16 +4,11 @@
 #ifndef LIBIMREAD_EXT_CATEGORIES_NSDATA_PLUS_IM_HH_
 #define LIBIMREAD_EXT_CATEGORIES_NSDATA_PLUS_IM_HH_
 
-#include <memory>
-#include <vector>
+#include <subjective-c/subjective-c.hpp>
 #import  <Foundation/Foundation.h>
-#import  <Cocoa/Cocoa.h>
-#include <libimread/libimread.hpp>
 #include <libimread/seekable.hh>
 
 namespace objc {
-    
-    using im::byte;
     
     class datasource : public im::byte_source {
         
@@ -29,7 +24,7 @@ namespace objc {
             virtual std::size_t seek_relative(int delta);
             virtual std::size_t seek_end(int delta);
             
-            virtual std::vector<byte> full_data();
+            virtual bytevec_t full_data();
             virtual std::size_t size() const;
             
             virtual void* readmap(std::size_t pageoffset = 0) const;
@@ -53,7 +48,7 @@ namespace objc {
             virtual std::size_t seek_end(int delta);
             
             virtual std::size_t write(const void* buffer, std::size_t n);
-            virtual std::vector<byte> contents();
+            virtual bytevec_t contents();
             
         private:
             NSMutableData* data;
@@ -63,19 +58,20 @@ namespace objc {
 
 }
 
-using im::byte;
+using objc::byte;
+using objc::bytevec_t;
 using im::byte_source;
 using im::byte_sink;
 using objc::datasource;
 using objc::datasink;
 
 @interface NSData (AXDataAdditions)
-+ (instancetype)        dataWithByteVector:(std::vector<byte> const&)byteVector;
++ (instancetype)        dataWithByteVector:(bytevec_t const&)byteVector;
 + (instancetype)        dataWithSTLString:(std::string const&)string;
 + (instancetype)        dataWithByteSource:(byte_source*)byteSource;
 + (instancetype)        dataWithByteSource:(byte_source*)byteSource
                                     length:(NSUInteger)bytes;
--                       initWithByteVector:(std::vector<byte> const&)byteVector;
+-                       initWithByteVector:(bytevec_t const&)byteVector;
 -                       initWithSTLString:(std::string const&)string;
 -                       initWithByteSource:(byte_source*)byteSource;
 -                       initWithByteSource:(byte_source*)byteSource

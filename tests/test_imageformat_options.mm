@@ -1,10 +1,9 @@
 
 #include <string>
-#include <vector>
 #include <numeric>
 #include <algorithm>
 
-#include <libimread/libimread.hpp>
+#include <subjective-c/subjective-c.hpp>
 #include <libimread/errors.hh>
 #include <libimread/imageformat.hh>
 #include <libimread/options.hh>
@@ -15,10 +14,10 @@
 
 namespace {
     
-    using im::byte;
+    using objc::byte;
+    using objc::bytevec_t;
     using im::ImageFormat;
     using im::options_map;
-    using bytevec_t = std::vector<byte>;
     using stringvec_t = std::vector<std::string>;
     
     

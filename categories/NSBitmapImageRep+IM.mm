@@ -2,17 +2,12 @@
 /// License: MIT (see COPYING.MIT file)
 
 #include <cstring>
-#include <libimread/libimread.hpp>
 #include <subjective-c/categories/NSBitmapImageRep+IM.hh>
-#include <subjective-c/types.hh>
-
-using im::byte;
-using im::Image;
-using im::ImageFactory;
+#include <libimread/image.hh>
 
 @implementation NSBitmapImageRep (AXBitmapImageRepAdditions)
 
-+ (instancetype) imageRepWithByteVector:(std::vector<byte> const&)byteVector {
++ (instancetype) imageRepWithByteVector:(bytevec_t const&)byteVector {
     NSData* datum = [[NSData alloc] initWithBytes:(const void*)&byteVector[0]
                                            length:(NSInteger)byteVector.size()];
     return [[NSBitmapImageRep alloc] initWithData:datum];
@@ -22,7 +17,7 @@ using im::ImageFactory;
     return [[NSBitmapImageRep alloc] initWithImage:image];
 }
 
-- initWithByteVector:(std::vector<byte> const&)byteVector {
+- initWithByteVector:(bytevec_t const&)byteVector {
     NSData* datum = [[NSData alloc] initWithBytes:(const void*)&byteVector[0]
                                            length:(NSInteger)byteVector.size()];
     return [self initWithData:datum];

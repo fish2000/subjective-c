@@ -6,11 +6,10 @@
 
 #include <libimread/color.hh>
 #include <libimread/interleaved.hh>
-
-#import <subjective-c/classes/AXCoreGraphicsImageRep.h>
-#import <Foundation/Foundation.h>
-#import <AppKit/NSGraphics.h>
-#import <AppKit/NSGraphicsContext.h>
+#import  <subjective-c/classes/AXCoreGraphicsImageRep.h>
+#import  <Foundation/Foundation.h>
+#import  <AppKit/NSGraphics.h>
+#import  <AppKit/NSGraphicsContext.h>
 
 using im::color::RGB;
 using im::color::RGBA;

@@ -4,13 +4,9 @@
 #include <algorithm>
 #include <unordered_map>
 
-#include <libimread/libimread.hpp>
+#include <subjective-c/subjective-c.hpp>
 #include <subjective-c/categories/NSURL+IM.hh>
 #include <libimread/ext/filesystem/path.h>
-
-// #include <libimread/ext/filesystem/directory.h>
-// #include <libimread/ext/filesystem/resolver.h>
-// #include <libimread/ext/filesystem/temporary.h>
 
 #include "include/test_data.hpp"
 #include "include/catch.hpp"
@@ -18,10 +14,6 @@
 namespace {
     
     using filesystem::path;
-    // using filesystem::switchdir;
-    // using filesystem::resolver;
-    // using filesystem::NamedTemporaryFile;
-    // using filesystem::TemporaryDirectory;
     using NSTYPE = NSBitmapImageFileType;
     
     std::array<NSTYPE, 7> types = {
@@ -45,7 +37,7 @@ namespace {
         std::transform(types.begin(), types.end(),
                        suffixes.begin(),
                        std::inserter(typemap, typemap.begin()),
-                       [](NSTYPE type, std::string const& sufx) {
+                    [](NSTYPE type, std::string const& sufx) {
             CHECK(type == objc::image::filetype(sufx));
             CHECK(sufx == objc::image::suffix(type));
             return std::make_pair(type, sufx);
@@ -63,8 +55,9 @@ namespace {
         
         @autoreleasepool {
             
-            std::for_each(files.begin(), files.end(),
-                          [&](path const& p) {
+            std::for_each(files.begin(),
+                          files.end(),
+                      [&](path const& p) {
                 if (!p.is_file()) { return; }
                 NSURL* urlpath = [NSURL fileURLWithFilesystemPath:p];
                 CHECK([urlpath isImage] == YES);

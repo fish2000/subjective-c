@@ -1,5 +1,5 @@
 
-#include <libimread/libimread.hpp>
+#include <subjective-c/subjective-c.hpp>
 #include <libimread/coregraphics.hh>
 #include <libimread/interleaved.hh>
 #include <libimread/ext/filesystem/path.h>

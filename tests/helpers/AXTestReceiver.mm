@@ -1,28 +1,25 @@
 
-#include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
-
 #include <subjective-c/subjective-c.hpp>
+#include <libimread/errors.hh>
+#import  "AXTestReceiver.h"
 
-#import "IMTestReceiver.h"
-
-@implementation IMTestReceiver
+@implementation AXTestReceiver
 
 + (void) callStatic {
     WTF("WTF output from within function:",     ansi::lightcyan,
-        "[IMTestReceiver callStatic]",          ansi::reset,
+        "[AXTestReceiver callStatic]",          ansi::reset,
         "... dogg.");
 }
 
 + (void) callStaticWithInt:(int)arg {
     WTF("WTF output from within function:",                 ansi::lightcyan,
-        FF("[IMTestReceiver callStaticWithInt:%i]", arg),   ansi::reset,
+        FF("[AXTestReceiver callStaticWithInt:%i]", arg),   ansi::reset,
         "... dogg.");
 }
 
 + (void) callStaticWithInt:(int)arg andObjCString:(NSString*)anotherArg {
     WTF("WTF output from within function:",                 ansi::lightcyan,
-        FF("[IMTestReceiver callStaticWithInt:(%i)", arg),  ansi::reset,
+        FF("[AXTestReceiver callStaticWithInt:(%i)", arg),  ansi::reset,
         FF("                    andObjCString:(%s)]",       [anotherArg UTF8String]),
            "... dogg.");
 }
@@ -41,8 +38,8 @@
     return self;
 }
 
-- (instancetype) callMethodWithInt:(int)arg andObjCString:(NSString *)anotherArg {
-    const char *str = "nil";
+- (instancetype) callMethodWithInt:(int)arg andObjCString:(NSString*)anotherArg {
+    const char* str = "nil";
     if (anotherArg != nil) { str = [anotherArg UTF8String]; }
     WTF("WTF output from within method:",                 ansi::lightcyan,
         FF("[imtsInstance callMethodWithInt:(%i)\n                          andObjCString:(%s)]",
@@ -51,9 +48,9 @@
     return self;
 }
 
-- (instancetype) callMethodWithInt:(int)arg andVoidPointer:(void *)anotherVoidArg {
-    const char *str = "nil";
-    NSString *anotherArg = objc::bridge<NSString*>(anotherVoidArg);
+- (instancetype) callMethodWithInt:(int)arg andVoidPointer:(void*)anotherVoidArg {
+    const char* str = "nil";
+    NSString* anotherArg = objc::bridge<NSString*>(anotherVoidArg);
     if (anotherArg != nil) { str = [anotherArg UTF8String]; }
     WTF("WTF output from within method:",                 ansi::lightcyan,
         FF("[imtsInstance callMethodWithInt:(%i)\n                          andVoidPointer:(%s)]",

@@ -1,7 +1,7 @@
 
 #include <string>
 #include <iostream>
-#import <BlockClosure.h>
+#import  <BlockClosure.h>
 
 #include <libimread/libimread.hpp>
 #include <libimread/ext/JSON/json11.h>
@@ -26,7 +26,7 @@ namespace {
         __block int idx = 0;
         
         id block = ^(void* node) {
-            FORSURE(FF("[%i] %s node found: ", idx, ((Node *)node)->typestr()));
+            FORSURE(FF("[%i] %s node found: ", idx, ((Node*)node)->typestr()));
             std::cerr << "\t\t";
             ((Node *)node)->print(std::cerr);
             std::cerr << std::endl << std::endl;

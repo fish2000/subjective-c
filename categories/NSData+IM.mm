@@ -52,8 +52,8 @@ namespace objc {
         return pos = (data.length-delta-1);
     }
     
-    std::vector<byte> datasource::full_data() {
-        std::vector<byte> out(data.length);
+    bytevec_t datasource::full_data() {
+        bytevec_t out(data.length);
         std::memcpy(&out[0], (byte*)data.bytes, out.size());
         return out;
     }
@@ -111,23 +111,17 @@ namespace objc {
         return n;
     }
     
-    std::vector<byte> datasink::contents() {
-        std::vector<byte> out(data.length);
+    bytevec_t datasink::contents() {
+        bytevec_t out(data.length);
         std::memcpy(&out[0], (byte*)data.bytes, out.size());
         return out;
     }
 
 }
 
-using im::byte;
-using im::byte_source;
-using im::byte_sink;
-using objc::datasource;
-using objc::datasink;
-
 @implementation NSData (AXDataAdditions)
 
-+ (instancetype) dataWithByteVector:(std::vector<byte> const&)byteVector {
++ (instancetype) dataWithByteVector:(bytevec_t const&)byteVector {
     return [[NSData alloc] initWithBytes:(const void*)&byteVector[0]
                                   length:(NSInteger)byteVector.size()];
 }
@@ -151,7 +145,7 @@ using objc::datasink;
                                   length:(NSInteger)bytes];
 }
 
-- initWithByteVector:(std::vector<byte> const&)byteVector {
+- initWithByteVector:(bytevec_t const&)byteVector {
     return [self initWithBytes:(const void*)&byteVector[0]
                         length:(NSInteger)byteVector.size()];
 }

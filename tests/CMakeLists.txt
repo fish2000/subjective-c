@@ -4,7 +4,7 @@
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
 
 set(TEST_SOURCES ${TEST_SOURCES}
-    ${CMAKE_CURRENT_LIST_DIR}/helpers/IMTestReceiver.m
+    ${CMAKE_CURRENT_LIST_DIR}/helpers/AXTestReceiver.mm
     ${CMAKE_CURRENT_LIST_DIR}/main.cpp
     ${CMAKE_CURRENT_LIST_DIR}/test_appkit_copy_paste.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_apple_io.mm

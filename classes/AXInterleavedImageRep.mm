@@ -2,13 +2,7 @@
 /// License: MIT (see COPYING.MIT file)
 
 #include <subjective-c/classes/AXInterleavedImageRep.hh>
-#include <subjective-c/types.hh>
-
-#ifdef __OBJC__
-#import <Foundation/Foundation.h>
-#import <AppKit/NSGraphics.h>
-#import <AppKit/NSGraphicsContext.h>
-
+#include <subjective-c/subjective-c.hpp>
 
 template <>
 __attribute__((cf_returns_not_retained))
@@ -82,7 +76,7 @@ CGImageRef CGImageFromInterleaved<Monochrome>(
 @implementation AXInterleavedImageRep : AXCoreGraphicsImageRep
 
 + (void) initialize {
-    OBJC_INITIALIZE;
+    OBJC_INITIALIZE(super);
     [self registerImageRepClass:self];
 }
 
@@ -105,8 +99,7 @@ CGImageRef CGImageFromInterleaved<Monochrome>(
         interleaved,
         CGColorSpaceCreateDeviceRGB());
     
-    NSString* space = objc::bridge<NSString*>(
-        kCGColorSpaceGenericRGB);
+    NSString* space = objc::bridge<NSString*>(kCGColorSpaceGenericRGB);
     
     return [self initWithImageRef:imageref
                    colorSpaceName:space];
@@ -141,8 +134,6 @@ CGImageRef CGImageFromInterleaved<Monochrome>(
 }
 
 @end
-
-#endif /// __OBJC__
 
 // /// Init and dealloc
 // - initWithImageRef:(CGImageRef)myImage colorSpaceName:(NSString *)space {

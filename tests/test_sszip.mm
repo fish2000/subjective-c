@@ -16,8 +16,8 @@ namespace {
         @autoreleasepool {
             filesystem::TemporaryDirectory td("test-libsszip");
             filesystem::path zpth = td.dirpath/"test-directory.zip";
-            NSString *zipPath = [NSString stringWithSTLString:zpth.str()];
-            NSString *dirPath = @"/Users/fish/Dropbox/libimread/tests/data";
+            NSString* zipPath = [NSString stringWithSTLString:zpth.str()];
+            NSString* dirPath = @"/Users/fish/Dropbox/libimread/tests/data";
             BOOL created = [SSZipArchive createZipFileAtPath:zipPath
                                      withContentsOfDirectory:dirPath];
             REQUIRE(created == YES);

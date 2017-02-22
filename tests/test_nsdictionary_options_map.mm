@@ -1,13 +1,7 @@
 
-#include <string>
-#import  <Foundation/Foundation.h>
-
-#include <libimread/libimread.hpp>
-#include <libimread/options.hh>
-
 #import  <subjective-c/categories/NSString+STL.hh>
 #import  <subjective-c/categories/NSDictionary+IM.hh>
-
+#include <libimread/options.hh>
 #include "include/catch.hpp"
 
 namespace {

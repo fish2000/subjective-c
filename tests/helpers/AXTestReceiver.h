@@ -1,11 +1,11 @@
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 typedef struct struct_return {
     int value;
 } StructReturn;
 
-@interface IMTestReceiver : NSObject {}
+@interface AXTestReceiver : NSObject {}
 
 + (void)            callStatic;
 + (void)            callStaticWithInt:(int)arg;

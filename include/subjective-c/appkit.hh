@@ -4,10 +4,7 @@
 #ifndef SUBJECTIVE_C_APPKIT_HH
 #define SUBJECTIVE_C_APPKIT_HH
 
-#ifdef __APPLE__
-#import <AppKit/AppKit.h>
-#endif /// __APPLE__
-
+#import  <AppKit/AppKit.h>
 #include "types.hh"
 #include "traits.hh"
 

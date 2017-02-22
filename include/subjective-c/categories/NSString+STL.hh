@@ -5,9 +5,7 @@
 #define LIBIMREAD_EXT_CATEGORIES_NSSTRING_PLUS_STL_HH_
 
 #include <string>
-#include <libimread/libimread.hpp>
 #import  <Foundation/Foundation.h>
-#import  <Cocoa/Cocoa.h>
 
 #ifndef FUNC_NAME_WTF
 #define FUNC_NAME_WTF(stuff) CFStringConvertEncodingToNSStringEncoding(stuff)

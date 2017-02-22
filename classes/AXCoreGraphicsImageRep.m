@@ -8,13 +8,11 @@
 // distributed with this project and can also be found at
 // <http://www.omnigroup.com/developer/sourcecode/sourcelicense/>.
 
-#import <subjective-c/classes/AXCoreGraphicsImageRep.h>
-
-#ifdef __OBJC__
-#import <Foundation/Foundation.h>
-#import <AppKit/NSGraphics.h>
-#import <AppKit/NSGraphicsContext.h>
-#endif /// __OBJC__
+#include <subjective-c/subjective-c.hpp>
+#import  <subjective-c/classes/AXCoreGraphicsImageRep.h>
+#import  <Foundation/Foundation.h>
+#import  <AppKit/NSGraphics.h>
+#import  <AppKit/NSGraphicsContext.h>
 
 inline CGRect CGRectWithRect(NSRect rect) {
     CGRect out;
@@ -34,12 +32,10 @@ inline CGRect CGRectWithPointAndSize(NSPoint point, NSInteger width, NSInteger h
     return out;
 }
 
-#ifdef __OBJC__
-
 @implementation AXCoreGraphicsImageRep : NSImageRep
 
 + (void) initialize {
-    OBJC_INITIALIZE;
+    OBJC_INITIALIZE(super);
     [self registerImageRepClass:self];
 }
 
@@ -164,5 +160,3 @@ inline CGRect CGRectWithPointAndSize(NSPoint point, NSInteger width, NSInteger h
 }
 
 @end
-
-#endif /// __OBJC__

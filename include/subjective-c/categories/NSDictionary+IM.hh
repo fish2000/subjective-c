@@ -4,10 +4,12 @@
 #ifndef LIBIMREAD_EXT_CATEGORIES_NSDICTIONARY_PLUS_IM_HH_
 #define LIBIMREAD_EXT_CATEGORIES_NSDICTIONARY_PLUS_IM_HH_
 
+#include <subjective-c/subjective-c.hpp>
 #import  <Foundation/Foundation.h>
-#import  <Cocoa/Cocoa.h>
-#include <libimread/libimread.hpp>
-#include <libimread/options.hh>
+
+namespace im {
+    class options_map;
+}
 
 using im::options_map;
 

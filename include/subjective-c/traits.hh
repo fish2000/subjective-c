@@ -4,13 +4,9 @@
 #ifndef SUBJECTIVE_C_TRAITS_HH
 #define SUBJECTIVE_C_TRAITS_HH
 
-#ifdef __APPLE__
-#import  <CoreFoundation/CoreFoundation.h>
-#import  <Foundation/Foundation.h>
 #import  <Cocoa/Cocoa.h>
 #import  <objc/message.h>
 #import  <objc/runtime.h>
-#endif /// __APPLE__
 #include "types.hh"
 
 namespace objc {

@@ -1,15 +1,11 @@
 
-#include <cstdlib>
 #include <string>
 #include <functional>
-
-#include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
 #include <subjective-c/subjective-c.hpp>
+#include <libimread/errors.hh>
 #include <libimread/ext/filesystem/temporary.h>
-
 #include "include/catch.hpp"
-#import "helpers/IMTestReceiver.h"
+#import  "helpers/AXTestReceiver.h"
 
 namespace {
     
@@ -24,7 +20,7 @@ namespace {
               "[objc-rt-call-instance-method]")
     {
         @autoreleasepool {
-            IMTestReceiver* imts = [[IMTestReceiver alloc] init];
+            AXTestReceiver* imts = [[AXTestReceiver alloc] init];
             objc::msg::send(imts,
                 objc::selector("callMethod"));
         }
@@ -34,7 +30,7 @@ namespace {
               "[objc-rt-call-instance-method-one-arg-integer-value]")
     {
         @autoreleasepool {
-            IMTestReceiver* imts = [[IMTestReceiver alloc] init];
+            AXTestReceiver* imts = [[AXTestReceiver alloc] init];
             objc::msg::send(imts,
                 objc::selector("callMethodWithInt:"), 42);
         }
@@ -43,7 +39,7 @@ namespace {
     TEST_CASE("[objc-rt] Call an instance method with int and NSString arguments via objc::msg::send()",
               "[objc-rt-call-instance-method-multiple-args-int-and-pointer-to-nsstring]")
     {
-        IMTestReceiver* imts = [[IMTestReceiver alloc] init];
+        AXTestReceiver* imts = [[AXTestReceiver alloc] init];
         NSString* stringArg = @"OH SHIT DOGG PARDON MY STRING PASSING";
         [stringArg retain];
         objc::msg::send(imts,
@@ -56,7 +52,7 @@ namespace {
     TEST_CASE("[objc-rt] Call an instance method with int and (__bridge void*)NSString arguments via objc::msg::send()",
               "[objc-rt-call-instance-method-multiple-args-int-and-pointer-to-nsstring]")
     {
-        IMTestReceiver* imts = [[IMTestReceiver alloc] init];
+        AXTestReceiver* imts = [[AXTestReceiver alloc] init];
         NSString* stringArg = @"OH SHIT DOGG PARDON MY STRING PASSING";
         [stringArg retain];
         objc::msg::send(imts,
@@ -70,7 +66,7 @@ namespace {
               "[objc-rt-call-instance-method-return-float]")
     {
         @autoreleasepool {
-            IMTestReceiver* imts = [[IMTestReceiver alloc] init];
+            AXTestReceiver* imts = [[AXTestReceiver alloc] init];
             float out = objc::msg::get<float>(imts,
                 objc::selector("returnFloat"));
             CHECK(out == 3.14159f);
@@ -81,7 +77,7 @@ namespace {
               "[objc-rt-call-instance-method-return-struct]")
     {
         @autoreleasepool {
-            IMTestReceiver* imts = [[IMTestReceiver alloc] init];
+            AXTestReceiver* imts = [[AXTestReceiver alloc] init];
             StructReturn out = objc::msg::get<StructReturn>(imts,
                 objc::selector("returnStruct"));
             CHECK(out.value == 666);
@@ -103,8 +99,8 @@ namespace {
     TEST_CASE("[objc-rt] Test objc::id equality",
               "[objc-rt-test-objc-id-equality]")
     {
-        NSString *st = @"Yo Dogg";
-        NSString *so = @"I Heard You Like Hashed Comparable Objects";
+        NSString* st = @"Yo Dogg";
+        NSString* so = @"I Heard You Like Hashed Comparable Objects";
         objc::id s(st);
         objc::id o(so);
         std::hash<objc::id> id_hasher;
@@ -165,13 +161,13 @@ namespace {
         
         std::string prefix = "file://";
         std::size_t nbytes = 20 * 1024; /// 20480
-        unsigned char randos[20480] = {0};
+        unsigned char randos[20480] = { 0 };
         bool removed = false;
         
         arc4random_buf(static_cast<void*>(randos), nbytes);
         std::string prefixed = prefix + temporary.str();
         
-        datum = [[NSData alloc] initWithBytes:(const void *)&randos[0]
+        datum = [[NSData alloc] initWithBytes:(const void*)&randos[0]
                                        length:(NSInteger)nbytes];
         filepath = [[NSString alloc] initWithUTF8String:temporary.c_str()];
         url = [[NSURL alloc] initWithString:[

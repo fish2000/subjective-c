@@ -4,9 +4,8 @@
 #ifndef LIBIMREAD_EXT_CATEGORIES_NSCOLOR_PLUS_IM_HH_
 #define LIBIMREAD_EXT_CATEGORIES_NSCOLOR_PLUS_IM_HH_
 
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
-#include <libimread/libimread.hpp>
+#include <subjective-c/subjective-c.hpp>
+#import  <Foundation/Foundation.h>
 #include <libimread/color.hh>
 
 using namespace im;

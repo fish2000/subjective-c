@@ -9,15 +9,6 @@
 // <http://www.omnigroup.com/developer/sourcecode/sourcelicense/>.
 
 #import <AppKit/NSImageRep.h>
-#import <ApplicationServices/ApplicationServices.h>
-
-#define OBJC_INITIALIZE                                     \
-    do {                                                    \
-        static BOOL hasBeenInitialized = NO;                \
-        [super initialize];                                 \
-        if (hasBeenInitialized) { return; }                 \
-        hasBeenInitialized = YES;                           \
-    } while (0);
 
 inline CGRect CGRectWithRect(NSRect rect);
 inline CGRect CGRectWithPointAndSize(NSPoint point, NSInteger width, NSInteger height);
@@ -32,4 +23,5 @@ inline CGRect CGRectWithPointAndSize(NSPoint point, NSInteger width, NSInteger h
 - (void) setColorSpaceHolder:(id<NSObject, NSCopying>)anObject;
 - (void) setImage:(CGImageRef)newImage;
 - (void) setColorSpaceName:(NSString*)space;
+
 @end

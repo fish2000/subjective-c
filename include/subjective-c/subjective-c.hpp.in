@@ -7,8 +7,8 @@
 #include <cstdint>
 #include <vector>
 
-#ifndef __has_feature                       /// Optional
-#define __has_feature(x)                0   /// Compatibility with non-clang compilers
+#ifndef __has_feature                         /// Optional
+#define __has_feature(x)                  0   /// Compatibility with non-clang compilers
 #endif
 
 #define OBJC_VERSION_MAJOR                @libimread_VERSION_MAJOR@
@@ -31,6 +31,7 @@ namespace objc {
     /// a human mnemonic perspective.
     
     using byte = uint8_t;
+    using bytevec_t = std::vector<byte>;
     
     /// string length at compile time -- http://stackoverflow.com/a/26082447/298171
     template <std::size_t N> inline
@@ -60,6 +61,15 @@ namespace objc {
 #define warn_unused                __attribute__((__warn_unused_result__))
 
 } /* namespace objc */
+
+#define OBJC_INITIALIZE(target)                             \
+    do {                                                    \
+        static BOOL hasBeenInitialized = NO;                \
+        [target initialize];                                \
+        if (hasBeenInitialized) { return; }                 \
+        hasBeenInitialized = YES;                           \
+    } while (0);
+
 
 #include "subjective-c/subjective-c.hh"
 

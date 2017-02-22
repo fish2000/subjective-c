@@ -4,18 +4,15 @@
 #ifndef LIBIMREAD_EXT_CATEGORIES_NSURL_PLUS_IM_HH_
 #define LIBIMREAD_EXT_CATEGORIES_NSURL_PLUS_IM_HH_
 
-#ifdef __OBJC__
-#import <Foundation/Foundation.h>
-#import <AppKit/AppKit.h>
-#import <Cocoa/Cocoa.h>
-#endif /// __OBJC__
-
 #include <string>
 #include <subjective-c/subjective-c.hpp>
-#include <libimread/libimread.hpp>
-#include <libimread/ext/filesystem/path.h>
+#import  <Foundation/Foundation.h>
 
 static constexpr NSBitmapImageFileType AXPVRFileType = static_cast<NSBitmapImageFileType>(444);
+
+namespace filesystem {
+    class path;
+}
 
 namespace objc {
     
@@ -51,8 +48,6 @@ namespace objc {
     
 };
 
-#ifdef __OBJC__
-
 @interface NSURL (AXURLAdditions)
 + (instancetype)            fileURLWithFilesystemPath:(filesystem::path const&)path;
 -                           initFileURLWithFilesystemPath:(filesystem::path const&)path;
@@ -66,5 +61,4 @@ namespace objc {
 - (std::string)             STLString;
 @end
 
-#endif /// __OBJC__
 #endif /// LIBIMREAD_EXT_CATEGORIES_NSURL_PLUS_IM_HH_
