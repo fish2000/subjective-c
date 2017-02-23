@@ -160,6 +160,9 @@ namespace objc {
                  std::is_pointer<T>::value,
                  bool>> : detail::is_object_pointer<T> {};
         
+        template <typename T>
+        constexpr bool is_object_v = is_object<T>::value;
+        
         // template <typename ...Types, typename V = bool>
         // struct are_objects : std::false_type {};
         // template <typename ...Types>
@@ -177,6 +180,9 @@ namespace objc {
                 std::is_same<T, objc::types::selector>::value,
                 bool>> : std::true_type {};
         
+        template <typename T>
+        constexpr bool is_selector_v = is_selector<T>::value;
+        
         /// test for the objective-c class struct type
         template <typename T, typename V = bool>
         struct is_class : std::false_type {};
@@ -185,6 +191,9 @@ namespace objc {
             typename std::enable_if_t<
                 detail::has_superclass<T>::value,
                 bool>> : std::true_type {};
+        
+        template <typename T>
+        constexpr bool is_class_v = is_class<T>::value;
         
         } /* namespace traits */
     

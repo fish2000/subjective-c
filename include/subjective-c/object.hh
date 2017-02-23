@@ -31,16 +31,13 @@ namespace objc {
     
     template <typename OCType>
     struct object {
+        
         #if !__has_feature(objc_arc)
-            using pointer_t = typename std::decay_t<std::conditional_t<
-                                                    std::is_pointer<OCType>::value, OCType,
-                                                                 std::add_pointer_t<OCType>>> __unsafe_unretained;
+        using pointer_t = objc::ocpointer_t<OCType> __unsafe_unretained;
         #else
-            using pointer_t = typename std::decay_t<std::conditional_t<
-                                                    std::is_pointer<OCType>::value, OCType,
-                                                                 std::add_pointer_t<OCType>>>;
+        using pointer_t = objc::ocpointer_t<OCType>;
         #endif
-        using object_t = typename std::remove_pointer_t<pointer_t>;
+        using object_t = typename objc::octype_t<OCType>;
         
         static_assert(objc::traits::is_object<pointer_t>::value,
                       "objc::object<OCType> requires an Objective-C object type");
