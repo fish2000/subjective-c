@@ -104,6 +104,27 @@ namespace objc {
     template <typename ...Args>
     using object_sender_t = std::add_pointer_t<types::ID(types::ID, types::selector, Args...)>;
     
+    /// Type aliases for forcing either the pointer or the non-pointer typename of
+    /// an Objective-C type. For example:
+    ///
+    /// using T = NSString;             // typename without pointer
+    /// using octype = octype_t<T>;     // octype is “NSString”
+    /// using ocptr = ocpointer_t<T>;   // ocptr is “NSString*”
+    ///
+    /// using U = NSData*;              // typename plus pointer
+    /// using octype = octype_t<U>;     // octype is “NSData”
+    /// using ocptr = ocpointer_t<U>;   // ocptr is “NSData*”
+    
+    template <typename OCType>
+    using ocpointer_t = typename std::decay_t<std::conditional_t<
+                                              std::is_pointer<OCType>::value, OCType,
+                                                           std::add_pointer_t<OCType>>>;
+    
+    template <typename OCType>
+    using octype_t = typename std::decay_t<std::conditional_t<
+                                           std::is_pointer<OCType>::value,
+                                           std::remove_pointer_t<OCType>, OCType>>;
+    
     /// Helpers for Objective-C's highly particular boolean-value
     /// macro typedef'd whatever the fuck type stuff
     /// objc::boolean(bool_value) -> YES or NO
