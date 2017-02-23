@@ -23,6 +23,11 @@ namespace std {
          noexcept(is_nothrow_move_constructible<objc::id>::value &&
                   is_nothrow_move_assignable<objc::id>::value);
     
+    template <>
+    void swap(objc::types::cls& cls0, objc::types::cls& cls1)
+        noexcept(is_nothrow_move_constructible<objc::types::cls>::value
+              && is_nothrow_move_assignable<objc::types::cls>::value);
+    
     /// std::hash specializations for objc::selector and objc::id
     /// ... following the recipe found here:
     ///     http://en.cppreference.com/w/cpp/utility/hash#Examples

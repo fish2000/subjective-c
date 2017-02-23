@@ -111,6 +111,7 @@ set(hdrs
     ${hdrs_dir}/subjective-c/namespace-im.hh
     ${hdrs_dir}/subjective-c/subjective-c.hh
     ${hdrs_dir}/subjective-c/appkit.hh
+    ${hdrs_dir}/subjective-c/demangle.hh
     ${hdrs_dir}/subjective-c/rehash.hh
 
 )
@@ -132,6 +133,7 @@ set(srcs
     ${srcs_dir}/classes/AXCoreGraphicsImageRep.m
     ${srcs_dir}/classes/AXInterleavedImageRep.mm
 
+    ${srcs_dir}/src/demangle.cc
     ${srcs_dir}/src/namespace-std.mm
     ${srcs_dir}/src/selector.mm
     ${srcs_dir}/src/types.mm

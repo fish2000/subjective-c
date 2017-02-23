@@ -17,4 +17,11 @@ namespace std {
         s0.swap(s1);
     }
     
+    template <>
+    void swap(objc::types::cls& cls0, objc::types::cls& cls1)
+        noexcept(is_nothrow_move_constructible<objc::types::cls>::value
+              && is_nothrow_move_assignable<objc::types::cls>::value) {
+        std::swap(cls0, cls1);
+    }
+    
 }
