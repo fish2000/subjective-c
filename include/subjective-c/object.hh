@@ -49,14 +49,12 @@ namespace objc {
             objc::types::cls selfcls;
             
             cls_t()
-                :selfcls(::objc_lookUpClass(runtime::nameof<OCType>()))
+                :selfcls(::objc_lookUpClass(
+                         runtime::nameof<OCType>()))
                 {
                     if (selfcls == nil) {
                         selfcls = [NSObject class];
                     }
-                    // std::cout << "terminator::nameof<OCType>() = "
-                    //           <<  terminator::nameof<OCType>()
-                    //           <<  std::endl;
                 }
             
             template <typename T,
@@ -120,10 +118,6 @@ namespace objc {
                 using objc::swap;
                 swap(lhs.selfcls, rhs.selfcls);
             }
-            
-            // private:
-            //     cls_t(void);
-            
         };
         
         pointer_t self;
@@ -131,17 +125,14 @@ namespace objc {
         
         explicit object(pointer_t ii)
             :self(ii)
-            // ,cls([self class])
             { retain(); }
         
         object(object const& other)
             :self(other.self)
-            // ,cls([self class])
             { retain(); }
         
         object(object&& other) noexcept
             :self(other.self)
-            // ,cls([self class])
             { retain(); }
         
         virtual ~object() { release(); }
