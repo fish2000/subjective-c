@@ -16,7 +16,7 @@ namespace runtime {
         /// define one singular, private, static std::mutex,
         /// to keep the demangler from reentering itself
         /// ... which wow that does sound really dirty, actually
-        static std::mutex mangle_barrier;
+        std::mutex mangle_barrier;
         
         /// define a corresponding private and static std::unique_ptr,
         /// using a delete-expression to reclaim the memory malloc()'ed by

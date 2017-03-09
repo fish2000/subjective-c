@@ -4,6 +4,9 @@
 
 #pragma once
 #include <typeinfo>
+#include <utility>
+
+#define TYPENAME(arg) typeid(arg).name()
 
 namespace runtime {
     
@@ -16,7 +19,7 @@ namespace runtime {
     template <typename NameType>
     char const* nameof() {
         try {
-            return demangle(typeid(NameType).name());
+            return demangle(TYPENAME(NameType));
         } catch (std::bad_typeid const&) {
             return "<unknown>";
         }
@@ -25,12 +28,14 @@ namespace runtime {
     ///  … or as implied by an instance argument:
     ///     char const* myinstancetypename = runtime::nameof(someinstance);
     template <typename ArgType>
-    char const* nameof(ArgType argument) {
+    char const* nameof(ArgType&& argument) {
         try {
-            return demangle(typeid(argument).name());
+            return demangle(TYPENAME(std::forward<ArgType>(argument)));
         } catch (std::bad_typeid const&) {
             return "<unknown>";
         }
     }
     
 } /* namespace runtime */
+
+#undef TYPENAME
