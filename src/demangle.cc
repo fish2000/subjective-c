@@ -38,7 +38,7 @@ namespace runtime {
             abi::__cxa_demangle(symbol,
                                 demangled_name.get(),
                                 nullptr, &status));
-        return ((status == 0) ? demangled_name.release() : symbol);
+        return ((status == 0) ? demangled_name.get() : symbol);
     }
 
 } /* namespace runtime */

@@ -4,12 +4,12 @@ echo "*** TEST RUN COMMENCING"
 
 : ${THISDIR:=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)}
 : ${PRAXONS:="${THISDIR}/praxons"}
-source "${PRAXONS}/anybar.sh"
+# source "${PRAXONS}/anybar.sh"
 source "${PRAXONS}/gmalloc.sh"
 
 PROJECT_PATH="/Users/fish/Dropbox/subjective-c"
 
-: ${APPS:="OFF"}
+: ${APPS:="ON"}
 : ${COLOR_TRACE:="ON"}
 : ${VERBOSE:="ON"}
 : ${TERMINATOR:="ON"}

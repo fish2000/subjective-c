@@ -4,7 +4,7 @@ echo "*** SYNCING TEST PICTURE DATA TO ~/Pictures/libimread-test-data"
 
 : ${THISDIR:=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)}
 : ${PRAXONS:="${THISDIR}/praxons"}
-source "${PRAXONS}/anybar.sh"
+# source "${PRAXONS}/anybar.sh"
 
 PROJECT_PATH="/Users/fish/Dropbox/subjective-c"
 EXTERNAL_PATH="/Users/fish/Pictures/libimread-test-data"

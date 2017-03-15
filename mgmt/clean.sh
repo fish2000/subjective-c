@@ -4,7 +4,7 @@ echo "*** CLEANUP IS NIGH"
 
 : ${THISDIR:=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)}
 : ${PRAXONS:="${THISDIR}/praxons"}
-source "${PRAXONS}/anybar.sh"
+# source "${PRAXONS}/anybar.sh"
 
 PROJECT_PATH="/Users/fish/Dropbox/subjective-c"
 
@@ -18,5 +18,3 @@ popd &> /dev/null
 pushd $TMPDIR
     rm -rf ./test-* ./write-* *.imdata
 popd
-
-anybar blue

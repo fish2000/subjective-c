@@ -5,7 +5,7 @@
 #include "subjective-c-config.h"
 #include "docopt.h"
 
-static const char USAGE[] = R"(Configuration for subjective-c
+static const char USAGE[] = R"([subjective-c-config] Configuration for subjective-c
 
     Usage:
       subjective-c-config (--prefix          |
@@ -31,7 +31,7 @@ static const char USAGE[] = R"(Configuration for subjective-c
 
 )";
 
-const std::string VERSION = "subjective-c-config ";
+const std::string VERSION = "[subjective-c-config]{ subjective-c " + objc::config::version + " }";
 
 int main(int argc, const char** argv) {
     using value_t = docopt::value;
@@ -41,13 +41,14 @@ int main(int argc, const char** argv) {
     optmap_t args;
     optmap_t raw_args = docopt::docopt(USAGE, { argv + 1, argv + argc },
                                        true, /// show help
-                                       VERSION + objc::config::version);
+                                       VERSION);
     
     /// filter out all docopt parse artifacts,
     /// leaving only things beginning with "--"
-    std::copy_if(raw_args.begin(), raw_args.end(),
+    std::copy_if(raw_args.begin(),
+                 raw_args.end(),
                  std::inserter(args, args.begin()),
-                 [](optpair_t const& p) { return p.first.substr(0, 2) == "--"; });
+              [](optpair_t const& p) { return p.first.substr(0, 2) == "--"; });
     
     // for (auto const& arg : args) {
     //     std::cout << arg.first << " --> " << arg.second << std::endl;
@@ -72,7 +73,7 @@ int main(int argc, const char** argv) {
                 std::cout << objc::config::cflags << std::endl;
                 break;
             } else if (arg.first == "--ldflags") {
-                std::cout << objc:config::ldflags << std::endl;
+                std::cout << objc::config::ldflags << std::endl;
                 break;
             }
         }

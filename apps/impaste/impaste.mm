@@ -1,24 +1,33 @@
 
 #include "impaste.hh"
 #include <subjective-c/appkit.hh>
-#include <cstdlib>
-#include <map>
-#include <atomic>
-#include <utility>
-#include <iostream>
 #include <algorithm>
+#include <iostream>
+#include <utility>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <map>
 #include "docopt.h"
 
-/// return value as static global (ugh I know I know)
+/// return-value as static global (ugh I know I know)
 std::atomic<int> return_value{ EXIT_SUCCESS };
+
+/// verbosity-level as static global
+std::atomic<int> verbosity{ 0 };
+
+/// string vector
+using stringvec_t = std::vector<std::string>;
 
 /// App delegate
 @implementation AXAppDelegate
 - (void) applicationWillTerminate:(NSApplication*)application {
     
-    std::cout << "Exiting with status: "
-              << return_value.load()
-              << std::endl;
+    if (verbosity.load() > 0) {
+        std::cout << "[impaste] Exiting with status: "
+                  << return_value.load()
+                  << std::endl << std::endl;
+    }
     
     std::exit(return_value.load());
 }
@@ -40,39 +49,84 @@ std::atomic<int> return_value{ EXIT_SUCCESS };
 @implementation AXCheckThread : AXThread
 - (void) main {
     
-    std::cout << "Checking default NSPasteboard for images ..."
-              << std::endl;
+    if (verbosity.load()) {
+        std::cout << "[impaste] Checking default NSPasteboard for images ..."
+                  << std::endl;
+    }
     
-    BOOL ok = objc::appkit::can_paste<NSImage>();
+    bool ok = objc::to_bool(
+              objc::appkit::can_paste<NSImage>());
     
     if (ok) {
         
-        std::cout << "Pasteboard contains useable image data [go nuts!]"
+        std::cout << "[impaste] Pasteboard contains useable image data [go nuts!]"
                   << std::endl;
-        return_value.store(EXIT_SUCCESS);
+        AXTHREADEXIT(EXIT_SUCCESS);
         
     } else { /// THIS IS NOT TOWARD
         
-        std::cout << "No useable image data found [sorry dogg]"
+        std::cout << "[impaste] No useable image data found [sorry dogg]"
                   << std::endl;
-        return_value.store(EXIT_FAILURE);
+        AXTHREADEXIT(EXIT_FAILURE);
         
     }
     
-    /// exit from thread
-    AXTHREADEXIT();
 }
 @end
 
 @implementation AXDryRunThread : AXThread
 - (void) main {
     
-    std::cerr << "Dry run not implemented yet, exiting"
+    std::cerr << "[impaste] Dry run not implemented yet -- exiting..."
               << std::endl;
-    return_value.store(EXIT_FAILURE);
+    AXTHREADEXIT(EXIT_FAILURE);
+    
+}
+@end
 
-    /// exit from thread
-    AXTHREADEXIT();
+@implementation AXImageCopyThread : AXThread
+- (void) main {
+    
+    NSString* pathstring = self.options[@"path"];
+    NSURL* pathurl = [NSURL fileURLWithPath:pathstring.stringByExpandingTildeInPath];
+    filesystem::path abspath = [pathurl filesystemPath].make_absolute();
+    
+    if (!abspath.is_readable()) {
+        std::cerr << "[impaste][error] No such readable image file exists: "
+                  << [pathstring STLString]         << std::endl
+                  << "\t(" << abspath << ") ..."    << std::endl;
+        AXTHREADEXIT(EXIT_FAILURE);
+    }
+    
+    if (!objc::to_bool([pathurl isImage])) {
+        std::cerr << "[impaste][error] Can't determine input format from filename: "
+                  << abspath.basename()
+                  << std::endl;
+        AXTHREADEXIT(EXIT_FAILURE);
+    }
+    
+    if (verbosity.load()) {
+        std::cout << "[impaste] Copying "
+                  << [[pathurl.pathExtension uppercaseString] STLString]
+                  << " image to pasteboard from "
+                  << abspath.basename()
+                  << " (" << abspath << ") ..."    << std::endl;
+    }
+    
+    NSImage* copyTarget = [[NSImage alloc] initWithContentsOfURL:pathurl];
+    bool copied = objc::to_bool(
+                  objc::appkit::copy(copyTarget));
+    
+    if (copied) {
+        std::cout << "[impaste] Image successfully copied! ("
+                  << std::round(abspath.filesize() / 1024) << "kbytes)"
+                  << std::endl;
+        AXTHREADEXIT(EXIT_SUCCESS);
+    } else {
+        std::cerr << "[impaste][error] Failure when reading image data"
+                  << std::endl;
+        AXTHREADEXIT(EXIT_FAILURE);
+    }
 }
 @end
 
@@ -81,11 +135,10 @@ std::atomic<int> return_value{ EXIT_SUCCESS };
     
     BOOL ok = objc::appkit::can_paste<NSImage>();
     
-    if (!ok) {
-        std::cerr << "[error] No image data was found on the pasteboard"
+    if (!objc::to_bool(ok)) {
+        std::cerr << "[impaste][error] No image data was found on the pasteboard"
                   << std::endl;
-        return_value.store(EXIT_FAILURE);
-        AXTHREADEXIT();
+        AXTHREADEXIT(EXIT_FAILURE);
     }
     
     NSString* pathstring = self.options[@"path"];
@@ -93,20 +146,17 @@ std::atomic<int> return_value{ EXIT_SUCCESS };
     filesystem::path abspath = [pathurl filesystemPath].make_absolute();
     
     if (abspath.exists()) {
-        std::cerr << "[error] File already exists at path: "
-                  << [pathstring STLString]
-                  << " (" << abspath << ")"
-                  << std::endl;
-        return_value.store(EXIT_FAILURE);
-        AXTHREADEXIT();
+        std::cerr << "[impaste][error] File already exists at path: "
+                  << [pathstring STLString]         << std::endl
+                  << "\t(" << abspath << ") ..."    << std::endl;
+        AXTHREADEXIT(EXIT_FAILURE);
     }
     
-    if (![pathurl isImage]) {
-        std::cerr << "[error] Can't determine output format from filename: "
+    if (!objc::to_bool([pathurl isImage])) {
+        std::cerr << "[impaste][error] Can't determine output format from filename: "
                   << abspath.basename()
                   << std::endl;
-        return_value.store(EXIT_FAILURE);
-        AXTHREADEXIT();
+        AXTHREADEXIT(EXIT_FAILURE);
     }
     
     NSImage* pasted = objc::appkit::paste<NSImage>();
@@ -114,52 +164,52 @@ std::atomic<int> return_value{ EXIT_SUCCESS };
     NSData* data = [bitmap representationUsingType:[pathurl imageFileType]
                                         properties:@{}];
     
-    std::cout << "Saving "
-              << [[pathurl.pathExtension uppercaseString] STLString]
-              << " image to path: "
-              << [pathstring STLString]
-              << " (" << abspath << ") ..."
-              << std::endl;
+    if (verbosity.load()) {
+        std::cout << "[impaste] Saving "
+                  << [[pathurl.pathExtension uppercaseString] STLString]
+                  << " image from pasteboard to "
+                  << abspath.basename()
+                  << " (" << abspath << ") ..."    << std::endl;
+    }
     
     BOOL saved = [data writeToURL:pathurl atomically:YES];
     
-    if (saved) {
-        std::cout << "Success!"
+    if (objc::to_bool(saved)) {
+        std::cout << "[impaste] Image successfully saved! ("
+                  << std::round(abspath.filesize() / 1024) << "kbytes)"
                   << std::endl;
-        return_value.store(EXIT_SUCCESS);
+        AXTHREADEXIT(EXIT_SUCCESS);
     } else {
-        std::cerr << "[error] Failure when writing image data"
+        std::cerr << "[impaste][error] Failure when writing image data"
                   << std::endl;
-        return_value.store(EXIT_FAILURE);
+        AXTHREADEXIT(EXIT_FAILURE);
     }
-    
-    AXTHREADEXIT();
 }
 @end
 
 
 /// The docopt help string defines the options available:
-const char USAGE[] = R"(Paste image data to imgur.com or to a file
-
+const char USAGE[] = R"([impaste] Paste image data to imgur.com or to a file
     Usage:
-        impaste       (-c      | --check)           [options]
-        impaste       (-d      | --dry-run)         [options]
-        impaste       (-o FILE | --output=FILE)     [options]
-        impaste       (-h      | --help)
-        impaste                  --version
+        impaste         [-c         | --check       ]
+                        [-d         | --dry-run     ]
+                        [-V         | --verbose     ]
+                        [-i FILE    | --input=FILE  ]
+                        [-o FILE    | --output=FILE ]
+        
+        impaste         -h | --help | -v | --version
     
     Options:
-        -c --check          Check and report on the pasteboard contents.
-        -d --dry-run        Don't actually do anything, but pretend.
-        -o FILE,
-        --output=FILE       Save pasteboard image to a file.
-        -v --verbose        Print more information.
-        -h --help           Show this help screen.
-        --version           Show version.
-
+        -c --check                  Check and report on the pasteboard contents.
+        -d --dry-run                Don't actually do anything, but pretend.
+        -V --verbose                Print more information.
+        -i FILE --input=FILE        Copy an image to the pasteboard.
+        -o FILE --output=FILE       Save pasteboard image to a file.
+        -h --help                   Show this help screen.
+        -v --version                Show version.
 )";
 
-const std::string VERSION = "subjective-c impaste " + objc::config::version;
+const std::string VERSION = "[impaste]{ subjective-c " + objc::config::version + " }";
 
 int main(int argc, const char** argv) {
     using value_t = docopt::value;
@@ -167,34 +217,47 @@ int main(int argc, const char** argv) {
     using optpair_t = std::pair<std::string, value_t>;
     value_t truth(1);
     value_t empty(NULL);
+    // bool verbose = false;
+    bool debug = bool(IMPASTE_DEBUG);
     optmap_t args;
     optmap_t raw_args = docopt::docopt(USAGE, { argv + 1, argv + argc },
                                        true, /// show help
                                        VERSION);
     
-    #if IMPASTE_DEBUG
-        std::cerr << "RAW ARGS:" << std::endl;
+    if (debug) {
+        std::cerr << std::endl
+                  << "[impaste] RAW ARGS:" << std::endl;
         for (optpair_t const& arg : raw_args) {
-            std::cerr << arg.first << " --> " << arg.second << std::endl;
+            std::cerr << "\t" << arg.first  << " --> "
+                              << arg.second << std::endl;
         }
-        std::cerr << std::endl;
-    #endif
+        // std::cerr << std::endl;
+    }
     
     /// filter out all docopt parse artifacts,
     /// leaving only things beginning with "--"
-    std::copy_if(raw_args.begin(), raw_args.end(),
+    std::copy_if(raw_args.begin(),
+                 raw_args.end(),
                  std::inserter(args, args.begin()),
-                 [](optpair_t const& p) { return p.first.substr(0, 2) == "--"; });
+              [](optpair_t const& p) { return p.first.substr(0, 1) == "-"; });
     
-    #if IMPASTE_DEBUG
-        std::cerr << "FILTERED ARGS:" << std::endl;
+    if (debug) {
+        std::cerr << std::endl
+                  << "[impaste] FILTERED ARGS:" << std::endl;
         for (optpair_t const& arg : args) {
-            std::cerr << arg.first << " --> " << arg.second << std::endl;
+            std::cerr << "\t" << arg.first  << " --> "
+                              << arg.second << std::endl;
         }
         std::cerr << std::endl;
-    #endif
+    }
     
     /// print the value for the truthy option flag
+    for (optpair_t const& arg : args) {
+        if (arg.first == "--verbose" || arg.first == "-v") {
+            verbosity.store(arg.second.asLong() + (int)debug);
+            std::cerr << "[impaste] VERBOSITY: " << verbosity.load() << std::endl;
+        }
+    }
     for (optpair_t const& arg : args) {
         if (arg.second == truth) {
             if (arg.first == "--check") {
@@ -208,12 +271,28 @@ int main(int argc, const char** argv) {
             }
         }
         if (arg.second != empty) {
-            if (arg.first == "--output") {
-                /* DO FILE OUTPUT */
-                objc::run_thread<AXImageSaveThread>(@{
-                    @"path" : [NSString stringWithSTLString:arg.second.asString()]
-                });
-                break;
+            std::string path{ NULL_STR };
+            if (arg.second.isString()) {
+                path = arg.second.asString();
+            } else if (arg.second.isStringList()) {
+                stringvec_t stringvec = arg.second.asStringList();
+                if (stringvec.size() > 0) {
+                    path = stringvec.at(0);
+                }
+            }
+            if (path != NULL_STR) {
+                NSDictionary* options = @{
+                    @"path" : [NSString stringWithSTLString:path]
+                };
+                if (arg.first == "--input" || arg.first == "-i") {
+                    /* DO FILE INPUT */
+                    objc::run_thread<AXImageCopyThread>(options);
+                    break;
+                } else if (arg.first == "--output" || arg.first == "-o") {
+                    /* DO FILE OUTPUT */
+                    objc::run_thread<AXImageSaveThread>(options);
+                    break;
+                }
             }
         }
     }

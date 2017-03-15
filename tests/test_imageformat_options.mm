@@ -20,7 +20,6 @@ namespace {
     using im::options_map;
     using stringvec_t = std::vector<std::string>;
     
-    
     TEST_CASE("[imageformat-options] Check registered formats",
               "[imageformat-options-check-registered-formats]")
     {
@@ -43,8 +42,7 @@ namespace {
             return lhs + rhs + (rhs == formats.back() ? "" : ", ");
         });
         
-        WTF("",
-            "REGISTRY:",
+        WTF("REGISTRY:",
             FF("\t contains %i formats:", max = formats.size()),
             FF("\t %s", joined.c_str()));
         
@@ -54,19 +52,14 @@ namespace {
                 auto format_ptr = ImageFormat::named(format);
                 options_map opts = format_ptr->get_options();
                 
-                // WTF("",
-                //     FF("FORMAT: %s", format.c_str()),
-                //     "As JSON:",
-                //     opts.format(), "",
-                //     "As encoded IOD:",
-                //     iod::json_encode(format_ptr->options),
-                //     iod::json_encode(format_ptr->capacity));
+                WTF("", FF("FORMAT: %s", format.c_str()),
+                    "\nAs JSON:\n", opts.format(),
+                    "\nAs encoded IOD:\n",
+                    iod::json_encode(format_ptr->options),
+                    iod::json_encode(format_ptr->capacity));
                 
             ++idx; }
         
-        
     }
-    
-    
     
 };

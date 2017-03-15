@@ -11,16 +11,17 @@
 #define __has_feature(x)                  0   /// Compatibility with non-clang compilers
 #endif
 
-#define OBJC_VERSION_MAJOR                @libimread_VERSION_MAJOR@
-#define OBJC_VERSION_MINOR                @libimread_VERSION_MINOR@
-#define OBJC_VERSION_PATCH                @libimread_VERSION_PATCH@
-#define OBJC_VERSION                      "@libimread_VERSION_MAJOR@.@libimread_VERSION_MINOR@.@libimread_VERSION_PATCH@"
+#define OBJC_VERSION_MAJOR                @subjectivec_VERSION_MAJOR@
+#define OBJC_VERSION_MINOR                @subjectivec_VERSION_MINOR@
+#define OBJC_VERSION_PATCH                @subjectivec_VERSION_PATCH@
+#define OBJC_VERSION                      "@subjectivec_VERSION_MAJOR@.@subjectivec_VERSION_MINOR@.@subjectivec_VERSION_PATCH@"
 
 #define OBJC_INSTALL_PREFIX               "@CMAKE_INSTALL_PREFIX@"
-#define OBJC_COMPILE_OPTIONS              "@IM_COMPILE_OPTIONS@"
-#define OBJC_INCLUDE_DIRECTORIES          "@IM_INCLUDE_DIRECTORIES@"
-#define OBJC_LINK_LIBRARIES               "@IM_LINK_LIBRARIES@"
-#define OBJC_LINK_FLAGS                   "@IM_LINK_FLAGS@"
+#define OBJC_COMPILE_OPTIONS              "@OBJC_COMPILE_OPTIONS@"
+#define OBJC_INCLUDE_DIRECTORIES          "@OBJC_INCLUDE_DIRECTORIES@"
+#define OBJC_LINK_LIBRARIES               "@OBJC_LINK_LIBRARIES@"
+#define OBJC_LINK_FLAGS                   "@OBJC_LINK_FLAGS@"
+#define NULL_STR                          "\uFFFF"
 
 #cmakedefine OBJC_COLOR_TRACE             1
 #cmakedefine OBJC_VERBOSE                 1

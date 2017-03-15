@@ -61,7 +61,7 @@ include(build_config)
 # Include the HalideGenerator.cmake library -- exposing the cmake function
 # halide_add_generator_dependency() allowing Halide generator use in-project.
 include(HalideProject)
-include(HalideGenerator)
+# include(HalideGenerator)
 
 # Include IodSymbolize.cmake from the iod-symbolizer Python tool,
 # exposing the cmake function IOD_SYMBOLIZE()
