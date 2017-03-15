@@ -72,7 +72,7 @@ namespace {
                 NSImage* image = [[NSImage alloc] initWithContentsOfURL:url];
                 BOOL copied = objc::appkit::copy(image);
                 REQUIRE(objc::to_bool(copied));
-                path outputpath = td.dirpath/p+".png";
+                path outputpath = td.dirpath/p;
                 std::string command = fmt::format("impaste {0} {1} {2}",
                                                   "-V", "-o",
                                                   outputpath.str());
