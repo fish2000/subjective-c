@@ -1,13 +1,17 @@
 
 #include "impaste.hh"
 #include <subjective-c/appkit.hh>
+
 #include <algorithm>
 #include <iostream>
-#include <utility>
 #include <cstdlib>
 #include <vector>
 #include <cmath>
 #include <map>
+
+#include <libimread/ext/filesystem/path.h>
+#import  <subjective-c/categories/NSString+STL.hh>
+#import  <subjective-c/categories/NSURL+IM.hh>
 #include "docopt.h"
 
 /// return-value as static global (ugh I know I know)

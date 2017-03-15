@@ -6,16 +6,11 @@
 
 #include <string>
 #include <atomic>
-#include <type_traits>
 #include <subjective-c/subjective-c.hpp>
+
 #import  <Foundation/Foundation.h>
 #import  <AppKit/AppKit.h>
-#import  <subjective-c/categories/NSString+STL.hh>
-#import  <subjective-c/categories/NSURL+IM.hh>
-#import  <subjective-c/categories/NSBitmapImageRep+IM.hh>
 #import  <subjective-c/categories/NSDictionary+IM.hh>
-#import  <subjective-c/categories/NSData+IM.hh>
-#include <libimread/ext/filesystem/path.h>
 
 /// printffery
 #define IMPASTE_DEBUG 0
