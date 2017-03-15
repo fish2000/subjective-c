@@ -13,6 +13,7 @@
 #import  <subjective-c/categories/NSString+STL.hh>
 #import  <subjective-c/categories/NSURL+IM.hh>
 #import  <subjective-c/categories/NSBitmapImageRep+IM.hh>
+#import  <subjective-c/categories/NSDictionary+IM.hh>
 #import  <subjective-c/categories/NSData+IM.hh>
 #include <libimread/ext/filesystem/path.h>
 
@@ -56,6 +57,10 @@ extern std::atomic<int>     verbosity;
 @end
 
 @interface AXImageSaveThread : AXThread {}
+- (void) main;
+@end
+
+@interface AXImageCopyAndSaveThread : AXThread {}
 - (void) main;
 @end
 

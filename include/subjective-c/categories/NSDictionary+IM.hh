@@ -5,11 +5,8 @@
 #define LIBIMREAD_EXT_CATEGORIES_NSDICTIONARY_PLUS_IM_HH_
 
 #include <subjective-c/subjective-c.hpp>
+#include <libimread/options.hh>
 #import  <Foundation/Foundation.h>
-
-namespace im {
-    class options_map;
-}
 
 using im::options_map;
 

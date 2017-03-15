@@ -38,7 +38,7 @@ using stringvec_t = std::vector<std::string>;
 @synthesize options;
 - (instancetype) initWithOptions:(NSDictionary*)optionsDict {
     self = [self init];
-    self.options = [optionsDict copy];
+    self.options = [NSDictionary dictionaryWithDictionary:optionsDict];
     return self;
 }
 @end
@@ -49,7 +49,7 @@ using stringvec_t = std::vector<std::string>;
 @implementation AXCheckThread : AXThread
 - (void) main {
     
-    if (verbosity.load()) {
+    if (verbosity.load() > 0) {
         std::cout << "[impaste] Checking default NSPasteboard for images ..."
                   << std::endl;
     }
@@ -87,7 +87,7 @@ using stringvec_t = std::vector<std::string>;
 @implementation AXImageCopyThread : AXThread
 - (void) main {
     
-    NSString* pathstring = self.options[@"path"];
+    NSString* pathstring = self.options[@"input"];
     NSURL* pathurl = [NSURL fileURLWithPath:pathstring.stringByExpandingTildeInPath];
     filesystem::path abspath = [pathurl filesystemPath].make_absolute();
     
@@ -105,7 +105,7 @@ using stringvec_t = std::vector<std::string>;
         AXTHREADEXIT(EXIT_FAILURE);
     }
     
-    if (verbosity.load()) {
+    if (verbosity.load() > 0) {
         std::cout << "[impaste] Copying "
                   << [[pathurl.pathExtension uppercaseString] STLString]
                   << " image to pasteboard from "
@@ -141,7 +141,7 @@ using stringvec_t = std::vector<std::string>;
         AXTHREADEXIT(EXIT_FAILURE);
     }
     
-    NSString* pathstring = self.options[@"path"];
+    NSString* pathstring = self.options[@"output"];
     NSURL* pathurl = [NSURL fileURLWithPath:pathstring.stringByExpandingTildeInPath];
     filesystem::path abspath = [pathurl filesystemPath].make_absolute();
     
@@ -164,7 +164,7 @@ using stringvec_t = std::vector<std::string>;
     NSData* data = [bitmap representationUsingType:[pathurl imageFileType]
                                         properties:@{}];
     
-    if (verbosity.load()) {
+    if (verbosity.load() > 0) {
         std::cout << "[impaste] Saving "
                   << [[pathurl.pathExtension uppercaseString] STLString]
                   << " image from pasteboard to "
@@ -187,6 +187,93 @@ using stringvec_t = std::vector<std::string>;
 }
 @end
 
+@implementation AXImageCopyAndSaveThread : AXThread
+- (void) main {
+    
+    NSString* inpathstring = self.options[@"input"];
+    NSURL* inpathurl = [NSURL fileURLWithPath:inpathstring.stringByExpandingTildeInPath];
+    filesystem::path inabspath = [inpathurl filesystemPath].make_absolute();
+    
+    if (!inabspath.is_readable()) {
+        std::cerr << "[impaste][error] No such readable image file exists: "
+                  << [inpathstring STLString]       << std::endl
+                  << "\t(" << inabspath << ") ..."  << std::endl;
+        AXTHREADEXIT(EXIT_FAILURE);
+    }
+    
+    if (!objc::to_bool([inpathurl isImage])) {
+        std::cerr << "[impaste][error] Can't determine input format from filename: "
+                  << inabspath.basename()
+                  << std::endl;
+        AXTHREADEXIT(EXIT_FAILURE);
+    }
+    
+    if (verbosity.load() > 0) {
+        std::cout << "[impaste] Copying "
+                  << [[inpathurl.pathExtension uppercaseString] STLString]
+                  << " image to pasteboard from "
+                  << inabspath.basename()
+                  << " (" << inabspath << ") ..."  << std::endl;
+    }
+    
+    NSImage* copyTarget = [[NSImage alloc] initWithContentsOfURL:inpathurl];
+    bool copied = objc::to_bool(
+                  objc::appkit::copy(copyTarget));
+    
+    if (copied) {
+        std::cout << "[impaste] Image successfully copied! ("
+                  << std::round(inabspath.filesize() / 1024) << "kbytes)"
+                  << std::endl;
+    } else {
+        std::cerr << "[impaste][error] Failure when reading image data"
+                  << std::endl;
+    }
+    
+    NSString* outpathstring = self.options[@"output"];
+    NSURL* outpathurl = [NSURL fileURLWithPath:outpathstring.stringByExpandingTildeInPath];
+    filesystem::path outabspath = [outpathurl filesystemPath].make_absolute();
+    
+    if (outabspath.exists()) {
+        std::cerr << "[impaste][error] File already exists at path: "
+                  << [outpathstring STLString]      << std::endl
+                  << "\t(" << outabspath << ") ..." << std::endl;
+        AXTHREADEXIT(EXIT_FAILURE);
+    }
+    
+    if (!objc::to_bool([outpathurl isImage])) {
+        std::cerr << "[impaste][error] Can't determine output format from filename: "
+                  << outabspath.basename()
+                  << std::endl;
+        AXTHREADEXIT(EXIT_FAILURE);
+    }
+    
+    NSImage* pasted = objc::appkit::paste<NSImage>();
+    NSBitmapImageRep* bitmap = [[NSBitmapImageRep alloc] initWithData:[pasted TIFFRepresentation]];
+    NSData* data = [bitmap representationUsingType:[outpathurl imageFileType]
+                                        properties:@{}];
+    
+    if (verbosity.load() > 0) {
+        std::cout << "[impaste] Saving "
+                  << [[outpathurl.pathExtension uppercaseString] STLString]
+                  << " image from pasteboard to "
+                  << outabspath.basename()
+                  << " (" << outabspath << ") ..." << std::endl;
+    }
+    
+    BOOL saved = [data writeToURL:outpathurl atomically:YES];
+    
+    if (objc::to_bool(saved)) {
+        std::cout << "[impaste] Image successfully saved! ("
+                  << std::round(outabspath.filesize() / 1024) << "kbytes)"
+                  << std::endl;
+        AXTHREADEXIT(EXIT_SUCCESS);
+    } else {
+        std::cerr << "[impaste][error] Failure when writing image data"
+                  << std::endl;
+        AXTHREADEXIT(EXIT_FAILURE);
+    }
+}
+@end
 
 /// The docopt help string defines the options available:
 const char USAGE[] = R"([impaste] Paste image data to imgur.com or to a file
@@ -217,7 +304,6 @@ int main(int argc, const char** argv) {
     using optpair_t = std::pair<std::string, value_t>;
     value_t truth(1);
     value_t empty(NULL);
-    // bool verbose = false;
     bool debug = bool(IMPASTE_DEBUG);
     optmap_t args;
     optmap_t raw_args = docopt::docopt(USAGE, { argv + 1, argv + argc },
@@ -231,7 +317,6 @@ int main(int argc, const char** argv) {
             std::cerr << "\t" << arg.first  << " --> "
                               << arg.second << std::endl;
         }
-        // std::cerr << std::endl;
     }
     
     /// filter out all docopt parse artifacts,
@@ -258,6 +343,9 @@ int main(int argc, const char** argv) {
             std::cerr << "[impaste] VERBOSITY: " << verbosity.load() << std::endl;
         }
     }
+    
+    NSMutableDictionary<NSString*, NSString*>* options = [[NSMutableDictionary alloc] init];
+    
     for (optpair_t const& arg : args) {
         if (arg.second == truth) {
             if (arg.first == "--check") {
@@ -281,21 +369,26 @@ int main(int argc, const char** argv) {
                 }
             }
             if (path != NULL_STR) {
-                NSDictionary* options = @{
-                    @"path" : [NSString stringWithSTLString:path]
-                };
                 if (arg.first == "--input" || arg.first == "-i") {
                     /* DO FILE INPUT */
-                    objc::run_thread<AXImageCopyThread>(options);
-                    break;
-                } else if (arg.first == "--output" || arg.first == "-o") {
+                    [options setObject:[NSString stringWithSTLString:path] forKey:@"input"];
+                }
+                if (arg.first == "--output" || arg.first == "-o") {
                     /* DO FILE OUTPUT */
-                    objc::run_thread<AXImageSaveThread>(options);
-                    break;
+                    [options setObject:[NSString stringWithSTLString:path] forKey:@"output"];
                 }
             }
         }
     }
+    
+    if ((options[@"input"] != nil) && (options[@"output"] != nil)) {
+        objc::run_thread<AXImageCopyAndSaveThread>(options);
+    } else if (options[@"input"] != nil) {
+        objc::run_thread<AXImageCopyThread>(options);
+    } else if (options[@"output"] != nil) {
+        objc::run_thread<AXImageSaveThread>(options);
+    }
+    
     /// doesn't get called from threads
     std::exit(return_value.load());
 
