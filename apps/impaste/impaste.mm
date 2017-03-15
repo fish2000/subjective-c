@@ -286,11 +286,13 @@ int main(int argc, const char** argv) {
             if (path != NULL_STR) {
                 if (arg.first == "--input" || arg.first == "-i") {
                     /* DO FILE INPUT */
-                    [options setObject:[NSString stringWithSTLString:path] forKey:@"input"];
+                    [options setObject:[NSString stringWithSTLString:path]
+                                forKey:@"input"];
                 }
                 if (arg.first == "--output" || arg.first == "-o") {
                     /* DO FILE OUTPUT */
-                    [options setObject:[NSString stringWithSTLString:path] forKey:@"output"];
+                    [options setObject:[NSString stringWithSTLString:path]
+                                forKey:@"output"];
                 }
             }
         }
