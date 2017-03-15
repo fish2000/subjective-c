@@ -264,11 +264,11 @@ int main(int argc, const char** argv) {
         if (arg.second == truth) {
             if (arg.first == "--check") {
                 /* DO CHECK */
-                objc::run_thread<AXCheckThread>();
+                objc::run_thread<AXCheckThread>(options);
                 break;
             } else if (arg.first == "--dry-run") {
                 /* DO DRY RUN */
-                objc::run_thread<AXDryRunThread>();
+                objc::run_thread<AXDryRunThread>(options);
                 break;
             }
         }
