@@ -30,6 +30,7 @@ extern std::atomic<int>     verbosity;
 - (instancetype) initWithOptions:(NSDictionary*)optionsDict;
 @end
 
+/// a shortcut macro for exiting an AXThread “- main” method:
 #define AXTHREADEXIT(exitval)                                                   \
     return_value.store(exitval);                                                \
     [NSApp terminate:self];                                                     \
@@ -53,6 +54,9 @@ extern std::atomic<int>     verbosity;
 
 namespace objc {
     
+    /// function templated on an Objective-C type, for the
+    /// execution of an AXThread subclass with a proper app delegate:
+    
     template <typename OCThreadType> inline
     void run_thread(NSDictionary* options = @{}) {
         @autoreleasepool {
@@ -64,15 +68,11 @@ namespace objc {
         };
     }
     
-}
-
-
-namespace objc {
+    /// OBJC_VERSION mapped to objc::config::version --
+    /// a holdover from subjective-c-config:
     
     namespace config {
-        
         const std::string version = OBJC_VERSION;
-        
     };
     
 };
