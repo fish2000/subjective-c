@@ -58,7 +58,7 @@ static void* AllocateClosure(void** codePtr) {
     return ffi_closure_alloc(sizeof(ffi_closure), codePtr);
 #else
     ffi_closure* closure = mmap(NULL, sizeof(ffi_closure), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-    if (closure == (void *)-1) {
+    if (closure == (void*)-1) {
         perror("mmap");
         return NULL;
     }
