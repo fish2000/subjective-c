@@ -52,14 +52,6 @@ extern std::atomic<int>     verbosity;
 - (void) main;
 @end
 
-// @interface AXImageCopyThread : AXThread {}
-// - (void) main;
-// @end
-
-// @interface AXImageSaveThread : AXThread {}
-// - (void) main;
-// @end
-
 @interface AXImageCopyAndSaveThread : AXThread {}
 - (void) main;
 @end
