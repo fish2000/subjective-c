@@ -43,8 +43,7 @@ namespace {
             std::for_each(jpgs.begin(), jpgs.end(), [&](path const& p) {
                 path imagepath = basedir/p;
                 std::string command = fmt::format("impaste {0} {1} {2}",
-                                                  "-V", "-i",
-                                                  imagepath.str());
+                                                  "-V", "-i", imagepath.str());
                 std::string output = cltrun(command);
                 CHECK(output.find(copy_success_marker) != std::string::npos);
                 NSURL* url = [[NSURL alloc] initFileURLWithFilesystemPath:imagepath];
@@ -74,8 +73,7 @@ namespace {
                 REQUIRE(objc::to_bool(copied));
                 path outputpath = td.dirpath/p;
                 std::string command = fmt::format("impaste {0} {1} {2}",
-                                                  "-V", "-o",
-                                                  outputpath.str());
+                                                  "-V", "-o", outputpath.str());
                 std::string output = cltrun(command);
                 CHECK(output.find(save_success_marker) != std::string::npos);
                 NSData* data = [image TIFFRepresentation];
