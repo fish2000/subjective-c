@@ -13,8 +13,7 @@
 #endif
 
 
-@interface MABlockClosure : NSObject
-{
+@interface MABlockClosure : NSObject {
     NSMutableArray *_allocations;
     ffi_cif _closureCIF;
     ffi_cif _innerCIF;
@@ -24,8 +23,8 @@
     id _block;
 }
 
-- (id)initWithBlock: (id)block;
+- (id) initWithBlock:(id)block;
 
-- (void *)fptr;
+- (void*) fptr;
 
 @end

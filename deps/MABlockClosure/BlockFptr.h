@@ -7,8 +7,8 @@
 // whose lifetime is tied to 'block'
 // block MUST BE a heap block (pre-copied)
 // or a global block
-void *BlockFptr(id block);
+void* BlockFptr(id block);
 
 // copies/autoreleases the block, then returns
 // function pointer associated to it
-void *BlockFptrAuto(id block);
+void* BlockFptrAuto(id block);
