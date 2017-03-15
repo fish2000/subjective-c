@@ -100,34 +100,34 @@ static int ArgCount(const char* str) {
 - (ffi_type*) _ffiArgForEncode:(const char*)str {
     #define SINT(type) do {                                                                     \
         if (str[0] == @encode(type)[0]) {                                                       \
-           if (sizeof(type) == 1) {                                                             \
-               return &ffi_type_sint8;                                                          \
-           } else if (sizeof(type) == 2) {                                                      \
-               return &ffi_type_sint16;                                                         \
-           } else if (sizeof(type) == 4) {                                                      \
-               return &ffi_type_sint32;                                                         \
-           } else if (sizeof(type) == 8) {                                                      \
-               return &ffi_type_sint64;                                                         \
-           } else {                                                                             \
-               NSLog(@"Unknown size for type %s", #type);                                       \
-               abort();                                                                         \
-           }                                                                                    \
+            if (sizeof(type) == 1) {                                                            \
+                return &ffi_type_sint8;                                                         \
+            } else if (sizeof(type) == 2) {                                                     \
+                return &ffi_type_sint16;                                                        \
+            } else if (sizeof(type) == 4) {                                                     \
+                return &ffi_type_sint32;                                                        \
+            } else if (sizeof(type) == 8) {                                                     \
+                return &ffi_type_sint64;                                                        \
+            } else {                                                                            \
+                NSLog(@"Unknown size for type %s", #type);                                      \
+                abort();                                                                        \
+            }                                                                                   \
         }                                                                                       \
     } while(0)
     
     #define UINT(type) do {                                                                     \
         if (str[0] == @encode(type)[0]) {                                                       \
             if (sizeof(type) == 1) {                                                            \
-               return &ffi_type_uint8;                                                          \
+                return &ffi_type_uint8;                                                         \
             } else if (sizeof(type) == 2) {                                                     \
-               return &ffi_type_uint16;                                                         \
+                return &ffi_type_uint16;                                                        \
             } else if (sizeof(type) == 4) {                                                     \
-               return &ffi_type_uint32;                                                         \
+                return &ffi_type_uint32;                                                        \
             } else if (sizeof(type) == 8) {                                                     \
-               return &ffi_type_uint64;                                                         \
+                return &ffi_type_uint64;                                                        \
             } else {                                                                            \
-               NSLog(@"Unknown size for type %s", #type);                                       \
-               abort();                                                                         \
+                NSLog(@"Unknown size for type %s", #type);                                      \
+                abort();                                                                        \
             }                                                                                   \
         }                                                                                       \
     } while(0)
@@ -186,14 +186,14 @@ static int ArgCount(const char* str) {
     COND(void, void);
     
     ffi_type* CGFloatFFI = sizeof(CGFloat) == sizeof(float) ? &ffi_type_float : &ffi_type_double;
-    STRUCT(CGRect, CGFloatFFI, CGFloatFFI, CGFloatFFI, CGFloatFFI);
+    STRUCT(CGRect,  CGFloatFFI, CGFloatFFI,  CGFloatFFI,  CGFloatFFI);
     STRUCT(CGPoint, CGFloatFFI, CGFloatFFI);
-    STRUCT(CGSize, CGFloatFFI, CGFloatFFI);
+    STRUCT(CGSize,  CGFloatFFI, CGFloatFFI);
     
 #if !TARGET_OS_IPHONE
-    STRUCT(NSRect, CGFloatFFI, CGFloatFFI, CGFloatFFI, CGFloatFFI);
+    STRUCT(NSRect,  CGFloatFFI, CGFloatFFI,  CGFloatFFI,  CGFloatFFI);
     STRUCT(NSPoint, CGFloatFFI, CGFloatFFI);
-    STRUCT(NSSize, CGFloatFFI, CGFloatFFI);
+    STRUCT(NSSize,  CGFloatFFI, CGFloatFFI);
 #endif
     
     NSLog(@"Unknown encode string %s", str);
