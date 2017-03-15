@@ -147,12 +147,12 @@ include_directories("${CMAKE_BINARY_DIR}")
 
 # Include the `deps` library `include` directories:
 # include_directories("${CROSSGUID_DIR}")
-# include_directories("${DOCOPT_DIR}")
+include_directories("${DOCOPT_DIR}")
 # include_directories("${IMAGECOMPRESSION_DIR}")
 # include_directories("${INTERPOL_DIR}")
 # include_directories("${AFNETWORKING_DIR}")
 # include_directories("${LIBBF_DIR}")
-# include_directories("${MABLOCKCLOSURE_DIR}")
+include_directories("${MABLOCKCLOSURE_DIR}")
 # include_directories("${IOD_DIR}")
 # include_directories("${SG14_DIR}")
 # include_directories("${SSZIP_DIR}")
@@ -188,7 +188,7 @@ add_dependencies(subjective-c "project_header")
 # add_dependencies(subjective-c "interpol")
 # add_dependencies(subjective-c "AFNetworking")
 # add_dependencies(subjective-c "libbf")
-# add_dependencies(subjective-c "MABlockClosure")
+add_dependencies(subjective-c "MABlockClosure")
 # add_dependencies(subjective-c "iod_symbolize")
 
 # ... and build shared and static target libraries,
@@ -227,7 +227,7 @@ set_source_files_properties(
 target_link_libraries(subjective-c_shared
     z png imread
     # guid libbf
-    # MABlockClosure
+    MABlockClosure
     # imagecompression
     # interpol
     ${EXTRA_LIBS}
@@ -241,7 +241,7 @@ target_link_libraries(subjective-c_shared
 target_link_libraries(subjective-c_static
     z png imread
     # guid libbf
-    # MABlockClosure
+    MABlockClosure
     # imagecompression
     # interpol
     ${EXTRA_LIBS}
@@ -298,7 +298,7 @@ if(OBJC_TESTS)
     # add_dependencies(subjective-c_tests "imagecompression")
     # add_dependencies(subjective-c_tests "interpol")
     # add_dependencies(subjective-c_tests "libbf")
-    # add_dependencies(subjective-c_tests "MABlockClosure")
+    add_dependencies(subjective-c_tests "MABlockClosure")
     # add_dependencies(subjective-c_tests "AFNetworking")
     # add_dependencies(subjective-c_tests "sszip")
     # add_dependencies(subjective-c_tests "subjectivec")
@@ -309,7 +309,7 @@ if(OBJC_TESTS)
         subjective-c_shared
         # sszip
         # AFNetworking
-        # MABlockClosure
+        MABlockClosure
         # imagecompression
         # interpol
         # libbf guid
@@ -339,7 +339,7 @@ if(OBJC_TESTS)
     # add_subjectivec_test("hdf5-io")
     # add_subjectivec_test("imageformat-options")
     # add_subjectivec_test("imageview")
-    # add_subjectivec_test("json-block-traverse")
+    add_subjectivec_test("json-block-traverse")
     # add_subjectivec_test("libguid")
     add_subjectivec_test("nsdictionary-options-map")
     add_subjectivec_test("nsurl-image-types")
