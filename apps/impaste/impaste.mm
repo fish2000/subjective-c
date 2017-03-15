@@ -87,7 +87,7 @@ using stringvec_t = std::vector<std::string>;
 @implementation AXImageCopyAndSaveThread : AXThread
 - (void) main {
     
-    if (self.options[@"input"] != nil) {
+    if (self.options[@"input"]) {
         
         NSString* inpathstring = self.options[@"input"];
         NSURL* inpathurl = [NSURL fileURLWithPath:inpathstring.stringByExpandingTildeInPath];
@@ -136,7 +136,7 @@ using stringvec_t = std::vector<std::string>;
         
     }
     
-    if (self.options[@"output"] != nil) {
+    if (self.options[@"output"]) {
         
         NSString* outpathstring = self.options[@"output"];
         NSURL* outpathurl = [NSURL fileURLWithPath:outpathstring.stringByExpandingTildeInPath];
@@ -295,7 +295,7 @@ int main(int argc, const char** argv) {
         }
     }
     
-    if (options[@"input"] != nil || options[@"output"] != nil) {
+    if (options[@"input"] || options[@"output"]) {
         objc::run_thread<AXImageCopyAndSaveThread>(options);
     }
     
