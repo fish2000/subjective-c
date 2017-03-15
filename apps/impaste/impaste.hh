@@ -73,9 +73,8 @@ namespace objc {
     
     namespace config {
         const std::string version = OBJC_VERSION;
-    };
+    }
     
-};
-
+}
 
 #endif /// APPS_IMPASTE_HH_
