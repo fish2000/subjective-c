@@ -293,6 +293,7 @@ if(OBJC_TESTS)
     add_dependencies("test_data_header" subjective-c)
     add_dependencies(subjective-c_tests "project_header")
     add_dependencies(subjective-c_tests "test_data_header")
+    add_dependencies(subjective-c_tests "impaste")
     # add_dependencies(subjective-c_tests "iod_symbolize")
     # add_dependencies(subjective-c_tests "guid")
     # add_dependencies(subjective-c_tests "imagecompression")
@@ -307,6 +308,7 @@ if(OBJC_TESTS)
     # Link the `subjectivec_tests` executable
     target_link_libraries(subjective-c_tests
         subjective-c_shared
+        fmt
         # sszip
         # AFNetworking
         MABlockClosure
@@ -338,6 +340,7 @@ if(OBJC_TESTS)
     # add_subjectivec_test("halide-io")
     # add_subjectivec_test("hdf5-io")
     # add_subjectivec_test("imageformat-options")
+    add_subjectivec_test("impaste-clt")
     # add_subjectivec_test("imageview")
     add_subjectivec_test("json-block-traverse")
     # add_subjectivec_test("libguid")

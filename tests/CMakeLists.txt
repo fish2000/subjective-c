@@ -2,6 +2,7 @@
 # © 2011.10 -- GPL, Motherfuckers
 
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+include_directories(/usr/local/opt/fmt/include)
 
 set(TEST_SOURCES ${TEST_SOURCES}
     ${CMAKE_CURRENT_LIST_DIR}/helpers/AXTestReceiver.mm
@@ -16,6 +17,7 @@ set(TEST_SOURCES ${TEST_SOURCES}
     # ${CMAKE_CURRENT_LIST_DIR}/test_halide_io.cpp
     # ${CMAKE_CURRENT_LIST_DIR}/test_hdf5_io.cpp
     # ${CMAKE_CURRENT_LIST_DIR}/test_imageformat_options.mm
+    ${CMAKE_CURRENT_LIST_DIR}/test_impaste_clt.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_imageview.cpp
     ${CMAKE_CURRENT_LIST_DIR}/test_json_block_traverse.mm
     # ${CMAKE_CURRENT_LIST_DIR}/test_libguid.mm
