@@ -262,11 +262,11 @@ int main(int argc, const char** argv) {
     
     for (optpair_t const& arg : args) {
         if (arg.second == truth) {
-            if (arg.first == "--check") {
+            if (arg.first == "--check" || arg.first == "-c") {
                 /* DO CHECK */
                 objc::run_thread<AXCheckThread>(options);
                 break;
-            } else if (arg.first == "--dry-run") {
+            } else if (arg.first == "--dry-run" || arg.first == "-d") {
                 /* DO DRY RUN */
                 objc::run_thread<AXDryRunThread>(options);
                 break;
