@@ -340,7 +340,9 @@ int main(int argc, const char** argv) {
     for (optpair_t const& arg : args) {
         if (arg.first == "--verbose" || arg.first == "-v") {
             verbosity.store(arg.second.asLong() + (int)debug);
-            std::cerr << "[impaste] VERBOSITY: " << verbosity.load() << std::endl;
+            if (verbosity.load() > 0) {
+                std::cerr << "[impaste] VERBOSITY: " << verbosity.load() << std::endl;
+            }
         }
     }
     

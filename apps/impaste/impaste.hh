@@ -18,7 +18,7 @@
 #include <libimread/ext/filesystem/path.h>
 
 /// printffery
-#define IMPASTE_DEBUG 1
+#define IMPASTE_DEBUG 0
 
 /// return-value and verbosity-level static globals
 extern std::atomic<int>     return_value;
