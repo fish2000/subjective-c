@@ -250,7 +250,7 @@ int main(int argc, const char** argv) {
     
     /// print the value for the truthy option flag
     for (optpair_t const& arg : args) {
-        if (arg.first == "--verbose" || arg.first == "-v") {
+        if (arg.first == "--verbose" || arg.first == "-V") {
             verbosity.store(arg.second.asLong() + (int)debug);
             if (verbosity.load() > 0) {
                 std::cerr << "[impaste] VERBOSITY: " << verbosity.load() << std::endl;
@@ -295,7 +295,9 @@ int main(int argc, const char** argv) {
         }
     }
     
-    objc::run_thread<AXImageCopyAndSaveThread>(options);
+    if (options[@"input"] != nil || options[@"output"] != nil) {
+        objc::run_thread<AXImageCopyAndSaveThread>(options);
+    }
     
     /// doesn't get called from threads
     std::exit(return_value.load());
