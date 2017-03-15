@@ -1,3 +1,5 @@
+/// Copyright 2012-2017 Alexander Bohn <fish2000@gmail.com>
+/// License: MIT (see COPYING.MIT file)
 
 #include "impaste.hh"
 #include <subjective-c/appkit.hh>
