@@ -189,6 +189,7 @@ using stringvec_t = std::vector<std::string>;
 
 /// The docopt help string defines the options available:
 const char USAGE[] = R"([impaste] Paste image data to imgur.com or to a file
+
     Usage:
         impaste         [-c         | --check       ]
                         [-d         | --dry-run     ]
