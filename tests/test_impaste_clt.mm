@@ -47,6 +47,7 @@ namespace {
                 NSURL* url = [[NSURL alloc] initFileURLWithFilesystemPath:imagepath];
                 NSImage* image = [[NSImage alloc] initWithContentsOfURL:url];
                 NSData* data = [image TIFFRepresentation];
+                REQUIRE(objc::appkit::can_paste<NSImage>());
                 NSImage* boardimage = objc::appkit::paste<NSImage>();
                 NSData* boarddata = [boardimage TIFFRepresentation];
                 CHECK(objc::to_bool([boarddata isEqualToData:data]));
@@ -66,7 +67,7 @@ namespace {
                 NSURL* url = [[NSURL alloc] initFileURLWithFilesystemPath:imagepath];
                 NSImage* image = [[NSImage alloc] initWithContentsOfURL:url];
                 BOOL copied = objc::appkit::copy(image);
-                CHECK(objc::to_bool(copied));
+                REQUIRE(objc::to_bool(copied));
                 path outputpath = td.dirpath/p+".png";
                 std::string command = fmt::format("impaste {0} {1} {2}",
                                                   "-V", "-o",
