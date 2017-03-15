@@ -28,11 +28,14 @@ namespace {
         id block = ^(void* node) {
             FORSURE(FF("[%i] %s node found: ", idx, ((Node*)node)->typestr()));
             std::cerr << "\t\t";
-            ((Node *)node)->print(std::cerr);
+            ((Node*)node)->print(std::cerr);
             std::cerr << std::endl << std::endl;
             idx++;
         };
+        
+        #if !__has_feature(objc_arc)
         [block retain];
+        #endif
         
         std::cerr << std::endl << std::endl;
         std::cerr << "\tTraversing dict:" << std::endl;
@@ -40,7 +43,10 @@ namespace {
         std::cerr << std::endl << std::endl;
         dict.traverse((fptr_t)BlockFptr(block));
         std::cerr << std::endl << std::endl;
+        
+        #if !__has_feature(objc_arc)
         [block release];
+        #endif
     }
     
 }

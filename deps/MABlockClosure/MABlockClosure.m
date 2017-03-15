@@ -26,11 +26,19 @@ struct Block {
 };
 
 static void* BlockImpl(id block) {
+    #if !__has_feature(objc_arc)
     return ((struct Block*)block)->invoke;
+    #else
+    return ((__bridge struct Block*)block)->invoke;
+    #endif
 }
 
 static const char* BlockSig(id blockObj) {
+    #if !__has_feature(objc_arc)
     struct Block* block = (void*)blockObj;
+    #else
+    struct Block* block = (__bridge void*)blockObj;
+    #endif
     struct BlockDescriptor* descriptor = block->descriptor;
     
     int copyDisposeFlag = 1 << 25;
@@ -44,7 +52,11 @@ static const char* BlockSig(id blockObj) {
 }
 
 static void BlockClosure(ffi_cif* cif, void* ret, void** args, void* userdata) {
+    #if !__has_feature(objc_arc)
     MABlockClosure* self = userdata;
+    #else
+    MABlockClosure* self = (__bridge MABlockClosure*)userdata;
+    #endif
     int count = self->_closureArgCount;
     void** innerArgs = malloc((count + 1) * sizeof(*innerArgs));
     innerArgs[0] = &self->_block;
@@ -252,7 +264,11 @@ static int ArgCount(const char* str) {
         abort();
     }
 #else
+    #if !__has_feature(objc_arc)
     ffi_status status = ffi_prep_closure(_closure, &_closureCIF, BlockClosure, self);
+    #else
+    ffi_status status = ffi_prep_closure(_closure, &_closureCIF, BlockClosure, (__bridge void*)self);
+    #endif
     if (status != FFI_OK) {
         NSLog(@"ffi_prep_closure returned %d", (int)status);
         abort();
@@ -281,8 +297,10 @@ static int ArgCount(const char* str) {
     if (_closure) {
         DeallocateClosure(_closure);
     }
+    #if !__has_feature(objc_arc)
     [_allocations release];
     [super dealloc];
+    #endif
 }
 
 - (void*) fptr {

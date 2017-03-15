@@ -34,10 +34,10 @@ namespace objc {
     template <typename OCType>
     struct object {
         
-        #if !__has_feature(objc_arc)
-        using pointer_t = objc::ocpointer_t<OCType> __unsafe_unretained;
-        #else
+        #if __has_feature(objc_arc)
         using pointer_t = objc::ocpointer_t<OCType>;
+        #else
+        using pointer_t = objc::ocpointer_t<OCType> __unsafe_unretained;
         #endif
         using object_t = typename objc::octype_t<OCType>;
         
