@@ -12,19 +12,18 @@
 @implementation MABlockClosure
 
 struct BlockDescriptor {
-    unsigned long reserved;
-    unsigned long size;
-    void* rest[1];
+    unsigned long           reserved;
+    unsigned long           size;
+    void*                   rest[1];
 };
 
 struct Block {
-    void* isa;
-    int flags;
-    int reserved;
-    void* invoke;
+    void*                   isa;
+    int                     flags;
+    int                     reserved;
+    void*                   invoke;
     struct BlockDescriptor* descriptor;
 };
-    
 
 static void* BlockImpl(id block) {
     return ((struct Block*)block)->invoke;
@@ -216,7 +215,6 @@ static int ArgCount(const char* str) {
     }
     
     *outCount = argCount;
-    
     return argTypes;
 }
 
