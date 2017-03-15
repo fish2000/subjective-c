@@ -8,6 +8,7 @@
 #include <libimread/ext/filesystem/path.h>
 #include <libimread/ext/filesystem/execute.h>
 #include <libimread/ext/filesystem/temporary.h>
+#include <libimread/ext/filesystem/nowait.h>
 #include <subjective-c/subjective-c.hpp>
 #include <subjective-c/appkit.hh>
 #import  <subjective-c/categories/NSURL+IM.hh>
@@ -19,6 +20,7 @@ namespace {
     
     using filesystem::path;
     using filesystem::TemporaryDirectory;
+    using filesystem::detail::nowait_t;
     
     path basedir(im::test::basedir);
     path bindir("/Users/fish/Dropbox/subjective-c/build/apps/impaste");
@@ -34,6 +36,7 @@ namespace {
     TEST_CASE("[impaste-clt] Test impaste copy execution",
               "[impaste-clt-test-impaste-copy-execution]")
     {
+        nowait_t nowait;
         const std::vector<path> jpgs = basedir.list("*.jpg");
         
         @autoreleasepool {
@@ -58,6 +61,7 @@ namespace {
     TEST_CASE("[impaste-clt] Test impaste paste execution",
               "[impaste-clt-test-impaste-paste-execution]")
     {
+        nowait_t nowait;
         const std::vector<path> pngs = basedir.list("*.png");
         TemporaryDirectory td("test-impaste-paste");
         
