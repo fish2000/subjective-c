@@ -304,7 +304,7 @@ int main(int argc, const char** argv) {
     using optpair_t = std::pair<std::string, value_t>;
     value_t truth(1);
     value_t empty(NULL);
-    bool debug = bool(IMPASTE_DEBUG);
+    bool debug{ IMPASTE_DEBUG };
     optmap_t args;
     optmap_t raw_args = docopt::docopt(USAGE, { argv + 1, argv + argc },
                                        true, /// show help
