@@ -17,18 +17,12 @@
 namespace {
     
     using filesystem::path;
-    // using filesystem::detail::execute;
-    // using namespace std::placeholders;
     
     path basedir(im::test::basedir);
-    // path bindir = path::absolute("./../build/apps/impaste");
     path bindir("/Users/fish/Dropbox/subjective-c/build/apps/impaste");
-    // const char* cbindir = bindir.c_str();s
-    // std::string sbindir(bindir.str());
-    // auto cltrun = std::bind(filesystem::detail::execute, _1, std::cref(cbindir));
+    
     std::string cltrun(std::string const& cmd) {
         char const* wd = "/Users/fish/Dropbox/subjective-c/build/apps/impaste";
-        // char const* wd = bindir.c_str();
         return filesystem::detail::execute(path::join(wd, cmd), wd);
     }
     
