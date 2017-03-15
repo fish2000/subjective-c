@@ -24,9 +24,9 @@ namespace {
     
     path basedir(im::test::basedir);
     path bindir("/Users/fish/Dropbox/subjective-c/build/apps/impaste");
+    char const* wd = "/Users/fish/Dropbox/subjective-c/build/apps/impaste";
     
     std::string cltrun(std::string const& cmd) {
-        char const* wd = "/Users/fish/Dropbox/subjective-c/build/apps/impaste";
         return filesystem::detail::execute(path::join(wd, cmd), wd);
     }
     
