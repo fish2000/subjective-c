@@ -4,11 +4,11 @@
 #include "fmt/format.h"
 
 #include <libimread/libimread.hpp>
-#include <libimread/errors.hh>
 #include <libimread/ext/filesystem/path.h>
 #include <libimread/ext/filesystem/execute.h>
 #include <libimread/ext/filesystem/temporary.h>
 #include <libimread/ext/filesystem/nowait.h>
+
 #include <subjective-c/subjective-c.hpp>
 #include <subjective-c/appkit.hh>
 #import  <subjective-c/categories/NSURL+IM.hh>
@@ -50,7 +50,7 @@ namespace {
                 NSURL* url = [[NSURL alloc] initFileURLWithFilesystemPath:imagepath];
                 NSImage* image = [[NSImage alloc] initWithContentsOfURL:url];
                 NSData* data = [image TIFFRepresentation];
-                REQUIRE(objc::appkit::can_paste<NSImage>());
+                REQUIRE(objc::to_bool(objc::appkit::can_paste<NSImage>()));
                 NSImage* boardimage = objc::appkit::paste<NSImage>();
                 NSData* boarddata = [boardimage TIFFRepresentation];
                 CHECK(objc::to_bool([boarddata isEqualToData:data]));
