@@ -27,7 +27,7 @@ namespace {
     char const* wd = "/Users/fish/Dropbox/subjective-c/build/apps/impaste";
     
     std::string cltrun(std::string const& cmd) {
-        return filesystem::detail::execute(path::join(wd, cmd), wd);
+        return filesystem::detail::execute(path::join(wd, cmd));
     }
     
     std::string copy_success_marker("Image successfully copied");
