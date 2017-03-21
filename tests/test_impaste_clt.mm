@@ -23,11 +23,10 @@ namespace {
     using filesystem::detail::nowait_t;
     
     path basedir(im::test::basedir);
-    path bindir("/Users/fish/Dropbox/subjective-c/build/apps/impaste");
     char const* wd = "/Users/fish/Dropbox/subjective-c/build/apps/impaste";
     
-    std::string cltrun(std::string const& cmd) {
-        return filesystem::detail::execute(path::join(wd, cmd));
+    std::string CLTRUN(std::string const& cmd) {
+        return filesystem::detail::execute(path::join(wd, cmd), wd);
     }
     
     std::string copy_success_marker("Image successfully copied");
@@ -44,7 +43,7 @@ namespace {
                 path imagepath = basedir/p;
                 std::string command = fmt::format("impaste {0} {1} {2}",
                                                   "-V", "-i", imagepath.str());
-                std::string output = cltrun(command);
+                std::string output = CLTRUN(command);
                 CHECK(output.find(copy_success_marker) != std::string::npos);
                 NSURL* url = [[NSURL alloc] initFileURLWithFilesystemPath:imagepath];
                 NSImage* image = [[NSImage alloc] initWithContentsOfURL:url];
@@ -74,7 +73,7 @@ namespace {
                 path outputpath = td.dirpath/p;
                 std::string command = fmt::format("impaste {0} {1} {2}",
                                                   "-V", "-o", outputpath.str());
-                std::string output = cltrun(command);
+                std::string output = CLTRUN(command);
                 CHECK(output.find(save_success_marker) != std::string::npos);
                 NSData* data = [image TIFFRepresentation];
                 NSURL* boardurl = [[NSURL alloc] initFileURLWithFilesystemPath:outputpath];
