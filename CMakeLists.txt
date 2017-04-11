@@ -136,9 +136,9 @@ find_package(Halide REQUIRED)
 find_package(LibUnwind REQUIRED)
 
 # set(HDF5_USE_STATIC_LIBRARIES false)
-set(HDF5_ROOT /usr/local/opt/hdf5/)
-find_package(HDF5 REQUIRED
-    COMPONENTS C CXX HL)
+# set(HDF5_ROOT /usr/local/opt/hdf5/)
+# find_package(HDF5 REQUIRED
+#     COMPONENTS C CXX HL)
 
 # Include the project-specific `include` directories:
 include_directories(${${PROJECT_NAME}_include_dir})
@@ -169,8 +169,7 @@ include_directories(
     ${ZLIB_INCLUDE_DIR}
     ${WEBP_INCLUDE_DIR}
     ${HALIDE_INCLUDE_DIR}
-    ${LIBUNWIND_INCLUDE_DIR}
-    ${HDF5_INCLUDE_DIRS})
+    ${LIBUNWIND_INCLUDE_DIR})
 
 # Set the source files and source-file-specific options
 # required to build the library:
@@ -234,9 +233,7 @@ target_link_libraries(subjective-c_shared
     ${TIFF_LIBRARIES}
     ${JPEG_LIBRARIES}
     ${WEBP_LIBRARIES}
-    ${HALIDE_LIBRARIES}
-    ${HDF5_LIBRARIES}
-    ${HDF5_HL_LIBRARIES})
+    ${HALIDE_LIBRARIES})
 
 target_link_libraries(subjective-c_static
     z png imread
@@ -248,9 +245,7 @@ target_link_libraries(subjective-c_static
     ${TIFF_LIBRARIES}
     ${JPEG_LIBRARIES}
     ${WEBP_LIBRARIES}
-    ${HALIDE_LIBRARIES}
-    ${HDF5_LIBRARIES}
-    ${HDF5_HL_LIBRARIES})
+    ${HALIDE_LIBRARIES})
 
 # Add the apps subdirectory, if we're building apps:
 if(OBJC_APPS)
@@ -320,9 +315,7 @@ if(OBJC_TESTS)
         ${TIFF_LIBRARIES}
         ${JPEG_LIBRARIES}
         ${WEBP_LIBRARIES}
-        ${HALIDE_LIBRARIES}
-        ${HDF5_LIBRARIES}
-        ${HDF5_HL_LIBRARIES})
+        ${HALIDE_LIBRARIES})
     
     # Set up ctest and cdash:
     enable_testing()

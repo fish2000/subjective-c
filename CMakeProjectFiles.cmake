@@ -98,10 +98,10 @@ set(hdrs
     # ${hdrs_dir}/subjective-c/categories/NSImage+ResizeBestFit.h
     ${hdrs_dir}/subjective-c/categories/NSString+STL.hh
     ${hdrs_dir}/subjective-c/categories/NSURL+IM.hh
-
+    
     ${hdrs_dir}/subjective-c/classes/AXCoreGraphicsImageRep.h
     ${hdrs_dir}/subjective-c/classes/AXInterleavedImageRep.hh
-
+    
     ${hdrs_dir}/subjective-c/types.hh
     ${hdrs_dir}/subjective-c/selector.hh
     ${hdrs_dir}/subjective-c/message-args.hh
@@ -113,6 +113,7 @@ set(hdrs
     ${hdrs_dir}/subjective-c/subjective-c.hh
     ${hdrs_dir}/subjective-c/appkit.hh
     ${hdrs_dir}/subjective-c/demangle.hh
+    ${hdrs_dir}/subjective-c/maptable.hh
     ${hdrs_dir}/subjective-c/rehash.hh
 
 )
@@ -130,11 +131,12 @@ set(srcs
     # ${srcs_dir}/categories/NSImage+ResizeBestFit.m
     ${srcs_dir}/categories/NSString+STL.mm
     ${srcs_dir}/categories/NSURL+IM.mm
-
+    
     ${srcs_dir}/classes/AXCoreGraphicsImageRep.m
     ${srcs_dir}/classes/AXInterleavedImageRep.mm
-
+    
     ${srcs_dir}/src/demangle.cc
+    ${srcs_dir}/src/maptable.mm
     ${srcs_dir}/src/namespace-std.mm
     ${srcs_dir}/src/selector.mm
     ${srcs_dir}/src/types.mm

@@ -24,10 +24,9 @@ namespace objc {
         #define DEFINE_SUFFIX(endstring, nstype)                                        \
         template <>                                                                     \
         struct suffix_t<nstype> {                                                       \
-            using NSImageType = NSBitmapImageFileType;                                  \
             static constexpr std::size_t N = objc::static_strlen(endstring);            \
-            static constexpr char const str[N] = endstring;                             \
-            static constexpr NSImageType type = nstype;                                 \
+            static constexpr char str[N] = endstring;                                   \
+            static constexpr NSBitmapImageFileType type = nstype;                       \
         };
         
         DEFINE_SUFFIX("tiff", NSTIFFFileType);

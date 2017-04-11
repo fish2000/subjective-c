@@ -1,32 +1,33 @@
 /// Copyright 2014 Alexander Böhn <fish2000@gmail.com>
 /// License: MIT (see COPYING.MIT file)
 
+#include <subjective-c/subjective-c.hpp>
+#import  <subjective-c/categories/NSURL+IM.hh>
+#import  <subjective-c/categories/NSString+STL.hh>
 #include <libimread/ext/filesystem/path.h>
-#include <subjective-c/categories/NSURL+IM.hh>
-#include <subjective-c/categories/NSString+STL.hh>
+
+DECLARE_CONSTEXPR_CHAR(objc::image::suffix_t<NSTIFFFileType>::str,       "tiff");
+DECLARE_CONSTEXPR_CHAR(objc::image::suffix_t<NSBMPFileType>::str,        "bmp");
+DECLARE_CONSTEXPR_CHAR(objc::image::suffix_t<NSGIFFileType>::str,        "gif");
+DECLARE_CONSTEXPR_CHAR(objc::image::suffix_t<NSJPEGFileType>::str,       "jpg");
+DECLARE_CONSTEXPR_CHAR(objc::image::suffix_t<NSPNGFileType>::str,        "png");
+DECLARE_CONSTEXPR_CHAR(objc::image::suffix_t<NSJPEG2000FileType>::str,   "jp2");
+DECLARE_CONSTEXPR_CHAR(objc::image::suffix_t<AXPVRFileType>::str,        "pvr");
 
 namespace objc {
     
     namespace image {
         
-        DECLARE_CONSTEXPR_CHAR(suffix_t<NSTIFFFileType>::str,       "tiff");
-        DECLARE_CONSTEXPR_CHAR(suffix_t<NSBMPFileType>::str,        "bmp");
-        DECLARE_CONSTEXPR_CHAR(suffix_t<NSGIFFileType>::str,        "gif");
-        DECLARE_CONSTEXPR_CHAR(suffix_t<NSJPEGFileType>::str,       "jpg");
-        DECLARE_CONSTEXPR_CHAR(suffix_t<NSPNGFileType>::str,        "png");
-        DECLARE_CONSTEXPR_CHAR(suffix_t<NSJPEG2000FileType>::str,   "jp2");
-        DECLARE_CONSTEXPR_CHAR(suffix_t<AXPVRFileType>::str,        "pvr");
-        
         std::string suffix(NSBitmapImageFileType nstype) {
             switch (nstype) {
-                case NSTIFFFileType:        { return suffix_t<NSTIFFFileType>::str;     }
-                case NSJPEGFileType:        { return suffix_t<NSJPEGFileType>::str;     }
-                case NSPNGFileType:         { return suffix_t<NSPNGFileType>::str;      }
-                case NSGIFFileType:         { return suffix_t<NSGIFFileType>::str;      }
-                case NSBMPFileType:         { return suffix_t<NSBMPFileType>::str;      }
-                case NSJPEG2000FileType:    { return suffix_t<NSJPEG2000FileType>::str; }
-                case AXPVRFileType:         { return suffix_t<AXPVRFileType>::str;      }
-                default:                    { return "";                                }
+                case NSTIFFFileType:        { return objc::image::suffix_t<NSTIFFFileType>::str;     }
+                case NSJPEGFileType:        { return objc::image::suffix_t<NSJPEGFileType>::str;     }
+                case NSPNGFileType:         { return objc::image::suffix_t<NSPNGFileType>::str;      }
+                case NSGIFFileType:         { return objc::image::suffix_t<NSGIFFileType>::str;      }
+                case NSBMPFileType:         { return objc::image::suffix_t<NSBMPFileType>::str;      }
+                case NSJPEG2000FileType:    { return objc::image::suffix_t<NSJPEG2000FileType>::str; }
+                case AXPVRFileType:         { return objc::image::suffix_t<AXPVRFileType>::str;      }
+                default:                    { return "";                                             }
             }
         }
         

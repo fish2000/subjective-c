@@ -1,0 +1,131 @@
+/// Copyright 2017 Alexander Böhn <fish2000@gmail.com>
+/// License: MIT (see COPYING.MIT file)
+
+#include <subjective-c/maptable.hh>
+#include <subjective-c/subjective-c.hpp>
+#import  <subjective-c/categories/NSString+STL.hh>
+
+namespace objc {
+    
+    bool maptable::can_store() const noexcept { return true; }
+    
+    maptable::maptable()
+        :instance{ NSCreateMapTable(NSObjectMapKeyCallBacks,
+                                    NSObjectMapValueCallBacks,
+                                    0), NSFreeMapTable }
+        {}
+    
+    /// move constructor
+    maptable::maptable(maptable&& other) noexcept
+        :instance(std::move(other.instance))
+        {}
+    
+    maptable::~maptable() {
+        instance.reset(nullptr);
+    }
+    
+    bool maptable::has(std::string const& key) const {
+        return has([NSString stringWithSTLString:key]);
+    }
+    
+    bool maptable::has(NSString* nskey) const {
+        return objc::to_bool(NSMapMember(instance.get(),
+                                         static_cast<const void*>(nskey),
+                                         nullptr, nullptr));
+    }
+    
+    std::string& maptable::get_force(std::string const& key) const {
+        NSString* nskey = [NSString stringWithSTLString:key];
+        if (has(nskey)) {
+            NSString* nsval = static_cast<NSString*>(NSMapGet(instance.get(),
+                                                              static_cast<const void*>(nskey)));
+            cache[key] = [nsval STLString];
+            return cache.at(key);
+        }
+        return store::stringmapper::base_t::null_value();
+    }
+    
+    std::string& maptable::get(std::string const& key) {
+        if (cache.find(key) != cache.end()) {
+            return cache.at(key);
+        } else {
+            NSString* nskey = [NSString stringWithSTLString:key];
+            if (has(nskey)) {
+                NSString* nsval = static_cast<NSString*>(NSMapGet(instance.get(),
+                                                                  static_cast<const void*>(nskey)));
+                cache[key] = [nsval STLString];
+                return cache.at(key);
+            }
+            return store::stringmapper::base_t::null_value();
+        }
+    }
+    
+    std::string const& maptable::get(std::string const& key) const {
+        if (cache.find(key) != cache.end()) {
+            return cache.at(key);
+        } else {
+            NSString* nskey = [NSString stringWithSTLString:key];
+            if (has(nskey)) {
+                NSString* nsval = static_cast<NSString*>(NSMapGet(instance.get(),
+                                                                  static_cast<const void*>(nskey)));
+                cache[key] = [nsval STLString];
+                return cache.at(key);
+            }
+            return store::stringmapper::base_t::null_value();
+        }
+    }
+    
+    bool maptable::set(std::string const& key, std::string const& value) {
+        NSString* nskey = [[NSString alloc] initWithSTLString:key];
+        NSString* nsval = [[NSString alloc] initWithSTLString:value];
+        // NSString* result = static_cast<NSString*>(
+        //     NSMapInsertIfAbsent(instance.get(), nskey, nsval));
+        // if (!result) { return true; }
+        NSMapInsert(instance.get(),
+                    static_cast<const void*>(nskey),
+                    static_cast<const void*>(nsval));
+        cache[key] = value;
+        return true;
+    }
+    
+    bool maptable::del(std::string const& key) {
+        if (cache.find(key) != cache.end()) {
+            cache.erase(key);
+        }
+        NSString* nskey = [NSString stringWithSTLString:key];
+        if (has(nskey)) {
+            NSMapRemove(instance.get(),
+                        static_cast<const void*>(nskey));
+            return true;
+        }
+        return false;
+    }
+    
+    std::size_t maptable::count() const {
+        return static_cast<std::size_t>(
+               NSCountMapTable(instance.get()));
+    }
+    
+    store::stringmapper::stringvec_t maptable::list() const {
+        store::stringmapper::stringvec_t out{};
+        void* key;
+        void* value;
+        
+        out.reserve(count());
+        NSMapEnumerator maperator = NSEnumerateMapTable(instance.get());
+        
+        while (NSNextMapEnumeratorPair(&maperator, &key, &value)) {
+            NSString* nskey = static_cast<NSString*>(key);
+            NSString* nsval = static_cast<NSString*>(value);
+            std::string skey([nskey STLString]);
+            out.emplace_back(skey);
+            cache[skey] = [nsval STLString];
+        }
+        
+        NSEndMapTableEnumeration(&maperator);
+        return out;
+    }
+    
+} /// namespace objc
+
+#undef SELF
