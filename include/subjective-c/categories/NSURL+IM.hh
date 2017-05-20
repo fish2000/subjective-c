@@ -6,9 +6,10 @@
 
 #include <string>
 #include <subjective-c/subjective-c.hpp>
+#import  <AppKit/AppKit.h>
 #import  <Foundation/Foundation.h>
 
-static constexpr NSBitmapImageFileType AXPVRFileType = static_cast<NSBitmapImageFileType>(444);
+constexpr static const NSBitmapImageFileType AXPVRFileType = static_cast<NSBitmapImageFileType>(444);
 
 namespace filesystem {
     class path;
@@ -24,9 +25,9 @@ namespace objc {
         #define DEFINE_SUFFIX(endstring, nstype)                                        \
         template <>                                                                     \
         struct suffix_t<nstype> {                                                       \
-            static constexpr std::size_t N = objc::static_strlen(endstring);            \
-            static constexpr char str[N] = endstring;                                   \
-            static constexpr NSBitmapImageFileType type = nstype;                       \
+            constexpr static const std::size_t N = objc::static_strlen(endstring);      \
+            constexpr static const char endstr[N] = endstring;                          \
+            static const NSBitmapImageFileType typecode = nstype;                       \
         };
         
         DEFINE_SUFFIX("tiff", NSTIFFFileType);
@@ -38,10 +39,10 @@ namespace objc {
         DEFINE_SUFFIX("pvr",  AXPVRFileType);
         
         template <NSBitmapImageFileType nstype>
-        char const* suffix_value = suffix_t<nstype>::str;
+        constexpr char const* suffix_value = suffix_t<nstype>::endstr;
         
-        std::string suffix(NSBitmapImageFileType nstype);
-        NSInteger filetype(std::string const& suffix);
+        extern std::string suffix(NSBitmapImageFileType nstype);
+        extern NSInteger filetype(std::string const& suffix);
         
     };
     

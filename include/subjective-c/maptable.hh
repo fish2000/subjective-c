@@ -15,7 +15,7 @@ namespace objc {
     class maptable : public store::stringmapper {
         
         public:
-            DECLARE_STRINGMAPPER_TEMPLATE_CONSTRUCTORS(maptable);
+            DECLARE_STRINGMAPPER_TEMPLATES(maptable);
         
         public:
             virtual bool can_store() const noexcept override;

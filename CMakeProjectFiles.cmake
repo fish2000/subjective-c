@@ -188,12 +188,16 @@ IF(APPLE)
     FIND_LIBRARY(COCOA_LIBRARY Cocoa)
     FIND_LIBRARY(FOUNDATION_LIBRARY Foundation)
     FIND_LIBRARY(COREFOUNDATION_LIBRARY CoreFoundation)
+    FIND_LIBRARY(QUARTZ_LIBRARY Quartz)
+    FIND_LIBRARY(APPKIT_LIBRARY AppKit)
     FIND_LIBRARY(QUICKLOOK_LIBRARY QuickLook)
     
     MARK_AS_ADVANCED(SYSTEM_LIBRARY
                      COCOA_LIBRARY
                      FOUNDATION_LIBRARY
                      COREFOUNDATION_LIBRARY
+                     QUARTZ_LIBRARY
+                     APPKIT_LIBRARY
                      QUICKLOOK_LIBRARY)
     
     SET(EXTRA_LIBS ${EXTRA_LIBS}
@@ -201,12 +205,14 @@ IF(APPLE)
         ${COCOA_LIBRARY}
         ${FOUNDATION_LIBRARY}
         ${COREFOUNDATION_LIBRARY}
+        ${QUARTZ_LIBRARY}
+        ${APPKIT_LIBRARY}
         ${QUICKLOOK_LIBRARY})
     
 ENDIF(APPLE)
 
 add_definitions(
-    ${OBJCXX_OPTIONS}
+    ${OBJCXX_OPTIONS_ARC}
     -Wno-nullability-completeness
     -DWITH_SCHEMA
     -O3 -funroll-loops -mtune=native

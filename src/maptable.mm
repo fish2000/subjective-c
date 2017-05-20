@@ -5,6 +5,8 @@
 #include <subjective-c/subjective-c.hpp>
 #import  <subjective-c/categories/NSString+STL.hh>
 
+#define STRINGNULL() store::stringmapper::base_t::null_value()
+
 namespace objc {
     
     bool maptable::can_store() const noexcept { return true; }
@@ -30,19 +32,19 @@ namespace objc {
     
     bool maptable::has(NSString* nskey) const {
         return objc::to_bool(NSMapMember(instance.get(),
-                                         static_cast<const void*>(nskey),
+                                         objc::bridge<const void*>(nskey),
                                          nullptr, nullptr));
     }
     
     std::string& maptable::get_force(std::string const& key) const {
         NSString* nskey = [NSString stringWithSTLString:key];
         if (has(nskey)) {
-            NSString* nsval = static_cast<NSString*>(NSMapGet(instance.get(),
-                                                              static_cast<const void*>(nskey)));
+            NSString* nsval = objc::bridge<NSString*>(NSMapGet(instance.get(),
+                                                               objc::bridge<const void*>(nskey)));
             cache[key] = [nsval STLString];
             return cache.at(key);
         }
-        return store::stringmapper::base_t::null_value();
+        return STRINGNULL();
     }
     
     std::string& maptable::get(std::string const& key) {
@@ -51,12 +53,12 @@ namespace objc {
         } else {
             NSString* nskey = [NSString stringWithSTLString:key];
             if (has(nskey)) {
-                NSString* nsval = static_cast<NSString*>(NSMapGet(instance.get(),
-                                                                  static_cast<const void*>(nskey)));
+                NSString* nsval = objc::bridge<NSString*>(NSMapGet(instance.get(),
+                                                                   objc::bridge<const void*>(nskey)));
                 cache[key] = [nsval STLString];
                 return cache.at(key);
             }
-            return store::stringmapper::base_t::null_value();
+            return STRINGNULL();
         }
     }
     
@@ -66,12 +68,12 @@ namespace objc {
         } else {
             NSString* nskey = [NSString stringWithSTLString:key];
             if (has(nskey)) {
-                NSString* nsval = static_cast<NSString*>(NSMapGet(instance.get(),
-                                                                  static_cast<const void*>(nskey)));
+                NSString* nsval = objc::bridge<NSString*>(NSMapGet(instance.get(),
+                                                                   objc::bridge<const void*>(nskey)));
                 cache[key] = [nsval STLString];
                 return cache.at(key);
             }
-            return store::stringmapper::base_t::null_value();
+            return STRINGNULL();
         }
     }
     
@@ -82,8 +84,8 @@ namespace objc {
         //     NSMapInsertIfAbsent(instance.get(), nskey, nsval));
         // if (!result) { return true; }
         NSMapInsert(instance.get(),
-                    static_cast<const void*>(nskey),
-                    static_cast<const void*>(nsval));
+                    objc::bridge<const void*>(nskey),
+                    objc::bridge<const void*>(nsval));
         cache[key] = value;
         return true;
     }
@@ -95,7 +97,7 @@ namespace objc {
         NSString* nskey = [NSString stringWithSTLString:key];
         if (has(nskey)) {
             NSMapRemove(instance.get(),
-                        static_cast<const void*>(nskey));
+                        objc::bridge<const void*>(nskey));
             return true;
         }
         return false;
@@ -115,8 +117,8 @@ namespace objc {
         NSMapEnumerator maperator = NSEnumerateMapTable(instance.get());
         
         while (NSNextMapEnumeratorPair(&maperator, &key, &value)) {
-            NSString* nskey = static_cast<NSString*>(key);
-            NSString* nsval = static_cast<NSString*>(value);
+            NSString* nskey = objc::bridge<NSString*>(key);
+            NSString* nsval = objc::bridge<NSString*>(value);
             std::string skey([nskey STLString]);
             out.emplace_back(skey);
             cache[skey] = [nsval STLString];

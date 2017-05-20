@@ -10,7 +10,7 @@
 
 @implementation NSImage (QuickLook)
 
-+ (instancetype) imageWithPreviewOfFileAtPath:(NSString *)path
++ (instancetype) imageWithPreviewOfFileAtPath:(NSString*)path
                                        ofSize:(NSSize)size
                                        asIcon:(BOOL)icon {
     
@@ -19,9 +19,9 @@
     
     CGImageRef ref = QLThumbnailImageCreate(
         kCFAllocatorDefault,
-        (CFURLRef)fileURL,
+        (__bridge CFURLRef)fileURL,
         CGSizeMake(size.width, size.height),
-        (CFDictionaryRef)@{ 
+        (__bridge CFDictionaryRef)@{ 
             (NSString*)kQLThumbnailOptionIconModeKey : [NSNumber numberWithBool:icon]
         }
     );

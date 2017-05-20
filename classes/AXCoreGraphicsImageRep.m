@@ -56,8 +56,8 @@ inline CGRect CGRectWithPointAndSize(NSPoint point, NSInteger width, NSInteger h
     #if !__has_feature(objc_arc)
         [colorSpaceName release];
         [heldObject release];
+        [super dealloc];
     #endif
-    [super dealloc];
 }
 
 /// API

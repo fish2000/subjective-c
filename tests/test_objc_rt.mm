@@ -41,12 +41,12 @@ namespace {
     {
         AXTestReceiver* imts = [[AXTestReceiver alloc] init];
         NSString* stringArg = @"OH SHIT DOGG PARDON MY STRING PASSING";
-        [stringArg retain];
+        // [stringArg retain];
         objc::msg::send(imts,
             objc::selector("callMethodWithInt:andObjCString:"),
             42, stringArg);
-        [stringArg release];
-        [imts release];
+        // [stringArg release];
+        // [imts release];
     }
     
     TEST_CASE("[objc-rt] Call an instance method with int and (__bridge void*)NSString arguments via objc::msg::send()",
@@ -54,12 +54,12 @@ namespace {
     {
         AXTestReceiver* imts = [[AXTestReceiver alloc] init];
         NSString* stringArg = @"OH SHIT DOGG PARDON MY STRING PASSING";
-        [stringArg retain];
+        // [stringArg retain];
         objc::msg::send(imts,
             objc::selector("callMethodWithInt:andVoidPointer:"),
             42, objc::bridge<void*>(stringArg));
-        [stringArg release];
-        [imts release];
+        // [stringArg release];
+        // [imts release];
     }
     
     TEST_CASE("[objc-rt] Call an instance method via objc::msg::get<Return, ...>() returning a float value",
@@ -173,9 +173,9 @@ namespace {
         url = [[NSURL alloc] initWithString:[
             [NSString alloc] initWithUTF8String:prefixed.c_str()]];
         
-        [datum retain];
-        [filepath retain];
-        [url retain];
+        // [datum retain];
+        // [filepath retain];
+        // [url retain];
         
         // WTF("Path variables:", prefixed, temporary.str());
         
@@ -193,9 +193,9 @@ namespace {
         removed = temporary.remove();
         CHECK(removed == true);
         
-        [datum release];
-        [filepath release];
-        [url release];
+        // [datum release];
+        // [filepath release];
+        // [url release];
         
     }
     

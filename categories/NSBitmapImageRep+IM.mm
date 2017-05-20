@@ -34,17 +34,17 @@
     /// Pass `nil` to make NSBitmapImageRep do right by its own allocations:
     /// q.v. http://stackoverflow.com/a/16097891/298171
     /// …and http://stackoverflow.com/a/20526575/298171
-    [self initWithBitmapDataPlanes:nil
-                        pixelsWide:width
-                        pixelsHigh:height
-                     bitsPerSample:bps
-                   samplesPerPixel:channels
-                          hasAlpha:alpha
-                          isPlanar:NO
-                    colorSpaceName:NSCalibratedRGBColorSpace
-                      bitmapFormat:NSAlphaNonpremultipliedBitmapFormat
-                       bytesPerRow:(NSInteger)(image.planes() * image.width())
-                      bitsPerPixel:(NSInteger)(image.planes() * 8)];
+    self = [self initWithBitmapDataPlanes:nil
+                               pixelsWide:width
+                               pixelsHigh:height
+                            bitsPerSample:bps
+                          samplesPerPixel:channels
+                                 hasAlpha:alpha
+                                 isPlanar:NO
+                           colorSpaceName:NSCalibratedRGBColorSpace
+                             bitmapFormat:NSAlphaNonpremultipliedBitmapFormat
+                              bytesPerRow:(NSInteger)(image.planes() * image.width())
+                             bitsPerPixel:(NSInteger)(image.planes() * 8)];
     
     /// Manually copy the image buffer to [self bitmapData] --
     std::memcpy([self bitmapData], image.rowp_as<byte* _Nullable>(0),
