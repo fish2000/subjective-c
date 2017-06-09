@@ -37,10 +37,10 @@ namespace objc {
     }
     
     std::string& maptable::get_force(std::string const& key) const {
-        NSString* nskey = [NSString stringWithSTLString:key];
+        NSString* nskey = [[NSString alloc] initWithSTLString:key];
         if (has(nskey)) {
             NSString* nsval = objc::bridge<NSString*>(NSMapGet(instance.get(),
-                                                               objc::bridge<const void*>(nskey)));
+                              objc::bridge<const void*>(nskey)));
             cache[key] = [nsval STLString];
             return cache.at(key);
         }
@@ -50,39 +50,21 @@ namespace objc {
     std::string& maptable::get(std::string const& key) {
         if (cache.find(key) != cache.end()) {
             return cache.at(key);
-        } else {
-            NSString* nskey = [NSString stringWithSTLString:key];
-            if (has(nskey)) {
-                NSString* nsval = objc::bridge<NSString*>(NSMapGet(instance.get(),
-                                                                   objc::bridge<const void*>(nskey)));
-                cache[key] = [nsval STLString];
-                return cache.at(key);
-            }
-            return STRINGNULL();
         }
+        return get_force(key);
     }
     
     std::string const& maptable::get(std::string const& key) const {
         if (cache.find(key) != cache.end()) {
             return cache.at(key);
-        } else {
-            NSString* nskey = [NSString stringWithSTLString:key];
-            if (has(nskey)) {
-                NSString* nsval = objc::bridge<NSString*>(NSMapGet(instance.get(),
-                                                                   objc::bridge<const void*>(nskey)));
-                cache[key] = [nsval STLString];
-                return cache.at(key);
-            }
-            return STRINGNULL();
         }
+        return get_force(key);
     }
     
     bool maptable::set(std::string const& key, std::string const& value) {
+        if (value == STRINGNULL()) { return del(key); }
         NSString* nskey = [[NSString alloc] initWithSTLString:key];
         NSString* nsval = [[NSString alloc] initWithSTLString:value];
-        // NSString* result = static_cast<NSString*>(
-        //     NSMapInsertIfAbsent(instance.get(), nskey, nsval));
-        // if (!result) { return true; }
         NSMapInsert(instance.get(),
                     objc::bridge<const void*>(nskey),
                     objc::bridge<const void*>(nsval));
@@ -94,7 +76,7 @@ namespace objc {
         if (cache.find(key) != cache.end()) {
             cache.erase(key);
         }
-        NSString* nskey = [NSString stringWithSTLString:key];
+        NSString* nskey = [[NSString alloc] initWithSTLString:key];
         if (has(nskey)) {
             NSMapRemove(instance.get(),
                         objc::bridge<const void*>(nskey));
@@ -104,8 +86,7 @@ namespace objc {
     }
     
     std::size_t maptable::count() const {
-        return static_cast<std::size_t>(
-               NSCountMapTable(instance.get()));
+        return static_cast<std::size_t>(NSCountMapTable(instance.get()));
     }
     
     store::stringmapper::stringvec_t maptable::list() const {
@@ -113,7 +94,7 @@ namespace objc {
         void* key;
         void* value;
         
-        out.reserve(count());
+        out.reserve(NSCountMapTable(instance.get()));
         NSMapEnumerator maperator = NSEnumerateMapTable(instance.get());
         
         while (NSNextMapEnumeratorPair(&maperator, &key, &value)) {
