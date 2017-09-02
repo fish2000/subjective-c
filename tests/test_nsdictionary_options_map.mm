@@ -6,11 +6,11 @@
 
 namespace {
     
-    using im::options_map;
+    using im::Options;
     using NSStringArray = NSArray<NSString*>;
     
-    TEST_CASE("[nsdictionary-options-map] Convert NSDictionary to options_map",
-              "[nsdictionary-options-map-convert-nsdictionary-to-options-map]")
+    TEST_CASE("[nsdictionary-options-map] Convert NSDictionary to im::Options",
+              "[nsdictionary-options-map-convert-nsdictionary-to-im-options]")
     {
         @autoreleasepool {
             
@@ -28,7 +28,7 @@ namespace {
                                 }
             };
             
-            options_map opts = [dict asOptionsMap];
+            Options opts = [dict asOptionsMap];
             
             CHECK(opts.cast<int>("one")         == 1);
             CHECK(opts.cast<float>("two")       == 2.0f);
@@ -37,26 +37,26 @@ namespace {
             CHECK(int(opts["three"][1])         == 8765);
             CHECK(int(opts["three"][2])         == 97764);
             
-            CHECK(opts.get("four").get("yo")    == "dogg");
-            CHECK(opts.get("four").get("i")     == "heard");
-            CHECK(opts.get("four").get("you")   == "like");
-            CHECK(opts.get("four").get("dicts") == "IN YOUR DICTS");
+            CHECK(opts.subgroup("four").get("yo")    == "dogg");
+            CHECK(opts.subgroup("four").get("i")     == "heard");
+            CHECK(opts.subgroup("four").get("you")   == "like");
+            CHECK(opts.subgroup("four").get("dicts") == "IN YOUR DICTS");
             
         }
     }
     
     
-    TEST_CASE("[nsdictionary-options-map] Convert options_map to NSDictionary",
-              "[nsdictionary-options-map-convert-options-map-to-nsdictionary]")
+    TEST_CASE("[nsdictionary-options-map] Convert im::Options to NSDictionary",
+              "[nsdictionary-options-map-convert-im-options-to-nsdictionary]")
     {
         @autoreleasepool {
             
-            options_map opts;
+            Options opts;
             
             opts.set("one", 11);
             opts.set("two", 222.22f);
-            opts.set("three", { 33, 333, 3333 });
-            opts.set("four", options_map());
+            opts.set("three", Json{ 33, 333, 3333 });
+            opts.set("four", Options());
             opts["four"]["yo"] = "dogg";
             opts["four"]["i"] = "heard";
             opts["four"]["you"] = "like";

@@ -16,7 +16,7 @@ namespace {
               "[json-block-traverse-with-block-literal]")
     {
         using Node = Json::JSONNode;
-        using fptr_t = std::add_pointer_t<void(const Node*)>;
+        using fptr_t = std::add_pointer_t<void(const Node*, Type, NodeType)>;
         Json dict;
         dict["one"] = "one.";
         dict["two"] = "two.";
@@ -25,7 +25,7 @@ namespace {
         // objc::block<int> idx = 0;
         __block int idx = 0;
         
-        id block = ^(void* node) {
+        id block = ^(void* node, Type jt, NodeType jnt) {
             FORSURE(FF("[%i] %s node found: ", idx, ((Node*)node)->typestr()));
             std::cerr << "\t\t";
             ((Node*)node)->print(std::cerr);

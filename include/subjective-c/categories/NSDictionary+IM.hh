@@ -8,12 +8,12 @@
 #include <libimread/options.hh>
 #import  <Foundation/Foundation.h>
 
-using im::options_map;
+using OptionsMap = im::Options;
 
 @interface NSDictionary (AXDictionaryAdditions)
-+ (instancetype) dictionaryWithOptionsMap:(options_map const&)optionsMap;
--                initWithOptionsMap:(options_map const&)optionsMap;
-- (options_map)  asOptionsMap;
++ (instancetype) dictionaryWithOptionsMap:(OptionsMap const&)optionsMap;
+-                initWithOptionsMap:(OptionsMap const&)optionsMap;
+- (OptionsMap)   asOptionsMap;
 @end
 
 #endif /// LIBIMREAD_EXT_CATEGORIES_NSDICTIONARY_PLUS_IM_HH_

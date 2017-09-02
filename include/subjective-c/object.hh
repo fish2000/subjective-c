@@ -4,7 +4,6 @@
 #ifndef SUBJECTIVE_C_OBJECT_HH
 #define SUBJECTIVE_C_OBJECT_HH
 
-// #include <iostream>
 #include <sstream>
 #include <string>
 #include "types.hh"

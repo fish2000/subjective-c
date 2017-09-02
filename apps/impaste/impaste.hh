@@ -7,6 +7,7 @@
 #include <string>
 #include <atomic>
 #include <subjective-c/subjective-c.hpp>
+#include <libimread/errors.hh>
 
 #import  <Foundation/Foundation.h>
 #import  <AppKit/AppKit.h>
@@ -21,7 +22,7 @@ extern std::atomic<int>     verbosity;
 
 /// App delegate only implements `applicationWillTerminate:`
 @interface AXAppDelegate : NSObject <NSApplicationDelegate> {}
-- (void) applicationWillTerminate:(NSApplication*)application;
+- (void) applicationShouldTerminate:(NSApplication*)sender;
 @end
 
 /// Base thread class with options
@@ -60,7 +61,9 @@ namespace objc {
     template <typename OCThreadType> inline
     void run_thread(NSDictionary* options = @{}) {
         @autoreleasepool {
+            WTF("ABOUT TO INITIALIZE");
             [NSApplication sharedApplication];
+            WTF("ABOUT TO RUN THREAD");
             [[[OCThreadType alloc] initWithOptions:options] start];
             AXAppDelegate* delegate = [[AXAppDelegate alloc] init];
             NSApp.delegate = delegate;

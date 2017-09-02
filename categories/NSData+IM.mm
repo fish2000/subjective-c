@@ -31,7 +31,7 @@ namespace objc {
         #endif
     }
     
-    std::size_t datasource::read(byte* buffer, std::size_t n) {
+    std::size_t datasource::read(byte* buffer, std::size_t n) const {
         if (pos + n > data.length) { n = data.length-pos; }
         std::memmove(buffer, (byte*)data.bytes + pos, n);
         pos += n;

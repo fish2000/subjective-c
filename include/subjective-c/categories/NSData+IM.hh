@@ -17,7 +17,7 @@ namespace objc {
             datasource(NSMutableData* d);
             virtual ~datasource();
             
-            virtual std::size_t read(byte* buffer, std::size_t n);
+            virtual std::size_t read(byte* buffer, std::size_t n) const;
             
             virtual bool can_seek() const noexcept;
             virtual std::size_t seek_absolute(std::size_t p);
@@ -30,8 +30,8 @@ namespace objc {
             virtual void* readmap(std::size_t pageoffset = 0) const;
         
         private:
-            NSData* data;
-            std::size_t pos;
+            mutable NSData* data;
+            mutable std::size_t pos;
     
     };
     
@@ -51,8 +51,8 @@ namespace objc {
             virtual bytevec_t contents();
             
         private:
-            NSMutableData* data;
-            std::size_t pos;
+            mutable NSMutableData* data;
+            mutable std::size_t pos;
     
     };
 

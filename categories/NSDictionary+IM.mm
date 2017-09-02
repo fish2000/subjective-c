@@ -7,14 +7,14 @@
 #include <subjective-c/categories/NSDictionary+IM.hh>
 #include <libimread/errors.hh>
 
-using im::options_map;
+using OptionsMap = im::Options;
 
 static const NSJSONReadingOptions readingOptions = static_cast<NSJSONReadingOptions>(0);
 static const NSJSONWritingOptions writingOptions = static_cast<NSJSONWritingOptions>(0);
 
 @implementation NSDictionary (AXDictionaryAdditions)
 
-+ (instancetype) dictionaryWithOptionsMap:(options_map const&)optionsMap {
++ (instancetype) dictionaryWithOptionsMap:(OptionsMap const&)optionsMap {
     NSDictionary* optionsDict;
     NSError* error;
     NSData* optionsJSON = [[NSData alloc] initWithSTLString:optionsMap.format()];
@@ -27,7 +27,7 @@ static const NSJSONWritingOptions writingOptions = static_cast<NSJSONWritingOpti
     return optionsDict;
 }
 
-- initWithOptionsMap:(options_map const&)optionsMap {
+- initWithOptionsMap:(OptionsMap const&)optionsMap {
     NSDictionary* optionsDict;
     NSError* error;
     NSData* optionsJSON = [[NSData alloc] initWithSTLString:optionsMap.format()];
@@ -40,7 +40,7 @@ static const NSJSONWritingOptions writingOptions = static_cast<NSJSONWritingOpti
     return [self initWithDictionary:optionsDict];
 }
 
-- (options_map) asOptionsMap {
+- (OptionsMap) asOptionsMap {
     NSError* error;
     NSData* datum = [NSJSONSerialization dataWithJSONObject:self
                                                     options:writingOptions
@@ -48,7 +48,7 @@ static const NSJSONWritingOptions writingOptions = static_cast<NSJSONWritingOpti
     imread_assert(datum != nil,
                   "NSDictionary error in asOptionsMap",
                   [error.localizedDescription STLString]);
-    return options_map::parse([datum STLString]);
+    return OptionsMap::parse([datum STLString]);
 }
 
 @end

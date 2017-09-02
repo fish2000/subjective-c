@@ -32,23 +32,19 @@ add_definitions(
 
 FIND_LIBRARY(COCOA_LIBRARY Cocoa)
 FIND_LIBRARY(FOUNDATION_LIBRARY Foundation)
-FIND_LIBRARY(COREFOUNDATION_LIBRARY CoreFoundation)
 MARK_AS_ADVANCED(COCOA_LIBRARY
-                FOUNDATION_LIBRARY
-                COREFOUNDATION_LIBRARY)
+                FOUNDATION_LIBRARY)
 
 set(EXTRA_LIBS
     ${EXTRA_LIBS}
     ${COCOA_LIBRARY}
     ${FOUNDATION_LIBRARY}
-    ${COREFOUNDATION_LIBRARY}
     subjective-c_shared docopt)
 
 set(hdrs "impaste.hh")
 set(srcs "impaste.mm")
 add_executable("impaste" ${srcs} ${hdrs})
 target_link_libraries("impaste" ${EXTRA_LIBS})
-# add_dependencies("impaste" imread)
 add_dependencies("impaste" subjective-c)
 add_dependencies("impaste" docopt)
 install(TARGETS "impaste" DESTINATION bin)

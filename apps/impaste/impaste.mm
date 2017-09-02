@@ -27,7 +27,7 @@ using stringvec_t = std::vector<std::string>;
 
 /// App delegate
 @implementation AXAppDelegate
-- (void) applicationWillTerminate:(NSApplication*)application {
+- (void) applicationShouldTerminate:(NSApplication*)sender {
     
     if (verbosity.load() > 0) {
         std::cout << "[impaste] Exiting with status: "

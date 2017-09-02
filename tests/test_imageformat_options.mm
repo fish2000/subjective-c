@@ -17,7 +17,7 @@ namespace {
     using objc::byte;
     using objc::bytevec_t;
     using im::ImageFormat;
-    using im::options_map;
+    using im::Options;
     using stringvec_t = std::vector<std::string>;
     
     TEST_CASE("[imageformat-options] Check registered formats",
@@ -50,7 +50,7 @@ namespace {
             it != formats.end() && idx < max;
             ++it) { std::string const& format = *it;
                 auto format_ptr = ImageFormat::named(format);
-                options_map opts = format_ptr->get_options();
+                Options opts = format_ptr->get_options();
                 
                 WTF("", FF("FORMAT: %s", format.c_str()),
                     "\nAs JSON:\n", opts.format(),
