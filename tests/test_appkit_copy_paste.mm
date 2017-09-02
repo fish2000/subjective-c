@@ -34,15 +34,15 @@ namespace {
                 NSImage* image = [[NSImage alloc] initWithContentsOfURL:url];
                 images.insert({ imagepath, objc::object<NSImage>(image) });
                 
-                BOOL copied = objc::appkit::copy_to(board, image, url);
-                CHECK(objc::to_bool(copied));
+                bool copied = objc::appkit::copy_to(board, image, url);
+                CHECK(copied);
             });
             
             std::for_each(boards.begin(), boards.end(), [&](NSPasteboard* board) {
-                BOOL can_paste_url = objc::appkit::can_paste<NSURL>(board);
-                BOOL can_paste_image = objc::appkit::can_paste<NSImage>(board);
-                CHECK(objc::to_bool(can_paste_url));
-                CHECK(objc::to_bool(can_paste_image));
+                bool can_paste_url = objc::appkit::can_paste<NSURL>(board);
+                bool can_paste_image = objc::appkit::can_paste<NSImage>(board);
+                CHECK(can_paste_url);
+                CHECK(can_paste_image);
                 
                 NSURL* url = objc::appkit::paste<NSURL>(board);
                 NSImage* boardimage = objc::appkit::paste<NSImage>(board);
@@ -82,15 +82,15 @@ namespace {
                 NSImage* image = [[NSImage alloc] initWithContentsOfURL:url];
                 images.insert({ imagepath, objc::object<NSImage>(image) });
                 
-                BOOL copied = objc::appkit::copy_to(board, image, url);
-                CHECK(objc::to_bool(copied));
+                bool copied = objc::appkit::copy_to(board, image, url);
+                CHECK(copied);
             });
             
             std::for_each(boards.begin(), boards.end(), [&](NSPasteboard* board) {
-                BOOL can_paste_url = objc::appkit::can_paste<NSURL>(board);
-                BOOL can_paste_image = objc::appkit::can_paste<NSImage>(board);
-                CHECK(objc::to_bool(can_paste_url));
-                CHECK(objc::to_bool(can_paste_image));
+                bool can_paste_url = objc::appkit::can_paste<NSURL>(board);
+                bool can_paste_image = objc::appkit::can_paste<NSImage>(board);
+                CHECK(can_paste_url);
+                CHECK(can_paste_image);
                 
                 NSURL* url = objc::appkit::paste<NSURL>(board);
                 NSImage* boardimage = objc::appkit::paste<NSImage>(board);
