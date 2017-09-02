@@ -122,8 +122,7 @@ using stringvec_t = std::vector<std::string>;
         }
         
         NSImage* copyTarget = [[NSImage alloc] initWithContentsOfURL:inpathurl];
-        bool copied = objc::to_bool(
-                      objc::appkit::copy(copyTarget));
+        bool copied = objc::appkit::copy(copyTarget);
         
         if (copied) {
             std::cout << "[impaste] Image successfully copied! ("

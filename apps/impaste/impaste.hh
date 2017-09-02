@@ -61,9 +61,9 @@ namespace objc {
     template <typename OCThreadType> inline
     void run_thread(NSDictionary* options = @{}) {
         @autoreleasepool {
-            WTF("ABOUT TO INITIALIZE");
+            // WTF("ABOUT TO INITIALIZE");
             [NSApplication sharedApplication];
-            WTF("ABOUT TO RUN THREAD");
+            // WTF("ABOUT TO RUN THREAD");
             [[[OCThreadType alloc] initWithOptions:options] start];
             AXAppDelegate* delegate = [[AXAppDelegate alloc] init];
             NSApp.delegate = delegate;
