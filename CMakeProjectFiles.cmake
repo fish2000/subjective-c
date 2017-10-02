@@ -115,6 +115,7 @@ set(hdrs
     ${hdrs_dir}/subjective-c/demangle.hh
     ${hdrs_dir}/subjective-c/maptable.hh
     ${hdrs_dir}/subjective-c/rehash.hh
+    ${hdrs_dir}/subjective-c/system.hh
 
 )
 
@@ -141,6 +142,7 @@ set(srcs
     ${srcs_dir}/src/selector.mm
     ${srcs_dir}/src/types.mm
     ${srcs_dir}/src/traits.mm
+    ${srcs_dir}/src/system.mm
 
 )
 

@@ -45,6 +45,7 @@ check_include_file(sys/types.h          HAVE_SYS_TYPES_H)
 check_include_file(sys/stat.h           HAVE_SYS_STAT_H)
 check_include_file(sys/time.h           HAVE_SYS_TIME_H)
 check_include_file(sys/sendfile.h       HAVE_SYS_SENDFILE_H)
+check_include_file(sys/sysctl.h         HAVE_SYS_SYSCTL_H)
 
 if(APPLE)
     check_include_file(copyfile.h       HAVE_COPYFILE_H)
