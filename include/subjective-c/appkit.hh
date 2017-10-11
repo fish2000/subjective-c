@@ -53,7 +53,7 @@ namespace objc {
                          "objc::appkit::copy_to<...OCTypes> requires Objective-C objects");
             
             if (!board) { board = [NSPasteboard generalPasteboard]; }
-            NSArray< NSObject<NSPasteboardWriting>* >* copyables = @[ objects... ];
+            NSArray< __kindof NSObject<NSPasteboardWriting>* >* copyables = @[ objects... ];
             
             __attribute__((__unused__))
             NSInteger changecount = [board clearContents];
