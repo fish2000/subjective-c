@@ -12,6 +12,7 @@
 #include <map>
 
 #include <libimread/ext/filesystem/path.h>
+#include <libimread/serialization.hh> /// for store::detail::join(…)
 #import  <subjective-c/categories/NSString+STL.hh>
 #import  <subjective-c/categories/NSURL+IM.hh>
 #include "docopt.h"
@@ -174,7 +175,8 @@ using stringvec_t = std::vector<std::string>;
                       << " (" << outabspath << ") ..." << std::endl;
         }
         
-        BOOL saved = [data writeToURL:outpathurl atomically:YES];
+        BOOL saved = [data writeToURL:outpathurl
+                           atomically:YES];
         
         if (objc::to_bool(saved)) {
             std::cout << "[impaste] Image successfully saved! ("
@@ -221,7 +223,7 @@ int main(int argc, const char** argv) {
     using optmap_t = std::map<std::string, value_t>;
     using optpair_t = std::pair<std::string, value_t>;
     value_t truth(1);
-    value_t empty(NULL);
+    value_t empty(false);
     bool debug{ IMPASTE_DEBUG };
     optmap_t args;
     optmap_t raw_args = docopt::docopt(USAGE, { argv + 1, argv + argc },
@@ -283,10 +285,9 @@ int main(int argc, const char** argv) {
             if (arg.second.isString()) {
                 path = arg.second.asString();
             } else if (arg.second.isStringList()) {
-                stringvec_t stringvec = arg.second.asStringList();
-                if (stringvec.size() > 0) {
-                    path = stringvec.at(0);
-                }
+                /// exactly when the fuck would this be
+                path = store::detail::join(
+                       arg.second.asStringList(), " ");
             }
             if (path != NULL_STR) {
                 if (arg.first == "--input" || arg.first == "-i") {
