@@ -6,10 +6,12 @@
 @implementation NSString (AXStringAdditions)
 
 + (instancetype) stringWithSTLString:(std::string const&)str {
+    if (str.empty()) { return @""; }
     return [[NSString alloc] initWithUTF8String:str.c_str()];
 }
 
 + (instancetype) stringWithSTLWideString:(std::wstring const&)wstr {
+    if (wstr.empty()) { return @""; }
     unsigned siz = wstr.size() * sizeof(wchar_t);
     char const* bytes = reinterpret_cast<char const*>(wstr.data());
     return [[NSString alloc] initWithBytes:bytes
@@ -18,10 +20,12 @@
 }
 
 - initWithSTLString:(std::string const&)str {
+    if (str.empty()) { return @""; }
     return [self initWithUTF8String:str.c_str()];
 }
 
 - initWithSTLWideString:(std::wstring const&)wstr {
+    if (wstr.empty()) { return @""; }
     unsigned siz = wstr.size() * sizeof(wchar_t);
     char const* bytes = reinterpret_cast<char const*>(wstr.data());
     return [self initWithBytes:bytes

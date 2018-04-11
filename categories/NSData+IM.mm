@@ -32,7 +32,7 @@ namespace objc {
     }
     
     std::size_t datasource::read(byte* buffer, std::size_t n) const {
-        if (pos + n > data.length) { n = data.length-pos; }
+        if (pos + n > data.length) { n = data.length - pos; }
         std::memmove(buffer, (byte*)data.bytes + pos, n);
         pos += n;
         return n;
@@ -49,7 +49,7 @@ namespace objc {
     }
     
     std::size_t datasource::seek_end(int delta) {
-        return pos = (data.length-delta-1);
+        return pos = (data.length - delta - 1);
     }
     
     bytevec_t datasource::full_data() {
@@ -101,11 +101,11 @@ namespace objc {
     }
     
     std::size_t datasink::seek_end(int delta) {
-        return pos = (data.length-delta-1);
+        return pos = (data.length - delta - 1);
     }
     
     std::size_t datasink::write(const void* buffer, std::size_t n) {
-        if (pos + n > data.length) { n = data.length-pos; }
+        if (pos + n > data.length) { n = data.length - pos; }
         std::memmove((byte*)data.mutableBytes + pos, (byte*)buffer, n);
         pos += n;
         return n;
@@ -138,11 +138,11 @@ namespace objc {
 + (instancetype) dataWithByteSource:(byte_source*)byteSource
                              length:(NSUInteger)bytes {
     std::unique_ptr<byte[]> buffer = std::make_unique<byte[]>(bytes);
-    __attribute__((unused))
+    // __attribute__((unused))
     int idx = byteSource->read(buffer.get(),
                                static_cast<std::size_t>(bytes));
     return [[NSData alloc] initWithBytes:(const void*)buffer.get()
-                                  length:(NSInteger)bytes];
+                                  length:(NSInteger)idx];
 }
 
 - initWithByteVector:(bytevec_t const&)byteVector {
@@ -162,11 +162,11 @@ namespace objc {
 - initWithByteSource:(byte_source*)byteSource
               length:(NSUInteger)bytes {
     std::unique_ptr<byte[]> buffer = std::make_unique<byte[]>(bytes);
-    __attribute__((unused))
+    // __attribute__((unused))
     int idx = byteSource->read(buffer.get(),
                                static_cast<std::size_t>(bytes));
     return [self initWithBytes:(const void*)buffer.get()
-                        length:(NSInteger)bytes];
+                        length:(NSInteger)idx];
 }
 
 - (NSUInteger) writeUsingByteSink:(byte_sink*)byteSink {
@@ -189,6 +189,7 @@ namespace objc {
 }
 
 - (std::string) STLString {
+    if (self.length == 0) { return ""; }
     return std::string(static_cast<const char*>(self.bytes),
                        static_cast<std::size_t>(self.length));
 }

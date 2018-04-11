@@ -51,6 +51,7 @@ namespace objc {
         return ::sel_getName(sel);
     }
     std::string selector::str() const {
+        if (sel == nullptr) { return ""; }
         return c_str();
     }
     NSString* selector::ns_str() const {

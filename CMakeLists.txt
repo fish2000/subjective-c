@@ -93,17 +93,17 @@ SET(APPS_DIR    "${CMAKE_CURRENT_SOURCE_DIR}/apps")
 SET(HALOGEN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/halogen")
 
 # Set variables for the individual deps directories:
-SET(IOD_DIR "${DEPS_DIR}/iod")
-SET(IOD_TEST_DIR "${IOD_DIR}/tests")
-SET(CROSSGUID_DIR "${DEPS_DIR}/crossguid")
+# SET(IOD_DIR "${DEPS_DIR}/iod")
+# SET(IOD_TEST_DIR "${IOD_DIR}/tests")
+# SET(CROSSGUID_DIR "${DEPS_DIR}/crossguid")
 SET(DOCOPT_DIR "${DEPS_DIR}/docopt")
-SET(INTERPOL_DIR "${DEPS_DIR}/interpol")
-SET(IMAGECOMPRESSION_DIR "${DEPS_DIR}/imagecompression")
+# SET(INTERPOL_DIR "${DEPS_DIR}/interpol")
+# SET(IMAGECOMPRESSION_DIR "${DEPS_DIR}/imagecompression")
 SET(AFNETWORKING_DIR "${DEPS_DIR}/AFNetworking")
-SET(LIBBF_DIR "${DEPS_DIR}/libbf/src")
+# SET(LIBBF_DIR "${DEPS_DIR}/libbf/src")
 SET(MABLOCKCLOSURE_DIR "${DEPS_DIR}/MABlockClosure")
-SET(SG14_DIR "${DEPS_DIR}/SG14")
-SET(SSZIP_DIR "${DEPS_DIR}/SSZipArchive")
+# SET(SG14_DIR "${DEPS_DIR}/SG14")
+# SET(SSZIP_DIR "${DEPS_DIR}/SSZipArchive")
 
 # Set variables for directories for the individual apps:
 SET(SUBJECTIVE_C_CONFIG_DIR "${APPS_DIR}/subjective-c-config")
@@ -160,8 +160,10 @@ include_directories("${MABLOCKCLOSURE_DIR}")
 # Ugh
 link_directories(/usr/lib)
 link_directories(/usr/local/lib)
+link_directories(/usr/local/opt/libimread/lib)
 
 # Include the required dependency `include` directories:
+include_directories(/usr/local/opt/libimread/include)
 include_directories(
     ${PNG_INCLUDE_DIR}
     ${JPEG_INCLUDE_DIR}

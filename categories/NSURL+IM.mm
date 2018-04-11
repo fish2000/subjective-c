@@ -87,9 +87,12 @@ namespace objc {
 }
 
 - (instancetype) URLByAppendingFilesystemPath:(filesystem::path const&)path {
-    NSURL* url = [self copy];
-    for (auto const& component : path.components()) {
-        url = [url URLByAppendingSTLPathComponent:component];
+    NSURL* url;
+    @autoreleasepool {
+        url = [self copy];
+        for (auto const& component : path.components()) {
+            url = [url URLByAppendingSTLPathComponent:component];
+        }
     }
     return url;
 }
